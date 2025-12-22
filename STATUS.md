@@ -1,19 +1,34 @@
-# Coach.claudewill.io Repository - Current Status
+# Coach Repository - Current Status
 
-**Last Updated**: December 21, 2025  
-**Repository Location**: /Users/dereksimmons/Desktop/coach/
+**Last Updated:** December 21, 2025
+**Repository:** [github.com/dereksimmons23/coach](https://github.com/dereksimmons23/coach)
 
 ---
 
-## MIGRATION STATUS
+## Infrastructure Status
 
-### Phase 1: Infrastructure ✅ COMPLETE
-- [x] Directory structure created (all 6 fieldhouse sections)
-- [x] Core documentation (README, HANDOFF, ROADMAP, MIGRATION_PLAN)
-- [x] Privacy standards established
-- [x] File naming conventions set
+### Phase 1: Repository Setup - COMPLETE
 
-### Phase 2: High-Priority Content ✅ 80% COMPLETE
+| Task | Status |
+|------|--------|
+| Directory structure (6 fieldhouse sections) | Done |
+| Core documentation (README, HANDOFF, ROADMAP) | Done |
+| Git repository initialized | Done |
+| GitHub remote connected | Done |
+| Privacy standards established | Done |
+| File naming conventions set | Done |
+
+### Phase 2: Workflow Parity - COMPLETE
+
+| Component | bob | claudewill.io | coach |
+|-----------|-----|---------------|-------|
+| GitHub Remote | Yes | Yes | Yes |
+| .gitignore | Yes | Yes | Yes |
+| .claude/settings.local.json | Yes | Yes | Yes |
+| netlify.toml | Yes | Yes | Yes |
+| LICENSE (MIT) | Yes | Yes | Yes |
+
+### Phase 3: Content Migration - 80% COMPLETE
 
 **Main Court** (Core Methodology):
 - [x] Neuroplasticity framework (anonymized)
@@ -27,7 +42,7 @@
 - [x] Practice schedule parser
 
 **Film Room** (Case Studies):
-- [x] Teaching moment: Extension vs Escape (Dec 21, 2025)
+- [x] Teaching moment: Extension vs Escape
 - [x] Paint confidence breakthrough case study (anonymized)
 
 **Coach D's Office** (Credentials & References):
@@ -39,58 +54,71 @@
 
 **Docs** (Strategy & Vision):
 - [x] Phoenix Grind Arena full fieldhouse vision
+- [x] Audit document (workflow comparison)
 
-### Phase 3-6: Remaining Content ⏳ READY WHEN NEEDED
-- Additional BLAST curriculum materials
-- Additional certifications and credentials
-- Strategic documents from vault
-- Future case studies as they develop
+### Phase 4: Netlify Deployment - READY WHEN NEEDED
+
+| Task | Status |
+|------|--------|
+| netlify.toml configured | Done |
+| Security headers defined | Done |
+| Connect to Netlify | Not started |
+| DNS configuration | Not started |
+| Landing page creation | Not started |
 
 ---
 
-## CONTENT SUMMARY
+## Repository Stats
 
-### What's Live Now (8 Major Files)
+| Metric | Count |
+|--------|-------|
+| Total sections | 6 fieldhouse areas + docs |
+| Files tracked | 26 |
+| Working HTML tools | 2 |
+| Case studies | 2 |
+| Methodology docs | 3 |
+| All content privacy-compliant | Yes |
+
+---
+
+## What's Live Now
 
 1. **WAA Lineup Builder** - Working tool used in real game (won!)
-2. **Neuroplasticity Framework** - Brain-based training methodology
-3. **BLAST Recruit Guide** - Competitive development level curriculum
-4. **Paint Confidence Case Study** - 60-minute breakthrough session
-5. **Teaching Moment: Extension vs Escape** - Philosophical coaching breakthrough
-6. **Pete Koland Reference** - Professional testimonial
-7. **In-Season Training Guide** - Package pricing and structure ($350-750/month)
-8. **Phoenix Grind Arena Vision** - Original fieldhouse concept document
-
-### Repository Stats
-- **Total Structure**: 6 fieldhouse sections + docs
-- **Files Created**: 15+ (including all READMEs)
-- **Privacy Compliant**: All content anonymized
-- **Tools Working**: 2 (Lineup builder, schedule parser)
-- **Case Studies**: 2 (paint confidence, extension vs escape)
+2. **Practice Schedule Parser** - Working tool
+3. **Neuroplasticity Framework** - Brain-based training methodology
+4. **BLAST Recruit Guide** - Competitive development curriculum
+5. **Paint Confidence Case Study** - 60-minute breakthrough session
+6. **Teaching Moment: Extension vs Escape** - Philosophical coaching breakthrough
+7. **Pete Koland Reference** - Professional testimonial
+8. **In-Season Training Guide** - Package pricing ($350-750/month)
+9. **Phoenix Grind Arena Vision** - Original fieldhouse concept
 
 ---
 
-## NEXT STEPS (When Ready)
+## Next Actions
 
-### Immediate Opportunities
+### Immediate (When Ready)
 1. Convert BLAST Travel/Varsity .docx files to markdown
 2. Copy certification PDFs to Coach D's Office
-3. Add additional case studies as training progresses
-4. Build simple landing page for coach.claudewill.io
+3. Create simple landing page (index.html)
 
-### Future Enhancements
-1. Additional practice tools as needed
-2. More case studies (anonymized)
+### Near-term
+1. Connect Netlify to GitHub repo
+2. Configure coach.claudewill.io subdomain
+3. Add additional case studies as training progresses
+
+### Future
+1. Practice Plan Generator tool
+2. Player Development Tracker
 3. Video demonstration library
-4. Blog/articles for Press Room concept
 
 ---
 
-## PHILOSOPHY
+## Philosophy
 
 This repository operates on accumulation, not deadlines:
-- Build tools when you need them (like WAA lineup builder)
-- Document what works (methodology and case studies)
+- Build tools when you need them
+- Document what works
 - Organize in one discoverable place
 - Let it grow organically
 
@@ -98,25 +126,21 @@ This repository operates on accumulation, not deadlines:
 
 ---
 
-## TECHNICAL NOTES
+## Technical Reference
 
-### File Locations
-- **Repository**: /Users/dereksimmons/Desktop/coach/
-- **Source Vault**: /Users/dereksimmons/Desktop/Obsidian-Vault/Basketball-Training-Platform/
-- **Working Tools**: Already deployed and used in production
+| Item | Value |
+|------|-------|
+| Repository | /Users/dereksimmons/Desktop/coach/ |
+| GitHub | github.com/dereksimmons23/coach (private) |
+| Source Vault | /Users/dereksimmons/Desktop/Obsidian-Vault/Basketball-Training-Platform/ |
+| Deploy Target | coach.claudewill.io |
 
 ### Privacy Standards
 - No real names of athletes under 18
 - Position-agnostic skill documentation
 - Anonymized case studies
-- Written permission required for any testimonials
-
-### Integration Points
-- coach.claudewill.io → Basketball coaching repository
-- claudewill.io → Main hub connecting all subdomains
-- CW Strategies → Business entity
-- ebb-flo.claudewill.io → FloShake methodology
+- Written permission required for testimonials
 
 ---
 
-**Status**: Repository scaffolded, core content migrated, ready for organic growth.
+**Status:** Repository scaffolded, workflow aligned, core content migrated, ready for organic growth.

@@ -1,52 +1,86 @@
 # Coach D Repository - Roadmap
 
-**Last Updated:** December 20, 2025  
-**Status:** Active Development  
+**Last Updated:** December 21, 2025
+**Repository:** [github.com/dereksimmons23/coach](https://github.com/dereksimmons23/coach)
 
 ---
 
-## Immediate Next Steps
+## Current State
 
-### 1. Content Migration from Obsidian Vault
-**Priority:** High  
-**Timeframe:** This week  
+### Completed
+- [x] Repository structure (fieldhouse model)
+- [x] GitHub remote connected (private)
+- [x] Workflow parity with bob/claudewill.io
+- [x] Core content migration (80%)
+- [x] Working tools (Lineup Builder, Schedule Parser)
+- [x] Case studies documented
+- [x] Netlify configuration ready
 
-Systematically review `/Basketball-Training-Platform` vault and move appropriate content:
-- BLAST curriculum (Travel, Recruit, Varsity levels)
-- Phoenix Grind training documents
-- Kabir case study materials
-- Certifications and credentials
-- Working tools (lineup builder, practice parser)
-
-**Process:**
-- Scan vault for relevant content
-- Suggest what belongs where
-- Move/copy files thoughtfully
-- Update section READMEs as content is added
-
-### 2. WAA Lineup Builder Documentation
-**Priority:** High  
-**Timeframe:** Complete  
-
-✅ Tool is working and documented  
-✅ README created with full instructions  
-- Next: Add to practice-gym/ and update section README
-
-### 3. Section README Files
-**Priority:** Medium  
-**Timeframe:** This session  
-
-Create README.md for each fieldhouse section:
-- Main Court
-- Practice Gym
-- Film Room
-- Coach D's Office
-- Will Call
-- Docs/Strategy
+### In Progress
+- [ ] Remaining BLAST curriculum (.docx conversion)
+- [ ] Certification PDFs migration
 
 ---
 
-## Tool Development Pipeline
+## Phase 1: Foundation (Current)
+
+**Status:** Complete
+
+| Task | Status |
+|------|--------|
+| Directory structure | Done |
+| GitHub integration | Done |
+| Claude Code configuration | Done |
+| Core documentation | Done |
+| Privacy standards | Done |
+
+---
+
+## Phase 2: Content Completion
+
+**Status:** 80% Complete
+
+### Remaining Content Tasks
+
+**Main Court:**
+- [ ] Convert BLAST Travel guide from .docx
+- [ ] Convert BLAST Varsity guide from .docx
+- [ ] Create progression maps between levels
+
+**Coach D's Office:**
+- [ ] Copy certification PDFs from vault
+- [ ] Background check documentation
+- [ ] Additional reference letters (as obtained)
+
+**Film Room:**
+- [ ] Additional case studies (as training progresses)
+- [ ] Session templates and frameworks
+
+---
+
+## Phase 3: Deployment (When Ready)
+
+**Status:** Not Started
+
+### Tasks
+1. Create landing page (`index.html`)
+2. Connect Netlify to GitHub repo
+3. Configure coach.claudewill.io subdomain in DNS
+4. Test deployment pipeline
+5. Verify security headers working
+
+### Landing Page Concept
+- Clean, coach-appropriate design
+- Links to key sections
+- Brief bio and philosophy
+- Contact information
+- No marketing fluff
+
+---
+
+## Phase 4: Tool Development
+
+**Status:** Future
 
 ### High Priority Tools
 
@@ -57,15 +91,14 @@ Create README.md for each fieldhouse section:
 - Printable format
 
 **Player Development Tracker**
-- Track individual player progress over time
+- Track individual player progress
 - Skills assessment checklist
 - Session notes and observations
-- Parent communication log
+- Privacy-compliant design
 
 **Drill Library**
 - Searchable collection of drills
 - Tag by skill, position, level
-- Link to video demonstrations where available
 - Print-friendly cards
 
 ### Medium Priority Tools
@@ -74,188 +107,68 @@ Create README.md for each fieldhouse section:
 - Season kickoff email
 - Progress update format
 - Tournament information
-- Training expectations
-
-**Tournament Bracket Manager**
-- Track team performance across tournaments
-- Record stats and observations
-- Notes on opponents and matchups
 
 **Stats Tracker**
-- Simple, coach-friendly stats entry
+- Simple, coach-friendly entry
 - Focus on meaningful metrics
 - Visual progress reports
 
-### Low Priority / Future
+---
 
-**Video Integration**
-- Link drills to video demonstrations
-- Film session organization
-- Before/after comparison tools
+## Phase 5: Integration
 
-**Team Chemistry Analyzer**
-- Track which player combinations work well
-- Rotation optimization suggestions
-- Based on game performance data
+**Status:** Future
+
+### Connect with Ecosystem
+- Link from claudewill.io main hub
+- Cross-reference with FloShake methodology (ebb-flo)
+- Potential integration with bob.claudewill.io
+
+### Potential Features (If Demand)
+- Downloadable resources section
+- Embedded tools (Lineup Builder, etc.)
+- Video demonstrations
+- Blog/articles section
 
 ---
 
-## Content Development
+## Tool Enhancement Backlog
 
-### Main Court - Methodology
-
-**BLAST Curriculum**
-- Document Travel level (foundational skills)
-- Document Recruit level (competitive development)
-- Document Varsity level (advanced systems)
-- Create progression maps between levels
-
-**Phoenix Grind Philosophy**
-- Core training principles
-- Development stages
-- Mental game integration
-- Game application framework
-
-**Neuroplasticity Framework**
-- How athletes learn new skills
-- Bilateral training approach
-- Repetition and retention strategies
-- Applying brain science to basketball
-
-### Film Room - Case Studies
-
-**Kabir's Development Journey**
-- Paint confidence breakthrough
-- India training app story
-- Position transition (4→1)
-- Mental game evolution
-
-**Session Templates**
-- Individual training session structure
-- Small group training format
-- Team practice framework
-- Position-specific sessions
-
-### Will Call - Service Offerings
-
-**Training Packages**
-- Individual training (rates, structure)
-- Small group sessions
-- Team practice planning
-- Parent consultation services
-
-**In-Season vs Off-Season**
-- Different service levels by season
-- Availability and scheduling
-- Pricing structure
-
----
-
-## Platform Considerations
-
-### Current Decision: Repository Only
-
-**Not building:**
-- User authentication system
-- Payment processing
-- Complex CMS
-- Mobile app (yet)
-
-**Just organizing:**
-- Existing tools
-- Documented methodology
-- Case studies and resources
-- Professional credentials
-
-### Future Platform Possibilities
-
-**If this evolves naturally:**
-- Simple static site with navigation
-- Tool hosting (HTML/JS tools like lineup builder)
-- Downloadable resources
-- Contact/booking form
-
-**What would trigger platform development:**
-- Regular requests from other coaches
-- Clear demand for organized access
-- Natural growth of tool collection
-- Time/resources available for proper build
-
----
-
-## Potential Improvements (From Tonight)
-
-### WAA Lineup Builder Enhancements
-
+### WAA Lineup Builder
 **High Priority:**
 - Multi-team support (multiple rosters)
 - Season history dashboard
-- Enhanced auto-fill options (rotation strategies)
-- Substitution timing alerts
+- Enhanced auto-fill options
 
 **Medium Priority:**
 - Mobile app version (PWA)
 - Assistant coach sharing
-- Player stats integration
 - Foul trouble management
 
 **Low Priority:**
 - Drag-and-drop interface
 - Print customization
 - League template library
-- Video integration
 
 ---
 
-## Documentation Standards
+## Content Development Pipeline
 
-### As Content Gets Added
+### Main Court - Methodology
+- [ ] Complete BLAST curriculum (all levels)
+- [ ] Phoenix Grind training principles
+- [ ] Mental game integration docs
+- [ ] Game application frameworks
 
-**Each new resource needs:**
-- Clear purpose statement
-- Usage instructions if applicable
-- Version number and date
-- Related resources/links
-- Author/source attribution
+### Film Room - Case Studies
+- [ ] Additional player development stories
+- [ ] Session templates
+- [ ] Position-specific training examples
 
-**Each tool needs:**
-- README with setup instructions
-- Technical documentation
-- Potential improvements list
-- Troubleshooting guide
-
-**Each case study needs:**
-- Context and background
-- Key insights/breakthroughs
-- Methodology applied
-- Outcomes and lessons learned
-
----
-
-## Integration Opportunities
-
-### With Existing Projects
-
-**bob.claudewill.io:**
-- (TBD - what is bob?)
-
-**ebb-flo.claudewill.io:**
-- FloShake methodology applied to basketball
-- Optimization principles for athletic performance
-- Mental game / flow state training
-
-**CW Strategies:**
-- Coaching as consulting model
-- Transition management in player development
-- Systems thinking in team building
-
-### With Claude Code
-
-**Agentic Development:**
-- Automate tool generation based on coach needs
-- Systematic content organization
-- Documentation maintenance
-- Code quality and testing
+### Will Call - Services
+- [ ] Off-season training packages
+- [ ] Team practice consulting
+- [ ] Parent consultation services
 
 ---
 
@@ -276,6 +189,7 @@ Create README.md for each fieldhouse section:
 ## Timeline Philosophy
 
 **No launch dates. No pressure. Just:**
+
 - Build when it's useful
 - Document when it's ready
 - Share when it helps
@@ -285,4 +199,29 @@ Create README.md for each fieldhouse section:
 
 ---
 
-**Status:** Empty structure built. Ready to fill thoughtfully.
+## Decision Log
+
+| Date | Decision | Rationale |
+|------|----------|-----------|
+| Dec 20, 2025 | Repository, not platform | Focus on useful tools, not business |
+| Dec 20, 2025 | coach.claudewill.io URL | Clean, no hyphen, consistent branding |
+| Dec 20, 2025 | "Coach D" brand | Avoid CW overload, authentic identity |
+| Dec 20, 2025 | Fieldhouse structure | Coaches understand facility metaphors |
+| Dec 21, 2025 | Workflow parity | Match bob/claudewill.io development patterns |
+| Dec 21, 2025 | Private GitHub repo | Control access until ready to share |
+| Dec 21, 2025 | Netlify ready, not deployed | Infrastructure in place, no rush |
+
+---
+
+## Next Session Priorities
+
+1. **If converting content:** BLAST Travel/Varsity .docx files
+2. **If building tools:** Practice Plan Generator
+3. **If deploying:** Create index.html landing page
+4. **If documenting:** Additional case studies from training
+
+**Pick based on what's useful, not what's next on a list.**
+
+---
+
+**Status:** Foundation complete. Growth happens organically.
