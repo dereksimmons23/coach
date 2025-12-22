@@ -1,0 +1,42 @@
+node_modules/
+.local-chromium/
+
+# Environment variables (API keys, secrets)
+.env
+.env.local
+.env.*.local
+
+# Netlify
+.netlify/
+
+# Ignore temporary and upload files
+.tmp.driveupload/
+.tmp.drivedownload/
+*.tmp
+*.log
+
+# Node and build artifacts
+dist/
+build/
+.cache/
+coverage/
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+.idea/
+.vscode/
+*.swp
+.obsidian
+
+# Secrets / local-only files
+netlify/*.txt
+.claude/
+.mcp.json
+
+# Local editor/workspace
+*.code-workspace
+
+# Private content (if any added later)
+# Add sensitive docs here as needed
