@@ -1,216 +1,201 @@
 # Coach D Repository - Session Handoff
 
 **Date:** December 21, 2025
-**Session:** Workflow Parity & Documentation Update
+**Session:** Vision Clarification - Coach D as AI Agent
 **Repository:** [github.com/dereksimmons23/coach](https://github.com/dereksimmons23/coach)
 
 ---
 
-## What Was Accomplished This Session
+## The Breakthrough This Session
 
-### 1. Workflow Parity Achieved
-Audited bob and claudewill.io repositories, then aligned coach with the same development workflow:
+**What coach.claudewill.io is NOT:**
+- Another coaching website
+- A platform for the sake of building a platform
+- Generic tools that already exist elsewhere
 
-| Added | Purpose |
-|-------|---------|
-| `.gitignore` | Excludes secrets, node_modules, OS files |
-| `.claude/settings.local.json` | Claude Code permissions (Supabase, git, gh) |
-| `netlify.toml` | Static site deployment + security headers |
-| `LICENSE` | MIT license |
-| `AUDIT.md` | Workflow comparison document |
-
-### 2. GitHub Repository Created
-- **URL:** https://github.com/dereksimmons23/coach
-- **Visibility:** Private
-- **Status:** Initial commit pushed (26 files)
-
-### 3. Documentation Updated
-All core docs refreshed to reflect current state:
-- `README.md` - Project overview with current status
-- `STATUS.md` - Infrastructure and content progress
-- `ROADMAP.md` - Phased development plan
-- `HANDOFF.md` - This document
+**What it might BE:**
+- **Coach D**: An AI Director of Basketball Operations
+- Same architecture as CW (Claude API + system prompt + Netlify)
+- Trained on YOUR specific methodology
+- A coaching partner, not just a tool
 
 ---
 
-## Current State Summary
+## The Vision: Coach D
 
-### Infrastructure: Complete
+An AI agent that handles everything about coaching EXCEPT the actual coaching.
+
+**What coaches would ask:**
+- "Coach D, I need a practice plan for Tuesday"
+- "Coach D, set my lineup for tomorrow's game"
+- "Coach D, one of my former players asked me to write a letter of recommendation"
+- "Coach D, I think one of my players might be on the spectrum. How do I coach them?"
+- "Coach D, a player just trusted me with sensitive information. What should I do?"
+
+**What Coach D would know:**
+- BLAST curriculum (all levels)
+- Neuroplasticity framework
+- WAA compliance rules
+- Practice planning methodology
+- Position-agnostic development philosophy
+- Case study patterns for guidance
+- Professional communication templates
+
+**What Coach D would do:**
+- Build practice plans based on your methodology
+- Generate compliant lineups automatically
+- Draft recommendation letters
+- Provide coaching guidance 24/7
+- Handle operational work so you can coach
+
+---
+
+## The Repository = Knowledge Base
+
+The structure we built isn't a website. It's Coach D's brain.
+
 ```
 coach/
-├── .claude/settings.local.json    # Claude Code config
-├── .gitignore                     # Git exclusions
-├── netlify.toml                   # Deployment config
-├── LICENSE                        # MIT
-├── AUDIT.md                       # Workflow comparison
-├── README.md                      # Project overview
-├── STATUS.md                      # Progress tracking
-├── ROADMAP.md                     # Development phases
-├── HANDOFF.md                     # Session handoffs
-├── MIGRATION_PLAN.md              # Content migration
-├── main-court/                    # Core methodology
-├── practice-gym/                  # Tools & templates
-├── film-room/                     # Case studies
-├── coach-d-office/                # Credentials
-├── will-call/                     # Services
-└── docs/                          # Strategy
+├── main-court/        → Coach D knows BLAST, neuroplasticity
+├── practice-gym/      → Coach D builds practice plans, lineups
+├── film-room/         → Coach D references case studies
+├── coach-d-office/    → Coach D knows credentials, writes rec letters
+├── will-call/         → Coach D knows pricing, packages
+└── docs/              → Coach D understands the philosophy
 ```
 
-### Content: 80% Migrated
-- 2 working HTML tools
-- 2 case studies
-- 3 methodology documents
-- 1 reference letter
-- 1 training guide with pricing
-- 1 vision document
+---
 
-### Deployment: Ready When Needed
-- `netlify.toml` configured
-- Not yet connected to Netlify
-- No landing page created yet
+## What's Missing for Full Vision
+
+**Current knowledge (ready):**
+- [x] BLAST Recruit curriculum
+- [x] Neuroplasticity framework
+- [x] WAA compliance logic (lineup builder)
+- [x] Practice planning structure
+- [x] Case studies (paint confidence, extension vs escape)
+- [x] Coaching philosophy
+
+**Missing knowledge (needed for full Coach D):**
+- [ ] BLAST Travel/Varsity curriculum (.docx conversion)
+- [ ] Mandatory reporting protocols (by state)
+- [ ] Special needs coaching frameworks
+- [ ] Crisis response guidance
+- [ ] Child safety procedures
+- [ ] Parent communication templates
+- [ ] Professional liability boundaries
 
 ---
 
-## What's Not Done (By Design)
+## Market Research Summary
 
-| Item | Status | Notes |
-|------|--------|-------|
-| Netlify connection | Not started | Ready when you want to publish |
-| Landing page | Not created | Need index.html before deploy |
-| BLAST Travel/Varsity | Not converted | .docx files in vault |
-| Certification PDFs | Not copied | In vault, need to move |
+**What exists:**
+- Fragmented tools (scheduling, video, drills - all separate)
+- Child safety training programs (human-led, not AI)
+- Special needs sports programs (human-led, not AI)
+- Generic AI chatbots (not coaching-specific)
 
----
+**What doesn't exist:**
+- Unified AI coaching partner
+- System trained on specific methodology
+- Technical + ethical + operational in one
+- 24/7 partner that knows context
 
-## Next Session Options
-
-### Option A: Content Completion
-Focus on completing the remaining 20%:
-1. Convert BLAST Travel guide from .docx
-2. Convert BLAST Varsity guide from .docx
-3. Copy certification PDFs to coach-d-office/
-4. Create progression maps between BLAST levels
-
-### Option B: Landing Page
-Focus on making the site deployable:
-1. Create `index.html` with clean coach-appropriate design
-2. Link to key sections and tools
-3. Include bio and philosophy
-4. Test locally before Netlify connection
-
-### Option C: Tool Development
-Focus on building the next useful tool:
-1. Practice Plan Generator
-2. Player Development Tracker
-3. WAA Lineup Builder enhancements
-
-### Option D: Deployment
-Focus on going live (requires landing page first):
-1. Create minimal index.html
-2. Connect Netlify to GitHub repo
-3. Configure coach.claudewill.io subdomain
-4. Verify security headers working
+**The gap is real. Nothing comprehensive exists.**
 
 ---
 
-## Key Decisions Made
+## Architecture (Proven with CW)
 
-| Decision | Rationale |
-|----------|-----------|
-| Repository, not platform | Focus on useful tools, not business |
-| coach.claudewill.io | Clean URL, consistent with ecosystem |
-| "Coach D" brand | Authentic identity, avoids CW overload |
-| Fieldhouse structure | Coaches understand facility metaphors |
-| Private GitHub repo | Control access until ready |
-| Workflow parity | Consistent development across all projects |
-| Netlify ready, not deployed | Infrastructure in place, no rush |
+```
+CW Architecture:
+├── Claude 3.5 Haiku API
+├── System prompt (~250 lines) - personality + methodology
+├── Netlify serverless function
+└── Conversational interface
 
----
-
-## Technical Reference
-
-### Git Workflow
-```bash
-# From /Users/dereksimmons/Desktop/coach
-git add -A
-git commit -m "Description of changes"
-git push
+Coach D Architecture (same pattern):
+├── Claude API (Haiku or Sonnet)
+├── System prompt (~500-1000 lines) - coaching methodology
+├── Netlify serverless function
+└── Conversational interface + tool outputs
 ```
 
-### Claude Code Permissions (Auto-allowed)
-- Supabase: list_projects, list_tables, execute_sql
-- Git: add, commit, push, checkout, pull
-- GitHub CLI: auth status, pr create, pr view
-- WebFetch: claudewill.io domain
-
-### Deployment (When Ready)
-1. Log into Netlify
-2. New site from Git → Select dereksimmons23/coach
-3. Build settings: No build command needed (static)
-4. Publish directory: `.` (root)
-5. Deploy
-6. Add custom domain: coach.claudewill.io
+You already know how to build this. CW proves the pattern works.
 
 ---
 
-## Integration Points
+## Next Steps
 
-| Project | Connection |
-|---------|------------|
-| claudewill.io | Main hub, will link to coach subdomain |
-| bob.claudewill.io | Battle o' Brackets, separate project |
-| CW Strategies | Business entity behind the work |
+### Before Building Coach D
+
+1. **Complete the knowledge base**
+   - Convert BLAST Travel/Varsity from .docx
+   - Add more case studies as training progresses
+   - Research mandatory reporting frameworks
+   - Gather special needs coaching resources
+   - Document crisis response protocols
+
+2. **Define Coach D's boundaries**
+   - What will Coach D do vs. refer to professionals?
+   - What are the ethical guardrails?
+   - What's the mandatory reporting protocol by state?
+
+3. **Test the concept**
+   - Could start with v1 (technical basketball only)
+   - Add ethical/special needs layer as researched
+
+### When Ready to Build
+
+1. Write Coach D system prompt (based on repository content)
+2. Create Netlify function (same as CW)
+3. Build conversational interface
+4. Deploy to coach.claudewill.io
+5. Test with real coaching scenarios
 
 ---
 
-## Philosophy Reminders
+## Key Insight
 
-**From the original vision:**
-> "We built an app that works in a few hours. It would have taken nearly as long to find a PDF and fill it in. That's the whole game."
+> "What if you could learn to automate everything about training and coaching except the actual training and coaching?"
 
-**Core principles:**
-- Repository, not platform
-- Accumulation, not launch
-- Useful over impressive
-- Coach language, not marketing speak
+The repository isn't the product.
+The knowledge in the repository is the product.
+Coach D is the interface to that knowledge.
 
-**Privacy standards:**
-- No real names of athletes under 18
-- Position-agnostic skill documentation
-- Anonymized case studies
-- Written permission for testimonials
+---
+
+## Session Context
+
+**Started with:** Workflow parity audit and documentation updates
+
+**Evolved to:** Vision clarification for Coach D as AI agent
+
+**Ended with:** Need better knowledge base before building
+
+**Decision:** Don't build yet. Build the knowledge base first. The architecture is proven (CW). The gap in the market is real. But the knowledge needs to be complete.
 
 ---
 
 ## Files Changed This Session
 
 ```
-Modified:
-- README.md
-- STATUS.md
-- ROADMAP.md
-- HANDOFF.md
-
 Created:
 - .gitignore
 - .claude/settings.local.json
 - netlify.toml
 - LICENSE
 - AUDIT.md
+
+Updated:
+- README.md
+- STATUS.md
+- ROADMAP.md
+- HANDOFF.md (this file)
 ```
 
 ---
 
-## Session Context
+**Status:** Vision clarified. Knowledge base needs expansion. Build Coach D when ready.
 
-Started with empty git repo, ended with:
-- Full workflow parity with bob/claudewill.io
-- GitHub remote connected and initial push complete
-- All documentation updated and aligned
-- Ready for next phase (content, deployment, or tools)
-
-**Status:** Foundation complete. Pick next step based on what's useful.
-
----
-
-**Next handoff:** Update this file at end of next session with what was accomplished.
+**Next session:** Either expand knowledge base OR start prototyping v1 Coach D with current content.

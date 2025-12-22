@@ -5,6 +5,19 @@
 
 ---
 
+## Vision: Coach D as AI Agent
+
+**Not a website. An AI Director of Basketball Operations.**
+
+The repository is the knowledge base. Coach D is the interface.
+
+Same architecture as CW:
+- Claude API + system prompt + Netlify serverless function
+- Conversational interface
+- Trained on your specific methodology
+
+---
+
 ## Current State
 
 ### Completed
@@ -15,16 +28,15 @@
 - [x] Working tools (Lineup Builder, Schedule Parser)
 - [x] Case studies documented
 - [x] Netlify configuration ready
+- [x] Vision clarified (AI agent, not static site)
 
 ### In Progress
+- [ ] Knowledge base expansion (prerequisite for Coach D)
 - [ ] Remaining BLAST curriculum (.docx conversion)
-- [ ] Certification PDFs migration
 
 ---
 
-## Phase 1: Foundation (Current)
-
-**Status:** Complete
+## Phase 1: Foundation - COMPLETE
 
 | Task | Status |
 |------|--------|
@@ -33,48 +45,70 @@
 | Claude Code configuration | Done |
 | Core documentation | Done |
 | Privacy standards | Done |
+| Vision clarification | Done |
 
 ---
 
-## Phase 2: Content Completion
+## Phase 2: Knowledge Base Expansion
 
-**Status:** 80% Complete
+**Status:** In Progress - Required before building Coach D
 
-### Remaining Content Tasks
-
-**Main Court:**
+### Technical Knowledge (Basketball)
 - [ ] Convert BLAST Travel guide from .docx
 - [ ] Convert BLAST Varsity guide from .docx
 - [ ] Create progression maps between levels
+- [ ] Additional case studies as training progresses
+- [ ] Practice plan templates and frameworks
 
-**Coach D's Office:**
-- [ ] Copy certification PDFs from vault
-- [ ] Background check documentation
-- [ ] Additional reference letters (as obtained)
+### Ethical/Safety Knowledge (NEW)
+- [ ] Mandatory reporting protocols (by state)
+- [ ] Special needs coaching frameworks
+- [ ] Crisis response guidance
+- [ ] Child safety procedures
+- [ ] When to escalate vs. handle
 
-**Film Room:**
-- [ ] Additional case studies (as training progresses)
-- [ ] Session templates and frameworks
+### Professional Knowledge
+- [ ] Parent communication templates
+- [ ] Recommendation letter patterns
+- [ ] Professional liability boundaries
+- [ ] Credentials and certifications
 
 ---
 
-## Phase 3: Deployment (When Ready)
+## Phase 3: Coach D v1 (Technical Only)
 
-**Status:** Not Started
+**Status:** Not Started - Waiting on knowledge base
 
-### Tasks
-1. Create landing page (`index.html`)
-2. Connect Netlify to GitHub repo
-3. Configure coach.claudewill.io subdomain in DNS
-4. Test deployment pipeline
-5. Verify security headers working
+Build MVP with current knowledge:
+- Practice planning (BLAST methodology)
+- Lineup building (WAA compliance)
+- Training philosophy (neuroplasticity)
+- Technical Q&A (drills, progressions)
+- Professional writing (rec letters)
 
-### Landing Page Concept
-- Clean, coach-appropriate design
-- Links to key sections
-- Brief bio and philosophy
-- Contact information
-- No marketing fluff
+**Architecture:**
+1. Write system prompt (~500-1000 lines)
+2. Create Netlify serverless function
+3. Build conversational interface
+4. Deploy to coach.claudewill.io
+5. Test with real coaching scenarios
+
+---
+
+## Phase 4: Coach D v2 (Full Partner)
+
+**Status:** Future
+
+Add ethical/special needs layer:
+- Mandatory reporting guidance
+- Special needs coaching adaptation
+- Crisis response protocols
+- Professional boundary enforcement
+
+This requires research and possibly partnerships with:
+- Special education experts
+- Child safety organizations
+- Legal advisors
 
 ---
 
