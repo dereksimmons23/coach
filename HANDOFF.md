@@ -198,4 +198,24 @@ Updated:
 
 **Status:** Vision clarified. Knowledge base needs expansion. Build Coach D when ready.
 
-**Next session:** Either expand knowledge base OR start prototyping v1 Coach D with current content.
+---
+
+## Session: December 26, 2025 - Fieldhouse Placeholder Launch
+
+**What we did:**
+- Created "fieldhouse under construction" landing page (`index.html`)
+- Blueprint-style layout showing Main Court, Practice Gym, Film Room, Will Call
+- Matches claudewill.io aesthetic (dark navy, gold accents)
+- Deployed to **coach.claudewill.io** (live, auto-deploys from GitHub)
+
+**Design decisions:**
+- Went with claudewill.io formula over gamified (bob) approach — coaching needs credibility
+- "Under construction" metaphor is honest and on-brand
+- Placeholder previews the fieldhouse structure for visitors
+
+**Files changed:**
+- `index.html` (new) — Landing page
+- `README.md` — Updated to show live URL
+- `STATUS.md` — Phase 4 marked complete
+
+**Next session:** Expand knowledge base OR prototype v1 Coach D with current content.
