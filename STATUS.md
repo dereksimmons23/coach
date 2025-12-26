@@ -56,15 +56,16 @@
 - [x] Phoenix Grind Arena full fieldhouse vision
 - [x] Audit document (workflow comparison)
 
-### Phase 4: Netlify Deployment - LANDING PAGE READY
+### Phase 4: Netlify Deployment - COMPLETE
 
 | Task | Status |
 |------|--------|
 | netlify.toml configured | Done |
 | Security headers defined | Done |
 | Landing page creation | Done |
-| Connect to Netlify | Not started |
-| DNS configuration | Not started |
+| Connect to Netlify | Done |
+| DNS configuration | Done |
+| **Live at coach.claudewill.io** | Done |
 
 ---
 
@@ -99,10 +100,8 @@
 ## Next Actions
 
 ### Immediate (When Ready)
-1. Connect Netlify to GitHub repo
-2. Configure coach.claudewill.io subdomain
-3. Convert BLAST Travel/Varsity .docx files to markdown
-4. Copy certification PDFs to Coach D's Office
+1. Convert BLAST Travel/Varsity .docx files to markdown
+2. Copy certification PDFs to Coach D's Office
 
 ### Near-term
 1. Add additional case studies as training progresses

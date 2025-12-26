@@ -1,7 +1,7 @@
 # Coach D - Basketball Development Repository
 
 **Repository:** [github.com/dereksimmons23/coach](https://github.com/dereksimmons23/coach)
-**Future URL:** coach.claudewill.io
+**Live URL:** [coach.claudewill.io](https://coach.claudewill.io)
 **Built by:** Derek Simmons (Coach D)
 **Last Updated:** December 26, 2025
 
@@ -22,8 +22,8 @@ A repository where Coach D's basketball work naturally accumulates. Not a busine
 | Repository Structure | Complete |
 | GitHub Remote | Connected (private) |
 | Workflow Parity | Achieved (matches bob/claudewill.io) |
-| Landing Page | Ready (fieldhouse under construction) |
-| Netlify Deployment | Configured, awaiting connection |
+| Landing Page | Live (fieldhouse under construction) |
+| Netlify Deployment | Complete (auto-deploys from GitHub) |
 | Content Migration | 80% complete |
 
 ---
