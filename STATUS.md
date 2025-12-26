@@ -1,6 +1,6 @@
 # Coach Repository - Current Status
 
-**Last Updated:** December 21, 2025
+**Last Updated:** December 26, 2025
 **Repository:** [github.com/dereksimmons23/coach](https://github.com/dereksimmons23/coach)
 
 ---
@@ -56,15 +56,15 @@
 - [x] Phoenix Grind Arena full fieldhouse vision
 - [x] Audit document (workflow comparison)
 
-### Phase 4: Netlify Deployment - READY WHEN NEEDED
+### Phase 4: Netlify Deployment - LANDING PAGE READY
 
 | Task | Status |
 |------|--------|
 | netlify.toml configured | Done |
 | Security headers defined | Done |
+| Landing page creation | Done |
 | Connect to Netlify | Not started |
 | DNS configuration | Not started |
-| Landing page creation | Not started |
 
 ---
 
@@ -83,8 +83,9 @@
 
 ## What's Live Now
 
-1. **WAA Lineup Builder** - Working tool used in real game (won!)
-2. **Practice Schedule Parser** - Working tool
+1. **Fieldhouse Placeholder** - "Under construction" landing page (index.html)
+2. **Lineup Builder** - Working tool used in real game (won!)
+3. **Practice Schedule Parser** - Working tool
 3. **Neuroplasticity Framework** - Brain-based training methodology
 4. **BLAST Recruit Guide** - Competitive development curriculum
 5. **Paint Confidence Case Study** - 60-minute breakthrough session
@@ -98,14 +99,13 @@
 ## Next Actions
 
 ### Immediate (When Ready)
-1. Convert BLAST Travel/Varsity .docx files to markdown
-2. Copy certification PDFs to Coach D's Office
-3. Create simple landing page (index.html)
-
-### Near-term
 1. Connect Netlify to GitHub repo
 2. Configure coach.claudewill.io subdomain
-3. Add additional case studies as training progresses
+3. Convert BLAST Travel/Varsity .docx files to markdown
+4. Copy certification PDFs to Coach D's Office
+
+### Near-term
+1. Add additional case studies as training progresses
 
 ### Future
 1. Practice Plan Generator tool

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coach D's Fieldhouse | Under Construction</title>
+  <meta name="description" content="Basketball development resources from Coach D. Currently under construction.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏀</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-deep: #000D1A;
+      --bg-card: #0a1929;
+      --border: #0d2840;
+      --text: #e8e8e8;
+      --text-muted: #8899a6;
+      --gold: #d4a84b;
+      --gold-dim: #b8943f;
+      --construction: #f59e0b;
+    }
+
+    body {
+      font-family: 'Noto Sans', system-ui, -apple-system, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 800px;
+      width: 100%;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .wordmark {
+      font-family: 'Courier New', monospace;
+      font-size: 1rem;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .tagline {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    .construction-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid var(--construction);
+      color: var(--construction);
+      padding: 0.4rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-top: 1.5rem;
+    }
+
+    .construction-badge::before {
+      content: "🚧";
+    }
+
+    /* Fieldhouse Blueprint */
+    .blueprint {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .blueprint-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .blueprint-title {
+      font-family: 'Courier New', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .blueprint-rev {
+      font-family: 'Courier New', monospace;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Rooms */
+    .rooms {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .room {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: rgba(0, 13, 26, 0.5);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+
+    .room-icon {
+      font-size: 1.5rem;
+      width: 2.5rem;
+      text-align: center;
+    }
+
+    .room-info {
+      flex: 1;
+    }
+
+    .room-name {
+      font-weight: 500;
+      margin-bottom: 0.2rem;
+    }
+
+    .room-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .room-status {
+      font-size: 0.75rem;
+      font-family: 'Courier New', monospace;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .status-framing {
+      background: rgba(212, 168, 75, 0.15);
+      color: var(--gold);
+    }
+
+    .status-foundation {
+      background: rgba(139, 92, 246, 0.15);
+      color: #a78bfa;
+    }
+
+    .status-blueprints {
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+    }
+
+    .status-open {
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+    }
+
+    /* Quote */
+    .quote {
+      text-align: center;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .quote-text {
+      font-size: 1.25rem;
+      font-style: italic;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+    }
+
+    .quote-text::before {
+      content: '"';
+      color: var(--gold);
+    }
+
+    .quote-text::after {
+      content: '"';
+      color: var(--gold);
+    }
+
+    .quote-attr {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    footer a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    .ecosystem {
+      margin-top: 1rem;
+      font-size: 0.8rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .room {
+        flex-wrap: wrap;
+      }
+
+      .room-status {
+        width: 100%;
+        text-align: center;
+        margin-top: 0.5rem;
+      }
+
+      .blueprint {
+        padding: 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="wordmark">Coach D</div>
+      <h1>The Fieldhouse</h1>
+      <p class="tagline">Basketball development resources</p>
+      <div class="construction-badge">Under Construction</div>
+    </header>
+
+    <section class="blueprint">
+      <div class="blueprint-header">
+        <span class="blueprint-title">Fieldhouse Floor Plan</span>
+        <span class="blueprint-rev">Rev 0.1</span>
+      </div>
+      <div class="rooms">
+        <div class="room">
+          <span class="room-icon">🏀</span>
+          <div class="room-info">
+            <div class="room-name">Main Court</div>
+            <div class="room-desc">Core methodology and training systems</div>
+          </div>
+          <span class="room-status status-framing">Framing</span>
+        </div>
+        <div class="room">
+          <span class="room-icon">🏋️</span>
+          <div class="room-info">
+            <div class="room-name">Practice Gym</div>
+            <div class="room-desc">Tools, templates, and game-day resources</div>
+          </div>
+          <span class="room-status status-foundation">Foundation</span>
+        </div>
+        <div class="room">
+          <span class="room-icon">🎬</span>
+          <div class="room-info">
+            <div class="room-name">Film Room</div>
+            <div class="room-desc">Case studies and teaching moments</div>
+          </div>
+          <span class="room-status status-blueprints">Blueprints</span>
+        </div>
+        <div class="room">
+          <span class="room-icon">🎟️</span>
+          <div class="room-info">
+            <div class="room-name">Will Call</div>
+            <div class="room-desc">Training sessions and packages</div>
+          </div>
+          <span class="room-status status-blueprints">Blueprints</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="quote">
+      <p class="quote-text">Build the operating system, not just the outcomes.</p>
+      <p class="quote-attr">— Coach D</p>
+    </section>
+
+    <footer>
+      <p>Built by <a href="https://claudewill.io/derek">Derek Claude Simmons</a></p>
+      <p class="ecosystem">
+        Part of <a href="https://claudewill.io">claudewill.io</a>
+      </p>
+    </footer>
+  </div>
+</body>
+</html>
