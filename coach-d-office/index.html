@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coach's Office | Coach D's Fieldhouse</title>
+  <meta name="description" content="Meet Coach D - 45+ years in athletics, 15+ years head coaching experience. Basketball development specialist in Minneapolis, Minnesota.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏀</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-deep: #000D1A;
+      --bg-card: #0a1929;
+      --border: #0d2840;
+      --text: #e8e8e8;
+      --text-muted: #8899a6;
+      --gold: #d4a84b;
+      --gold-dim: #b8943f;
+    }
+
+    body {
+      font-family: 'Noto Sans', system-ui, -apple-system, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 2rem 1rem;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .back-link {
+      display: inline-block;
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .wordmark {
+      font-family: 'Courier New', monospace;
+      font-size: 1rem;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .tagline {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    /* Sections */
+    section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin: 1.5rem 0 0.5rem 0;
+      color: var(--text);
+    }
+
+    h3:first-of-type {
+      margin-top: 0;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    ul {
+      margin: 0 0 1rem 1.5rem;
+      color: var(--text);
+    }
+
+    li {
+      margin-bottom: 0.4rem;
+    }
+
+    /* Stats Grid */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat {
+      text-align: center;
+      padding: 1rem;
+      background: rgba(0, 13, 26, 0.5);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+
+    .stat-value {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--gold);
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Philosophy */
+    .philosophy-item {
+      padding: 1rem;
+      background: rgba(0, 13, 26, 0.5);
+      border-left: 3px solid var(--gold);
+      margin-bottom: 1rem;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .philosophy-item:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Contact */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      background: rgba(0, 13, 26, 0.5);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+
+    .contact-icon {
+      font-size: 1.2rem;
+    }
+
+    .contact-item a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    .contact-item a:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    footer a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      section {
+        padding: 1.25rem;
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .stat-value {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a href="../" class="back-link">&larr; Back to Fieldhouse</a>
+      <div class="wordmark">Coach D</div>
+      <h1>Coach's Office</h1>
+      <p class="tagline">Background, credentials, and philosophy</p>
+    </header>
+
+    <!-- Summary Stats -->
+    <section>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-value">45+</div>
+          <div class="stat-label">Years in Athletics</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">15+</div>
+          <div class="stat-label">Years Head Coaching</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">100%</div>
+          <div class="stat-label">Academic Eligibility</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">D1</div>
+          <div class="stat-label">Scholarship Players</div>
+        </div>
+      </div>
+      <p style="text-align: center; color: var(--text-muted); margin-bottom: 0;">
+        Lifelong basketball coach and player development specialist with a proven track record developing student-athletes from youth through collegiate level.
+      </p>
+    </section>
+
+    <!-- Coaching Experience -->
+    <section>
+      <h2>Coaching Experience</h2>
+
+      <h3>Head Coach, High School Basketball</h3>
+      <p class="subtitle">East Ridge High School | 2018-2020</p>
+      <ul>
+        <li>Directed freshman team to 17-2 record, avenging both regular season losses in home playoff victories</li>
+        <li>Implemented player development system focusing on fundamentals, basketball IQ, and leadership skills</li>
+        <li>Maintained 100% academic eligibility for all student-athletes throughout tenure</li>
+        <li>Developed practice plans and game strategies emphasizing teamwork, effort, and positive attitude</li>
+      </ul>
+
+      <h3>AAU Head Coach</h3>
+      <p class="subtitle">Minnesota Heat, D1 Minnesota, Grassroots Sizzle | 2014-2023</p>
+      <ul>
+        <li>Led 17u team with multiple players advancing to collegiate basketball, including full scholarship recipient at University of Jamestown</li>
+        <li>Coached teams in premier tournaments across Kansas City, Chicago, and Minneapolis metro areas</li>
+        <li>Developed comprehensive recruiting strategies connecting players with collegiate opportunities</li>
+        <li>Built strong relationships with college coaches, scouts, and basketball community throughout Midwest</li>
+        <li>Mentored student-athletes through college recruitment process, emphasizing academic and athletic balance</li>
+      </ul>
+
+      <h3>Youth Head Coach & Program Director</h3>
+      <p class="subtitle">East Ridge Athletic Association | 2013-2021</p>
+      <ul>
+        <li>Coached A, B, and C travel teams, achieving 2nd place state finish (6B) and 3rd place state finish (7A)</li>
+        <li>Served as Basketball Board President, overseeing program operations for 200+ participating families</li>
+        <li>Developed player evaluation systems, practice curricula, and competitive strategies</li>
+        <li>Managed coaching staff hiring, development, and evaluation across multiple age groups</li>
+        <li>Created positive team culture emphasizing sportsmanship, effort, and continuous improvement</li>
+      </ul>
+    </section>
+
+    <!-- Athletic Background -->
+    <section>
+      <h2>Athletic Background</h2>
+
+      <h3>Multi-Sport Student-Athlete</h3>
+      <p class="subtitle">Nickerson High School, Kansas | 1988-1991</p>
+      <ul>
+        <li><strong>Basketball:</strong> Four-year varsity player, state champion (freshman), 3rd place (sophomore), 4th place (junior)</li>
+        <li><strong>Football:</strong> Starting quarterback leading team to first state playoff appearance in 50 years</li>
+        <li><strong>Baseball:</strong> Four-year starter contributing to two state championships and multiple top-four finishes</li>
+        <li>Heart of America Basketball Camp All-Star selection</li>
+        <li>Received collegiate scholarship offers in all three sports</li>
+        <li>Elected Senior Class President</li>
+      </ul>
+    </section>
+
+    <!-- Coaching Philosophy -->
+    <section>
+      <h2>Coaching Philosophy</h2>
+
+      <div class="philosophy-item">
+        <strong>Player-Led Teams</strong><br>
+        Developing leaders who compete for each other, not just themselves.
+      </div>
+
+      <div class="philosophy-item">
+        <strong>Energy, Effort, Attitude</strong><br>
+        The controllables that separate good players from great ones.
+      </div>
+
+      <div class="philosophy-item">
+        <strong>Academic Excellence</strong><br>
+        Student first, athlete second. 100% eligibility is the standard.
+      </div>
+
+      <div class="philosophy-item">
+        <strong>Long-Term Development</strong><br>
+        Building the operating system, not just chasing outcomes.
+      </div>
+    </section>
+
+    <!-- Certifications -->
+    <section>
+      <h2>Education & Certifications</h2>
+
+      <h3>Education</h3>
+      <p><strong>Bachelor of Science, Mass Communications</strong> — Kansas State University<br>
+      <span class="subtitle">Student Ambassador, Sports Editor, Basketball Correspondent for Associated Press, KC Star, Wichita Eagle</span></p>
+
+      <h3>Coaching Certifications</h3>
+      <ul>
+        <li>Trusted Coaches Certification (background check, concussion protocol, youth safety)</li>
+        <li>Fundamentals of Coaching — Kansas State University</li>
+      </ul>
+    </section>
+
+    <!-- Contact -->
+    <section>
+      <h2>Contact</h2>
+      <div class="contact-grid">
+        <div class="contact-item">
+          <span class="contact-icon">📍</span>
+          <span>Minneapolis, Minnesota</span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">📧</span>
+          <a href="mailto:simmons.derek@gmail.com">simmons.derek@gmail.com</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">🔗</span>
+          <a href="https://linkedin.com/in/dereksimm" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">🌐</span>
+          <a href="https://claudewill.io/derek" target="_blank" rel="noopener">claudewill.io</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>Part of <a href="https://coach.claudewill.io">Coach D's Fieldhouse</a></p>
+    </footer>
+  </div>
+</body>
+</html>
