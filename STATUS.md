@@ -1,7 +1,8 @@
 # Coach Repository - Current Status
 
-**Last Updated:** December 26, 2025
-**Repository:** [github.com/dereksimmons23/coach](https://github.com/dereksimmons23/coach)
+**Last Updated:** December 27, 2025
+**Repository:** [github.com/dereksimmons23/coach](https://github.com/dereksimmons23/coach) (public)
+**Live Site:** [coach.claudewill.io](https://coach.claudewill.io)
 
 ---
 
@@ -46,8 +47,10 @@
 - [x] Paint confidence breakthrough case study (anonymized)
 
 **Coach D's Office** (Credentials & References):
+- [x] Coach D profile page (index.html) - LIVE
 - [x] Pete Koland reference letter
 - [ ] Certifications (PDFs - need copying from vault)
+- [ ] Additional coach profiles (future expansion)
 
 **Will Call** (Training Packages):
 - [x] In-season training guide with pricing
@@ -64,8 +67,20 @@
 | Security headers defined | Done |
 | Landing page creation | Done |
 | Connect to Netlify | Done |
-| DNS configuration | Done |
+| DNS configuration (name.com CNAME → coachd.netlify.app) | Done |
+| Repository set to public | Done |
 | **Live at coach.claudewill.io** | Done |
+
+### Phase 5: Coach's Office - COMPLETE
+
+| Task | Status |
+|------|--------|
+| Coach D profile page (index.html) | Done |
+| Coaching background from resume | Done |
+| Stats, experience, philosophy | Done |
+| Contact links (form, LinkedIn, Will Call) | Done |
+| Added to main fieldhouse as clickable room | Done |
+| **Live at coach.claudewill.io/coach-d-office/** | Done |
 
 ---
 
@@ -74,8 +89,8 @@
 | Metric | Count |
 |--------|-------|
 | Total sections | 6 fieldhouse areas + docs |
-| Files tracked | 26 |
-| Working HTML tools | 2 |
+| Files tracked | 27 |
+| Working HTML pages | 4 |
 | Case studies | 2 |
 | Methodology docs | 3 |
 | All content privacy-compliant | Yes |
@@ -84,32 +99,42 @@
 
 ## What's Live Now
 
-1. **Fieldhouse Placeholder** - "Under construction" landing page (index.html)
-2. **Lineup Builder** - Working tool used in real game (won!)
-3. **Practice Schedule Parser** - Working tool
-3. **Neuroplasticity Framework** - Brain-based training methodology
-4. **BLAST Recruit Guide** - Competitive development curriculum
-5. **Paint Confidence Case Study** - 60-minute breakthrough session
-6. **Teaching Moment: Extension vs Escape** - Philosophical coaching breakthrough
-7. **Pete Koland Reference** - Professional testimonial
-8. **In-Season Training Guide** - Package pricing ($350-750/month)
-9. **Phoenix Grind Arena Vision** - Original fieldhouse concept
+**Live Pages:**
+1. **Fieldhouse Landing** - Main "under construction" page with room links
+2. **Coach's Office - Coach D** - Full coaching background and credentials
+
+**Working Tools:**
+3. **Lineup Builder** - Working tool used in real game (won!)
+4. **Practice Schedule Parser** - Working tool
+
+**Knowledge Base:**
+5. **Neuroplasticity Framework** - Brain-based training methodology
+6. **BLAST Recruit Guide** - Competitive development curriculum
+7. **Paint Confidence Case Study** - 60-minute breakthrough session
+8. **Teaching Moment: Extension vs Escape** - Philosophical coaching breakthrough
+9. **Pete Koland Reference** - Professional testimonial
+10. **In-Season Training Guide** - Package pricing ($350-750/month)
+11. **Phoenix Grind Arena Vision** - Original fieldhouse concept
 
 ---
 
 ## Next Actions
 
 ### Immediate (When Ready)
-1. Convert BLAST Travel/Varsity .docx files to markdown
-2. Copy certification PDFs to Coach D's Office
+1. Build out Will Call with training packages/services
+2. Convert BLAST Travel/Varsity .docx files to markdown
+3. Copy certification PDFs to Coach D's Office
 
 ### Near-term
 1. Add additional case studies as training progresses
+2. Build Main Court methodology pages
+3. Build Film Room case study pages
 
 ### Future
 1. Practice Plan Generator tool
 2. Player Development Tracker
 3. Video demonstration library
+4. Additional coach profiles in Coach's Office
 
 ---
 
@@ -129,10 +154,12 @@ This repository operates on accumulation, not deadlines:
 
 | Item | Value |
 |------|-------|
-| Repository | /Users/dereksimmons/Desktop/coach/ |
-| GitHub | github.com/dereksimmons23/coach (private) |
+| Local Path | /Users/dereksimmons/Desktop/coach/ |
+| GitHub | github.com/dereksimmons23/coach (public) |
+| Netlify Site | coachd.netlify.app |
+| Live URL | coach.claudewill.io |
+| DNS | name.com CNAME → coachd.netlify.app |
 | Source Vault | /Users/dereksimmons/Desktop/Obsidian-Vault/Basketball-Training-Platform/ |
-| Deploy Target | coach.claudewill.io |
 
 ### Privacy Standards
 - No real names of athletes under 18

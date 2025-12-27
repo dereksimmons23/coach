@@ -218,4 +218,48 @@ Updated:
 - `README.md` — Updated to show live URL
 - `STATUS.md` — Phase 4 marked complete
 
-**Next session:** Expand knowledge base OR prototype v1 Coach D with current content.
+---
+
+## Session: December 27, 2025 - Coach's Office Launch & Infrastructure Fixes
+
+**Problem solved:**
+- Site wasn't publishing at coach.claudewill.io
+
+**Root cause:**
+- GitHub repo was set to **private** (GitHub Pages requires public on free tier)
+
+**Infrastructure decisions:**
+- Made repo **public**
+- Switched from GitHub Pages to **Netlify** (consistent with claudewill.io)
+- DNS: `coach.claudewill.io` → `coachd.netlify.app` via CNAME on name.com
+
+**Coach's Office built:**
+- Created `coach-d-office/index.html` with full coaching background
+- Content pulled from resume PDF, converted to HTML for SEO/mobile
+- Removed PDF from repo (content now integrated into site)
+- Added Coach's Office room to main fieldhouse (status: Open, clickable)
+
+**Page includes:**
+- Stats summary (45+ years athletics, 15+ years coaching, 100% eligibility, D1 players)
+- Coaching experience (East Ridge HS, AAU, Youth program director)
+- Athletic background (3-sport athlete, state championships, scholarship offers)
+- Coaching philosophy (player-led, energy/effort/attitude, academic excellence)
+- Education & certifications
+- Connect section (contact form link, LinkedIn, Will Call link)
+
+**Design decisions:**
+- No email address on site — uses contact form at claudewill.io/derek
+- Page structured as "Coach D" profile under "Coach's Office" (supports multiple coaches later)
+- Will Call designated for training packages/services
+- Coach's Office for coaches/staff profiles
+
+**Files changed:**
+- `coach-d-office/index.html` (new) — Coach D profile page
+- `index.html` — Added Coach's Office room with link
+- `Derek Simmons-Resume-BB.pdf` (deleted) — Content now in HTML
+
+**Live URLs:**
+- https://coach.claudewill.io — Main fieldhouse
+- https://coach.claudewill.io/coach-d-office/ — Coach D profile
+
+**Next session:** Build out Will Call with training packages, or continue expanding other fieldhouse rooms.

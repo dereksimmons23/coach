@@ -3,7 +3,7 @@
 **Repository:** [github.com/dereksimmons23/coach](https://github.com/dereksimmons23/coach)
 **Live URL:** [coach.claudewill.io](https://coach.claudewill.io)
 **Built by:** Derek Simmons (Coach D)
-**Last Updated:** December 26, 2025
+**Last Updated:** December 27, 2025
 
 ---
 
@@ -20,11 +20,12 @@ A repository where Coach D's basketball work naturally accumulates. Not a busine
 | Component | Status |
 |-----------|--------|
 | Repository Structure | Complete |
-| GitHub Remote | Connected (private) |
+| GitHub Remote | Connected (public) |
 | Workflow Parity | Achieved (matches bob/claudewill.io) |
-| Landing Page | Live (fieldhouse under construction) |
 | Netlify Deployment | Complete (auto-deploys from GitHub) |
-| Content Migration | 80% complete |
+| Landing Page | Live |
+| Coach's Office | Live (Coach D profile) |
+| Content Migration | 85% complete |
 
 ---
 
@@ -58,11 +59,14 @@ Player development stories, breakthrough sessions, and documented outcomes.
 
 ### Coach D's Office - Credentials
 Professional background, certifications, and references.
+- **Coach D profile page** (live at /coach-d-office/)
 - Pete Koland reference letter
+- Future: Additional coach profiles
 
 ### Will Call - Services
 Training sessions, team packages, and offerings.
 - In-season training guide with pricing
+- Future: Training packages landing page
 
 ### Docs - Strategy
 Platform vision and long-term thinking.
@@ -70,12 +74,14 @@ Platform vision and long-term thinking.
 
 ---
 
-## Working Tools
+## Live Pages & Tools
 
-| Tool | Location | Status |
-|------|----------|--------|
-| WAA Lineup Builder | `practice-gym/lineup-builder/` | Complete, battle-tested |
-| Practice Schedule Parser | `practice-gym/` | Working |
+| Page/Tool | Location | Status |
+|-----------|----------|--------|
+| Fieldhouse Landing | `/index.html` | Live |
+| Coach D Profile | `/coach-d-office/` | Live |
+| WAA Lineup Builder | `/practice-gym/lineup-builder/` | Complete, battle-tested |
+| Practice Schedule Parser | `/practice-gym/` | Working |
 
 ---
 
@@ -97,9 +103,10 @@ Part of the broader claudewill.io universe:
 ## Technical Setup
 
 ### Workflow Configuration
-- **Git Remote:** github.com/dereksimmons23/coach
+- **Git Remote:** github.com/dereksimmons23/coach (public)
+- **Hosting:** Netlify (coachd.netlify.app)
+- **Domain:** coach.claudewill.io (CNAME via name.com)
 - **Claude Code:** `.claude/settings.local.json` configured
-- **Deployment:** `netlify.toml` ready for coach.claudewill.io
 - **License:** MIT
 
 ### File Standards
