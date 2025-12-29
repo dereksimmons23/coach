@@ -96,27 +96,48 @@ coach/
 ## Coach D AI Vision
 
 ### The Concept
-Coach D: An AI Director of Basketball Operations that handles everything about coaching EXCEPT the actual coaching.
+Coach D: The host of the fieldhouse. Not just a basketball coach - a complete athletic development partner.
 
-**What coaches would ask:**
-- "Coach D, I need a practice plan for Tuesday"
-- "Coach D, set my lineup for tomorrow's game"
-- "Coach D, one of my players is struggling with confidence"
-- "Coach D, how do I run the Get 50 assessment?"
+**Roles:**
+| Role | Function |
+|------|----------|
+| **Tour Guide** | Navigate the fieldhouse, explain what's where |
+| **Recruiter** | Attract athletes, parents, coaches to training |
+| **Agent** | Advocate for athlete positioning, opportunities |
+| **Coach** | Basketball methodology, game strategy |
+| **Trainer** | Physical and mental performance development |
+| **Multi-Sport Mentor** | Transfer principles across sports |
 
-### Architecture (Same as CW)
+**Multi-Sport Background:**
+- Basketball (primary): 15+ years coaching, D1 players developed
+- Football: Quarterback background (reading defenses, decision-making under pressure)
+- Baseball: Centerfielder background (tracking, anticipation, first-step quickness)
+
+The specific drills are basketball. The methodology is universal.
+
+### Architecture
 ```
 coach.claudewill.io/
-├── index.html                    # Chat interface (copy CW pattern)
+├── coach-d-office/
+│   └── index.html                # Chat interface (CW pattern, rebranded)
 ├── netlify/
 │   └── functions/
-│       └── coach-d.js            # System prompt + Claude API
+│       └── coach-d.js            # System prompt + Claude Sonnet API
 └── netlify.toml                  # Add functions config
 ```
 
+### Technical Stack
+- **Model:** claude-3-5-sonnet-latest (upgraded from Haiku for multi-role complexity)
+- **Backend:** Supabase (sessions, logging, athlete profiles)
+- **Max tokens:** 1000 (complex role-switching needs room)
+
+### Design Documents
+- `docs/COACH-D-SYSTEM-PROMPT.md` — Full system prompt outline (~500 lines)
+- `docs/SUPABASE-SCHEMA.md` — Database schema for sessions, logging, profiles
+
 ### Reference Implementation
 See `/Users/dereksimmons/Desktop/claudewill.io/` for proven patterns:
-- `netlify/functions/cw.js` — System prompt structure (~290 lines)
+- `netlify/functions/cw.js` — System prompt structure
 - `index.html` — Chat UI implementation
 - Rate limiting, validation, logging patterns
 
