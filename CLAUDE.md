@@ -285,6 +285,29 @@ netlify dev    # Test serverless functions locally
 
 ---
 
+## Security Considerations (Before Launch)
+
+**Current state:** All documentation is public on GitHub. This is fine for development.
+
+**Before Coach D goes live**, evaluate protecting intellectual property:
+
+| Option | Approach | Trade-off |
+|--------|----------|-----------|
+| **Local only** | Add sensitive docs to `.gitignore` | No backup, harder to collaborate |
+| **Private repo** | Create `coach-internal` for system prompt, schema | Requires managing two repos |
+| **Encrypt** | Keep on GitHub but encrypted | Adds complexity |
+
+**Files to consider protecting:**
+- `docs/COACH-D-SYSTEM-PROMPT.md` — The distilled methodology
+- `docs/SUPABASE-SCHEMA.md` — Backend architecture
+- Future: API keys, business logic
+
+**Why this matters:** Coach D represents proprietary methodology developed with a business partner. The value is in execution, but the system prompt is the recipe.
+
+**Action:** Before production deployment, decide on protection strategy.
+
+---
+
 ## Changelog
 
 ### December 27, 2025
