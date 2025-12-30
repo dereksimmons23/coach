@@ -1,6 +1,6 @@
 # Coach Repository - Current Status
 
-**Last Updated:** December 27, 2025
+**Last Updated:** December 29, 2025
 **Repository:** [github.com/dereksimmons23/coach](https://github.com/dereksimmons23/coach) (public)
 **Live Site:** [coach.claudewill.io](https://coach.claudewill.io)
 
@@ -82,6 +82,35 @@
 | Added to main fieldhouse as clickable room | Done |
 | **Live at coach.claudewill.io/coach-d-office/** | Done |
 
+### Phase 6: Coach D AI Agent - DESIGNED (Ready to Build)
+
+| Task | Status |
+|------|--------|
+| Research bob/claudewill.io patterns | Done |
+| Create CLAUDE.md technical handoff | Done |
+| Design system prompt (~500 lines) | Done |
+| Design Supabase schema (6 tables) | Done |
+| Define multi-role architecture | Done |
+| Document safety protocols | Done |
+
+**Design Documents:**
+- `CLAUDE.md` — Technical handoff (bob pattern)
+- `docs/COACH-D-SYSTEM-PROMPT.md` — Full system prompt outline
+- `docs/SUPABASE-SCHEMA.md` — Database schema with SQL
+
+**Technical Decisions:**
+| Component | Choice |
+|-----------|--------|
+| Model | Claude Sonnet (multi-role complexity) |
+| Backend | Supabase (sessions, logging, profiles) |
+| Location | Coach's Office (like CW on the porch) |
+| Max tokens | 1000 |
+
+**Roles Defined:**
+- Tour Guide, Recruiter, Agent, Coach, Trainer, Multi-Sport Mentor
+
+**Next:** Implementation (Supabase setup → serverless function → chat UI)
+
 ---
 
 ## Repository Stats
@@ -89,10 +118,11 @@
 | Metric | Count |
 |--------|-------|
 | Total sections | 6 fieldhouse areas + docs |
-| Files tracked | 27 |
+| Files tracked | 30 |
 | Working HTML pages | 4 |
 | Case studies | 2 |
 | Methodology docs | 3 |
+| Design documents | 3 (CLAUDE.md, system prompt, Supabase schema) |
 | All content privacy-compliant | Yes |
 
 ---
@@ -120,21 +150,24 @@
 
 ## Next Actions
 
-### Immediate (When Ready)
-1. Build out Will Call with training packages/services
-2. Convert BLAST Travel/Varsity .docx files to markdown
-3. Copy certification PDFs to Coach D's Office
+### Immediate: Build Coach D AI
+1. Set up Supabase tables (run SQL from `docs/SUPABASE-SCHEMA.md`)
+2. Create `netlify/functions/coach-d.js` (copy CW pattern)
+3. Write full system prompt from `docs/COACH-D-SYSTEM-PROMPT.md`
+4. Build chat interface in `/coach-d-office/`
+5. Test with scenarios from system prompt doc
+6. Deploy and iterate
 
-### Near-term
-1. Add additional case studies as training progresses
-2. Build Main Court methodology pages
-3. Build Film Room case study pages
+### Alternative: Expand Knowledge Base
+1. Convert BLAST Travel/Varsity .docx files to markdown
+2. Build out Will Call with training packages/services
+3. Add more case studies as training progresses
 
 ### Future
-1. Practice Plan Generator tool
-2. Player Development Tracker
-3. Video demonstration library
-4. Additional coach profiles in Coach's Office
+1. Additional coach profiles in Coach's Office
+2. Video demonstration library
+3. Player Development Tracker (Supabase-backed)
+4. Multi-device sync for saved outputs
 
 ---
 
@@ -169,4 +202,4 @@ This repository operates on accumulation, not deadlines:
 
 ---
 
-**Status:** Repository scaffolded, workflow aligned, core content migrated, ready for organic growth.
+**Status:** Phase 6 complete (design). Coach D AI architecture documented and ready for implementation.

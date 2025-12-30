@@ -263,3 +263,107 @@ Updated:
 - https://coach.claudewill.io/coach-d-office/ — Coach D profile
 
 **Next session:** Build out Will Call with training packages, or continue expanding other fieldhouse rooms.
+
+---
+
+## Session: December 29, 2025 - Coach D AI Architecture & Documentation Overhaul
+
+**Session focus:** Prepare Coach D for implementation by studying bob and claudewill.io patterns, then creating comprehensive documentation.
+
+### Research Phase
+
+**Explored three repositories for patterns:**
+
+| Repo | Key Patterns Extracted |
+|------|------------------------|
+| **bob** | CLAUDE.md format, docs/ folder structure, PWA manifest |
+| **claudewill.io** | System prompt architecture (~290 lines), Netlify serverless function, chat UI, Supabase logging |
+| **coach** | Current state, methodology content for system prompt |
+
+### Vision Expansion
+
+**Original vision:** Coach D as AI Director of Basketball Operations
+
+**Expanded vision:** Coach D as the host of the fieldhouse - multi-role, multi-sport
+
+| Role | Function |
+|------|----------|
+| **Tour Guide** | Navigate the fieldhouse, explain what's where |
+| **Recruiter** | Attract athletes, parents, coaches to training |
+| **Agent** | Advocate for athlete positioning, opportunities |
+| **Coach** | Basketball methodology, game strategy |
+| **Trainer** | Physical and mental performance development |
+| **Multi-Sport Mentor** | Transfer principles across sports (QB, centerfield background) |
+
+**Key insight:** The methodology is universal. Neuroplasticity, extension vs escape, operating system concepts - they apply to any sport. Coach D's specific drills are basketball, but the brain training transfers.
+
+### Technical Decisions
+
+| Decision | Choice | Rationale |
+|----------|--------|-----------|
+| **Model** | Claude Sonnet (not Haiku) | Multi-role switching needs nuanced reasoning |
+| **Max tokens** | 1000 (vs CW's 500) | Complex responses need room |
+| **Backend** | Supabase | Sessions, logging, athlete profiles |
+| **Location** | Coach's Office | Like CW on the porch - you go there to talk |
+
+### Documents Created
+
+**1. CLAUDE.md** (new)
+- Technical handoff document (bob pattern)
+- Current state, architecture, methodology
+- Coach D vision and implementation path
+
+**2. docs/COACH-D-SYSTEM-PROMPT.md** (updated)
+- Expanded from ~300 to ~500 lines
+- 9 sections covering all roles
+- Multi-sport background integrated
+- Context-aware mode switching
+- Safety protocols and boundaries
+
+**3. docs/SUPABASE-SCHEMA.md** (new)
+- 6 tables: conversations, sessions, athletes, saved_outputs, feedback, analytics_events
+- SQL scripts ready to run
+- Analytics views and queries
+- Privacy-first design with consent flows
+
+### Files Changed
+
+```
+Created:
+- CLAUDE.md
+- docs/SUPABASE-SCHEMA.md
+
+Updated:
+- docs/COACH-D-SYSTEM-PROMPT.md (major expansion)
+- HANDOFF.md (this file)
+- STATUS.md
+```
+
+### Commits
+
+```
+3681cbf - Add CLAUDE.md and Coach D system prompt outline
+b93c435 - Expand Coach D vision: multi-role, multi-sport, Sonnet-powered
+```
+
+### Next Session: Ready to Build
+
+**Option A: Build Coach D (full implementation)**
+1. Set up Supabase tables (run SQL from schema doc)
+2. Create `netlify/functions/coach-d.js` (copy CW pattern)
+3. Write full system prompt (~450 lines from outline)
+4. Build chat interface in `/coach-d-office/`
+5. Test with scenarios from system prompt doc
+6. Deploy and iterate
+
+**Option B: Expand knowledge base first**
+1. Convert BLAST Travel/Varsity docs
+2. Add more case studies
+3. Build out Will Call services page
+
+**Option C: Something else**
+- The documentation is ready. Pick your path.
+
+---
+
+**Status:** Architecture designed. Documentation complete. Ready for implementation.

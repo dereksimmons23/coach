@@ -3,15 +3,31 @@
 **Repository:** [github.com/dereksimmons23/coach](https://github.com/dereksimmons23/coach)
 **Live URL:** [coach.claudewill.io](https://coach.claudewill.io)
 **Built by:** Derek Simmons (Coach D)
-**Last Updated:** December 27, 2025
+**Last Updated:** December 29, 2025
 
 ---
 
 ## What This Is
 
-A repository where Coach D's basketball work naturally accumulates. Not a business. Not a platform. Just an organized place for tools, methodology, case studies, and resources.
+A fieldhouse where Coach D's athletic development work accumulates. Methodology, tools, case studies, and resources — with an AI agent in development to make it all accessible.
 
 **Philosophy:** Build tools when you need them. Document what works. Share what helps.
+
+---
+
+## Coming Soon: Coach D AI
+
+An AI agent that serves as the host of the fieldhouse. Not just a basketball coach — a complete athletic development partner.
+
+| Role | Function |
+|------|----------|
+| Tour Guide | Navigate the fieldhouse, explain what's where |
+| Recruiter | Help athletes and parents find the right fit |
+| Coach | Basketball methodology and game strategy |
+| Trainer | Physical and mental performance development |
+| Multi-Sport Mentor | Transfer principles across sports |
+
+**Status:** Architecture designed. Ready for implementation.
 
 ---
 
@@ -20,12 +36,11 @@ A repository where Coach D's basketball work naturally accumulates. Not a busine
 | Component | Status |
 |-----------|--------|
 | Repository Structure | Complete |
-| GitHub Remote | Connected (public) |
-| Workflow Parity | Achieved (matches bob/claudewill.io) |
-| Netlify Deployment | Complete (auto-deploys from GitHub) |
+| Netlify Deployment | Live (auto-deploys from GitHub) |
 | Landing Page | Live |
 | Coach's Office | Live (Coach D profile) |
 | Content Migration | 85% complete |
+| Coach D AI Design | Complete (ready to build) |
 
 ---
 
@@ -135,10 +150,11 @@ Part of the broader claudewill.io universe:
 
 ## Quick Reference
 
+- **Technical:** `CLAUDE.md` - Technical handoff and architecture
 - **Handoff:** `HANDOFF.md` - Session context and decisions
-- **Status:** `STATUS.md` - Current migration progress
-- **Roadmap:** `ROADMAP.md` - Future development plans
-- **Audit:** `AUDIT.md` - Workflow comparison with other repos
+- **Status:** `STATUS.md` - Current progress by phase
+- **System Prompt:** `docs/COACH-D-SYSTEM-PROMPT.md` - AI agent design
+- **Database:** `docs/SUPABASE-SCHEMA.md` - Backend schema
 
 ---
 
