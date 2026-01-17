@@ -189,6 +189,31 @@
 
 **Battle-tested:** Used in real games with 9 players. Issues found and fixed.
 
+### Phase 9: WAA Lineup Builder V3 - COMPLETE
+
+| Task | Status |
+|------|--------|
+| Build 6-screen setup wizard | Done |
+| Dynamic roster management (no HTML editing) | Done |
+| Per-player position preferences | Done |
+| Top player marking (⭐ toggle) | Done |
+| Multi-team support (create, switch, manage) | Done |
+| Import/Export JSON | Done |
+| Color-coded player selection modal | Done |
+| Auto-generate templates from positions | Done |
+
+**What Changed:**
+- Any coach can set up their team in 3 minutes
+- No technical skills required
+- Teams saved to localStorage
+- Multiple teams supported
+
+**Live at:** https://coach.claudewill.io/practice-gym/lineup-builder/WAA_Lineup_Builder_V3.html
+
+**Next for V3.1:**
+- Copy/paste league rules (not just WAA)
+- Custom rule builder for other associations
+
 ---
 
 ## Repository Stats
@@ -230,7 +255,17 @@
 
 ## Next Actions
 
-### Immediate: Build Coach D AI
+### Immediate: Site Integration
+1. Link Practice Gym from homepage (add clickable room)
+2. Create `/practice-gym/index.html` with tool links
+3. Add tool cards for Lineup Builder V2, V3, Practice Schedule Parser
+
+### Lineup Builder V3.1
+1. Add copy/paste league rules feature
+2. Build custom rule builder for non-WAA associations
+3. Test with other coaches
+
+### Coach D AI (When Ready)
 1. Set up Supabase tables (run SQL from `docs/SUPABASE-SCHEMA.md`)
 2. Create `netlify/functions/coach-d.js` (copy CW pattern)
 3. Write full system prompt from `docs/COACH-D-SYSTEM-PROMPT.md`
@@ -238,10 +273,10 @@
 5. Test with scenarios from system prompt doc
 6. Deploy and iterate
 
-### Alternative: Expand Knowledge Base
-1. Convert BLAST Travel/Varsity .docx files to markdown
-2. Build out Will Call with training packages/services
-3. Add more case studies as training progresses
+### Pending Commits
+- BLAST curriculum (18 files in `main-court/blast-curriculum/`)
+- Netlify functions stub
+- Coach D knowledge base files
 
 ### Future
 1. Additional coach profiles in Coach's Office

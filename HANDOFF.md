@@ -586,3 +586,71 @@ This means 9-player templates enforce the 4+OT/5+noOT split even though it seems
 ---
 
 **Status:** WAA Lineup Builder V2 enhanced with dynamic templates, save/load, and context-aware validation. Battle-tested and ready for next game.
+
+---
+
+## Session: January 17, 2026 (Part 2) - WAA Lineup Builder V3 Built
+
+**Session focus:** Execute V3 Vision document - build setup wizard and dynamic roster management.
+
+### What We Built
+
+**WAA Lineup Builder V3** - Complete rewrite with user-friendly onboarding.
+
+| Feature | Description |
+|---------|-------------|
+| **Setup Wizard** | 6-screen flow: Welcome → Team Info → Add Players → Positions → Templates → Ready |
+| **Dynamic Roster** | No HTML editing - all from UI |
+| **Position Preferences** | Per-player, with primary position indicator |
+| **Top Player Marking** | ⭐ toggle for special tracking |
+| **Multi-Team Support** | Create, switch, manage multiple teams |
+| **Import/Export** | JSON backup and restore |
+| **Player Selection Modal** | Color-coded: green (primary), yellow (can play), gray (other) |
+| **Auto Templates** | Generates 8/9/10 player templates from position preferences |
+
+### Files Created
+
+```
+Created:
+- practice-gym/lineup-builder/WAA_Lineup_Builder_V3.html (~2000 lines)
+
+Live at: https://coach.claudewill.io/practice-gym/lineup-builder/WAA_Lineup_Builder_V3.html
+```
+
+### Key Improvement
+
+**V2:** Coach needs to edit HTML to change roster
+**V3:** Any coach can set up their team in 3 minutes with no technical skills
+
+### Commits
+
+```
+3c8bb80 - WAA Lineup Builder V2: Dynamic templates, save/load, context-aware validation
+d57b663 - WAA Lineup Builder V3: Setup wizard, dynamic roster, multi-team support
+```
+
+---
+
+## Next Session: V3 Enhancements + Site Integration
+
+### V3 Feedback (from testing)
+
+**Add for next version:**
+1. **Copy/paste league rules** - Let coaches paste their association's playing time rules instead of hardcoding WAA rules
+2. **Custom rule builder** - Define periods, OT rules, playing time requirements per player count
+
+### Site Integration Tasks
+
+1. **Link Practice Gym from homepage** - Add clickable room to fieldhouse landing page
+2. **Practice Gym index page** - Create `/practice-gym/index.html` with tool links
+3. **Tool cards** - Lineup Builder V2, V3, Practice Schedule Parser
+
+### Other Pending Work
+
+- Coach D AI agent (voice integration designed, ready to build)
+- BLAST curriculum not yet committed (18 files in `main-court/blast-curriculum/`)
+- Netlify functions stub exists but not deployed
+
+---
+
+**Status:** V3 live and ready for testing. Next session: league rules customization + site navigation.
