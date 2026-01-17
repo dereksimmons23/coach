@@ -1,0 +1,1987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>WAA Lineup Builder V2 - Simmons 9th/10th</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 10px;
+            overflow-x: hidden;
+        }
+        
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .builder-panel {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .subtitle {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 20px;
+        }
+        
+        /* Collapsible Sections */
+        .collapsible-section {
+            margin-bottom: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .section-header {
+            background: #f8f9fa;
+            padding: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            transition: background 0.3s;
+            min-height: 60px;
+        }
+        
+        .section-header:hover {
+            background: #e9ecef;
+        }
+        
+        .section-header:active {
+            background: #dee2e6;
+        }
+        
+        .section-title {
+            font-weight: 600;
+            font-size: 15px;
+            color: #1e3c72;
+        }
+        
+        .section-status {
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        .section-status.complete {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .section-status.incomplete {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .section-status.warning {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .section-content {
+            padding: 15px;
+            display: none;
+        }
+        
+        .section-content.expanded {
+            display: block;
+        }
+        
+        .toggle-icon {
+            transition: transform 0.3s;
+            font-size: 18px;
+        }
+        
+        .toggle-icon.expanded {
+            transform: rotate(90deg);
+        }
+        
+        /* Input Styles */
+        .input-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 13px;
+            color: #666;
+            display: block;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        /* Roster Grid */
+        .roster-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+        }
+        
+        .player-chip {
+            padding: 12px;
+            border: 2px solid #28a745;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: white;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .player-chip.available {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+        
+        .player-chip.unavailable {
+            background: #f8d7da;
+            border-color: #dc3545;
+            opacity: 0.6;
+        }
+        
+        .player-chip:active {
+            transform: scale(0.95);
+        }
+        
+        .player-number {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 14px;
+        }
+        
+        /* Position Grid - DRAG AND DROP */
+        .position-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+        
+        .position-slot {
+            background: white;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            min-height: 120px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .position-slot:active {
+            transform: scale(0.98);
+        }
+        
+        .position-slot.drag-over {
+            border-color: #667eea;
+            background: #f0f4ff;
+            transform: scale(1.02);
+        }
+        
+        .position-slot.filled {
+            border: 2px solid #28a745;
+            background: #d4edda;
+            cursor: grab;
+        }
+        
+        .position-slot.filled:active {
+            cursor: grabbing;
+        }
+        
+        .position-slot.warning {
+            border: 2px solid #ffc107;
+            background: #fff3cd;
+        }
+        
+        .position-slot.error {
+            border: 2px solid #dc3545;
+            background: #f8d7da;
+        }
+        
+        .position-slot.top4-warning {
+            border: 3px solid #ff9800;
+            background: #ffe0b2;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        
+        .position-label {
+            font-weight: bold;
+            color: #666;
+            font-size: 11px;
+            margin-bottom: 8px;
+        }
+        
+        .player-name {
+            font-weight: bold;
+            font-size: 15px;
+            margin-bottom: 3px;
+        }
+        
+        .consecutive-badge {
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            margin-top: 5px;
+            font-weight: bold;
+        }
+        
+        .consecutive-badge.warning {
+            background: #ffc107;
+            color: #000;
+        }
+        
+        .consecutive-badge.error {
+            background: #dc3545;
+            color: white;
+        }
+
+        .consecutive-badge.info {
+            background: #17a2b8;
+            color: white;
+        }
+
+        .position-slot.info {
+            border: 2px solid #17a2b8;
+            background: #d1ecf1;
+        }
+
+        /* Saved Games */
+        .saved-game-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+        }
+
+        .saved-game-info {
+            flex: 1;
+        }
+
+        .saved-game-title {
+            font-weight: bold;
+            font-size: 14px;
+            color: #1e3c72;
+        }
+
+        .saved-game-meta {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .saved-game-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .saved-game-actions button {
+            padding: 8px 12px;
+            font-size: 12px;
+            min-width: auto;
+            flex: 0;
+        }
+
+        .no-saved-games {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-style: italic;
+        }
+
+        .remove-btn {
+            margin-top: 8px;
+            padding: 6px 12px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        .remove-btn:active {
+            background: #c82333;
+            transform: scale(0.95);
+        }
+        
+        /* Action Buttons */
+        .action-bar {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        
+        button {
+            padding: 12px 18px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            flex: 1 1 auto;
+            min-width: 140px;
+        }
+        
+        button:active {
+            background: #5568d3;
+            transform: scale(0.95);
+        }
+        
+        button.success {
+            background: #28a745;
+        }
+        
+        button.success:active {
+            background: #218838;
+        }
+        
+        button.warning {
+            background: #ffc107;
+            color: #000;
+        }
+        
+        button.warning:active {
+            background: #e0a800;
+        }
+        
+        button.secondary {
+            background: #6c757d;
+        }
+        
+        button.secondary:active {
+            background: #5a6268;
+        }
+        
+        button.danger {
+            background: #dc3545;
+        }
+        
+        button.danger:active {
+            background: #c82333;
+        }
+        
+        /* Player Selector Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #1e3c72;
+        }
+        
+        .player-option {
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .player-option:active {
+            transform: scale(0.98);
+        }
+        
+        .player-option.preferred {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+        
+        .player-option.can-play {
+            border-color: #ffc107;
+        }
+        
+        .player-option.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        
+        .player-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .position-match {
+            font-size: 11px;
+            color: #666;
+        }
+        
+        .position-match.preferred {
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .close-modal {
+            margin-top: 15px;
+            padding: 12px;
+            background: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+        }
+        
+        /* Validation Panel */
+        .validation-list {
+            font-size: 13px;
+        }
+        
+        .validation-item {
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 6px;
+        }
+        
+        .validation-item.valid {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .validation-item.invalid {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        /* Preview Table */
+        .preview-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            margin-top: 15px;
+        }
+        
+        .preview-table th,
+        .preview-table td {
+            border: 1px solid #000;
+            padding: 8px 4px;
+            text-align: center;
+        }
+        
+        .preview-table th {
+            background: #f0f0f0;
+            font-weight: bold;
+        }
+        
+        .preview-table td.has-x {
+            font-weight: bold;
+        }
+        
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 18px;
+            }
+            
+            .position-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-bar {
+                flex-direction: column;
+            }
+            
+            button {
+                width: 100%;
+                min-width: unset;
+            }
+            
+            .roster-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
+        }
+        
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .main-container,
+            .builder-panel,
+            button,
+            .action-bar {
+                display: none !important;
+            }
+            
+            #printableForm {
+                display: block !important;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="builder-panel">
+            <div class="header">
+                <h1>🏀 WAA LINEUP BUILDER V2</h1>
+                <div class="subtitle">Simmons 9th/10th - Enhanced with Drag & Drop</div>
+            </div>
+            
+            <div class="content">
+                <!-- Game Info -->
+                <div class="collapsible-section">
+                    <div class="section-header" onclick="toggleSection('gameInfo')">
+                        <span class="section-title">📅 Game Information</span>
+                        <span class="toggle-icon" id="gameInfo-icon">▶</span>
+                    </div>
+                    <div class="section-content" id="gameInfo-content">
+                        <div class="input-group">
+                            <label>Opponent</label>
+                            <input type="text" id="opponent" placeholder="Team name" onchange="saveGameInfo()">
+                        </div>
+                        <div class="input-group">
+                            <label>Date</label>
+                            <input type="date" id="gameDate" onchange="saveGameInfo()">
+                        </div>
+                        <div class="input-group">
+                            <label>Time</label>
+                            <input type="time" id="gameTime" onchange="saveGameInfo()">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Roster Management -->
+                <div class="collapsible-section">
+                    <div class="section-header" onclick="toggleSection('roster')">
+                        <span class="section-title">👥 Roster Management</span>
+                        <span class="section-status" id="roster-status">0 Available</span>
+                        <span class="toggle-icon" id="roster-icon">▶</span>
+                    </div>
+                    <div class="section-content" id="roster-content">
+                        <div class="roster-grid" id="rosterGrid"></div>
+                    </div>
+                </div>
+                
+                <!-- Templates -->
+                <div class="collapsible-section">
+                    <div class="section-header" onclick="toggleSection('templates')">
+                        <span class="section-title">🎯 Quick Templates</span>
+                        <span class="toggle-icon" id="templates-icon">▶</span>
+                    </div>
+                    <div class="section-content" id="templates-content">
+                        <div class="action-bar">
+                            <button onclick="loadTemplate('10player')" class="success">📋 10 Player Default</button>
+                            <button onclick="loadTemplate('9player')" class="success">📋 9 Player Template</button>
+                            <button onclick="loadTemplate('8player')" class="success">📋 8 Player Template</button>
+                        </div>
+                        <div style="font-size: 12px; color: #666; margin-top: 10px; padding: 10px; background: #f8f9fa; border-radius: 6px;">
+                            <strong>Tip:</strong> Mark unavailable players first, then load the matching template. Templates follow WAA playing time rules and use position preferences.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="action-bar">
+                    <button onclick="validateLineups()" class="warning">✓ Check WAA Rules</button>
+                    <button onclick="saveGame()" class="success">💾 Save Game</button>
+                    <button onclick="window.print()">🖨️ Print Lineup</button>
+                    <button onclick="printBlankSheet()" class="secondary">📄 Print Blank</button>
+                    <button onclick="clearAllLineups()" class="danger">🗑️ Clear All</button>
+                </div>
+
+                <!-- Saved Games -->
+                <div class="collapsible-section">
+                    <div class="section-header" onclick="toggleSection('savedGames')">
+                        <span class="section-title">📁 Saved Games</span>
+                        <span class="section-status" id="savedGames-status">0 Saved</span>
+                        <span class="toggle-icon" id="savedGames-icon">▶</span>
+                    </div>
+                    <div class="section-content" id="savedGames-content">
+                        <div id="savedGamesList"></div>
+                    </div>
+                </div>
+                
+                <!-- Validation Results -->
+                <div class="collapsible-section">
+                    <div class="section-header" onclick="toggleSection('validation')">
+                        <span class="section-title">⚠️ WAA Rules Validation</span>
+                        <span class="section-status incomplete" id="validation-status">Not Checked</span>
+                        <span class="toggle-icon" id="validation-icon">▶</span>
+                    </div>
+                    <div class="section-content" id="validation-content">
+                        <div class="validation-list" id="validationList"></div>
+                    </div>
+                </div>
+                
+                <!-- Live Preview -->
+                <div class="collapsible-section">
+                    <div class="section-header" onclick="toggleSection('preview')">
+                        <span class="section-title">📋 Live Preview</span>
+                        <span class="toggle-icon" id="preview-icon">▶</span>
+                    </div>
+                    <div class="section-content" id="preview-content">
+                        <div id="previewTable"></div>
+                    </div>
+                </div>
+                
+                <!-- Period Builder -->
+                <div id="periodBuilder"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Player Selector Modal -->
+    <div class="modal" id="playerModal">
+        <div class="modal-content">
+            <div class="modal-title" id="modalTitle">Select Player</div>
+            <div id="playerOptions"></div>
+            <button class="close-modal" onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
+    
+    <!-- PRINT-ONLY FORM -->
+    <div id="printableForm" style="display: none;">
+        <div style="text-align: center; margin-bottom: 20px;">
+            <h1 style="font-size: 20px; font-weight: bold; margin: 0;">WAA BASKETBALL IN-HOUSE PLAYING TIME PLAN</h1>
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+            <div style="margin-bottom: 10px;">
+                <strong>TEAM NAME:</strong> <span id="printTeamName" style="border-bottom: 1px solid black; display: inline-block; min-width: 300px; padding: 2px;"></span>
+                <strong style="margin-left: 40px;">COACH:</strong> <span style="border-bottom: 1px solid black; display: inline-block; min-width: 200px; padding: 2px;">Derek Simmons</span>
+            </div>
+            <div style="margin-bottom: 10px;">
+                <strong>DATE:</strong> <span id="printDate" style="border-bottom: 1px solid black; display: inline-block; width: 150px; padding: 2px;"></span>
+                <strong style="margin-left: 20px;">TIME:</strong> <span id="printTime" style="border-bottom: 1px solid black; display: inline-block; width: 100px; padding: 2px;"></span>
+                <strong style="margin-left: 20px;">GRADE:</strong> <span style="border-bottom: 1px solid black; display: inline-block; width: 100px; padding: 2px;">9th/10th</span>
+            </div>
+        </div>
+        
+        <div style="font-size: 11px; margin-bottom: 10px; padding: 8px; background: #f0f0f0;">
+            Leave this sheet at the scorer's table prior to the game
+        </div>
+        
+        <table id="printTable" style="width: 100%; border-collapse: collapse; font-size: 11px; margin-bottom: 15px;">
+            <thead>
+                <tr>
+                    <th style="border: 1px solid black; padding: 6px;">Player Name</th>
+                    <th style="border: 1px solid black; padding: 6px;">Number</th>
+                    <th style="border: 1px solid black; padding: 6px;">P1</th>
+                    <th style="border: 1px solid black; padding: 6px;">P2</th>
+                    <th style="border: 1px solid black; padding: 6px;">P3</th>
+                    <th style="border: 1px solid black; padding: 6px;">P4</th>
+                    <th style="border: 1px solid black; padding: 6px;">P5</th>
+                    <th style="border: 1px solid black; padding: 6px;">P6</th>
+                    <th style="border: 1px solid black; padding: 6px;">P7</th>
+                    <th style="border: 1px solid black; padding: 6px;">P8</th>
+                    <th style="border: 1px solid black; padding: 6px;">1st OT</th>
+                    <th style="border: 1px solid black; padding: 6px;">Final OT</th>
+                </tr>
+            </thead>
+            <tbody id="printTableBody"></tbody>
+        </table>
+        
+        <div style="font-size: 10px; line-height: 1.6;">
+            <strong>PLAYING TIME RULES:</strong><br>
+            <strong>5 players:</strong> Five play 8 periods each and each OT.<br>
+            <strong>6 players:</strong> Four play 7 periods (two of these play one OT and two play both OTs) and two play 6 periods and both OTs.<br>
+            <strong>7 players:</strong> Five play 6 periods (four of these play 1 OT and one plays both OTs) and two play 5 periods and both OTs.<br>
+            <strong>8 players:</strong> Eight play 5 periods each (six play one OT while two play 2 OTs).<br>
+            <strong>9 players:</strong> Five play 4 periods and both OTs and four play 5 periods and no OTs.<br>
+            <strong>10 players:</strong> Ten play 4 periods each and one OT each.<br>
+            <strong>11 players:</strong> Seven play 4 periods (two of these play in 1 OT) and four play 3 periods and both OTs.<br>
+            <strong>12 players:</strong> Eight play 3 periods (six of these play in one OT and two play in both OTs) and four play 4 periods and no OTs.
+        </div>
+    </div>
+
+    <script>
+        // ROSTER DATA
+        const ROSTER = [
+            {name: 'Tommy', number: 2, positions: [3,2], available: true, cannotPlay: [1,4,5]},
+            {name: 'Dylan', number: 10, positions: [1,2,4,3,5], available: true, isTop4: true},
+            {name: 'Teegan', number: 13, positions: [5,3,2,4], available: true, cannotPlay: [1]},
+            {name: 'Kabir', number: 22, positions: [1,2,3,4], available: true, isTop4: true},
+            {name: 'Caleb', number: 23, positions: [1,2,3,4,5], available: true, isTop4: true},
+            {name: 'Ben', number: 30, positions: [2,3,4], available: true},
+            {name: 'Charlie', number: 35, positions: [1,2,3,4], available: true},
+            {name: 'Michael', number: 44, positions: [2,3,4,5], available: true},
+            {name: 'John', number: 52, positions: [5,4,3,2], available: true, isTop4: true},
+            {name: 'Dominic', number: 55, positions: [4,5,3,2], available: true}
+        ];
+        
+        const PERIODS = [1, 2, 3, 4, 5, 6, 7, 8, 'OT1', 'OT2'];
+        const POSITIONS = ['1-PG', '2-SG', '3-SF', '4-PF', '5-C'];
+        
+        let lineups = {};
+        let currentPeriod = null;
+        let currentPosition = null;
+        let draggedPlayer = null;
+        let draggedFromPeriod = null;
+        let draggedFromPosition = null;
+        
+        // WAA PLAYING TIME RULES
+        const WAA_RULES = {
+            5: {periods: 8, ot: 'all'},
+            6: {periods: [7,7,7,7,6,6], ot: [2,2,1,1,2,2]},
+            7: {periods: [6,6,6,6,6,5,5], ot: [1,1,1,1,2,2,2]},
+            8: {periods: 5, ot: [1,1,1,1,1,1,2,2]},
+            9: {periods: [4,4,4,4,4,5,5,5,5], ot: [2,2,2,2,2,0,0,0,0]},
+            10: {periods: 4, ot: 1},
+            11: {periods: [4,4,4,4,4,4,4,3,3,3,3], ot: [0,0,1,0,0,0,0,2,2,2,2]},
+            12: {periods: [3,3,3,3,3,3,3,3,4,4,4,4], ot: [1,1,1,1,1,1,2,2,0,0,0,0]}
+        };
+        
+        // Initialize
+        function init() {
+            loadFromStorage();
+            loadSavedGames();
+            renderRoster();
+            renderPeriodBuilder();
+            updatePreview();
+            updateRosterStatus();
+        }
+        
+        // Toggle Section
+        function toggleSection(sectionId) {
+            const content = document.getElementById(`${sectionId}-content`);
+            const icon = document.getElementById(`${sectionId}-icon`);
+            
+            content.classList.toggle('expanded');
+            icon.classList.toggle('expanded');
+        }
+        
+        // Render Roster
+        function renderRoster() {
+            const grid = document.getElementById('rosterGrid');
+            grid.innerHTML = '';
+            
+            ROSTER.forEach(player => {
+                const chip = document.createElement('div');
+                chip.className = `player-chip ${player.available ? 'available' : 'unavailable'}`;
+                chip.onclick = () => togglePlayerAvailability(player.number);
+                
+                const posDisplay = player.positions.slice(0, 3).join(',');
+                
+                chip.innerHTML = `
+                    <div>${player.name}</div>
+                    <div class="player-number">#${player.number}</div>
+                    <div style="font-size: 10px; color: #666;">${posDisplay}</div>
+                `;
+                grid.appendChild(chip);
+            });
+        }
+        
+        // Toggle Player Availability
+        function togglePlayerAvailability(number) {
+            const player = ROSTER.find(p => p.number === number);
+            player.available = !player.available;
+            renderRoster();
+            updateRosterStatus();
+            saveToStorage();
+        }
+        
+        // Update Roster Status
+        function updateRosterStatus() {
+            const availableCount = ROSTER.filter(p => p.available).length;
+            document.getElementById('roster-status').textContent = `${availableCount} Available`;
+        }
+        
+        // Render Period Builder
+        function renderPeriodBuilder() {
+            const builder = document.getElementById('periodBuilder');
+            builder.innerHTML = '';
+            
+            PERIODS.forEach(period => {
+                const section = document.createElement('div');
+                section.className = 'collapsible-section';
+                
+                const assignments = lineups[period] || {};
+                const filledCount = Object.keys(assignments).length;
+                const status = filledCount === 5 ? 'complete' : 'incomplete';
+                const statusText = `${filledCount}/5 ${filledCount === 5 ? '✓' : ''}`;
+                
+                section.innerHTML = `
+                    <div class="section-header" onclick="toggleSection('period${period}')">
+                        <span class="section-title">${period.toString().includes('OT') ? period : 'Period ' + period}</span>
+                        <span class="section-status ${status}">${statusText}</span>
+                        <span class="toggle-icon" id="period${period}-icon">▶</span>
+                    </div>
+                    <div class="section-content" id="period${period}-content">
+                        <div class="position-grid" id="period${period}-grid"></div>
+                    </div>
+                `;
+                
+                builder.appendChild(section);
+                setTimeout(() => renderPositions(period), 0);
+            });
+        }
+        
+        // Render Positions for Period
+        function renderPositions(period) {
+            const grid = document.getElementById(`period${period}-grid`);
+            if (!grid) return;
+            
+            grid.innerHTML = '';
+            const assignments = lineups[period] || {};
+            
+            POSITIONS.forEach((pos, idx) => {
+                const position = idx + 1;
+                const assigned = assignments[position];
+                
+                const slot = document.createElement('div');
+                slot.className = 'position-slot';
+                slot.dataset.period = period;
+                slot.dataset.position = position;
+                
+                // Drag and drop handlers
+                slot.ondragover = handleDragOver;
+                slot.ondrop = handleDrop;
+                slot.ondragleave = handleDragLeave;
+                
+                if (assigned) {
+                    const player = ROSTER.find(p => p.number === assigned);
+                    const consecutiveCount = checkConsecutivePeriods(player.number, period);
+                    const isTop4 = player.isTop4;
+                    const availableCount = ROSTER.filter(p => p.available).length;
+
+                    let slotClass = 'position-slot filled';
+                    let badge = '';
+
+                    // Context-aware consecutive period warnings
+                    // With 9 or fewer players, 3 consecutive may be required by WAA rules
+                    const threeConsecIsExpected = availableCount <= 9;
+
+                    if (consecutiveCount >= 4) {
+                        // 4+ consecutive is always concerning
+                        if (isTop4) {
+                            slotClass = 'position-slot top4-warning';
+                            badge = `<div class="consecutive-badge error">⚠️ TOP 4: ${consecutiveCount} IN ROW</div>`;
+                        } else {
+                            slotClass = 'position-slot error';
+                            badge = `<div class="consecutive-badge error">${consecutiveCount} in row</div>`;
+                        }
+                    } else if (consecutiveCount === 3) {
+                        if (threeConsecIsExpected) {
+                            // With 9 players, 3 consecutive is expected - just info
+                            slotClass = 'position-slot info';
+                            badge = `<div class="consecutive-badge info">${consecutiveCount} in row</div>`;
+                        } else if (isTop4) {
+                            // With 10 players, Top 4 shouldn't play 3 consecutive
+                            slotClass = 'position-slot top4-warning';
+                            badge = `<div class="consecutive-badge error">⚠️ TOP 4: ${consecutiveCount} IN ROW</div>`;
+                        } else {
+                            // With 10 players, 3 consecutive is a warning
+                            slotClass = 'position-slot warning';
+                            badge = `<div class="consecutive-badge warning">${consecutiveCount} in row</div>`;
+                        }
+                    } else if (consecutiveCount === 2) {
+                        slotClass = 'position-slot warning';
+                        badge = `<div class="consecutive-badge warning">${consecutiveCount} in row</div>`;
+                    }
+                    
+                    slot.className = slotClass;
+                    slot.draggable = true;
+                    slot.ondragstart = (e) => handleDragStart(e, period, position, player.number);
+                    slot.ondragend = handleDragEnd;
+                    
+                    slot.innerHTML = `
+                        <div class="position-label">${pos}</div>
+                        <div class="player-name">${player.name}</div>
+                        <div class="player-number">#${player.number}</div>
+                        ${badge}
+                        <button class="remove-btn" onclick="removePlayer('${period}', ${position}); event.stopPropagation();">Remove</button>
+                    `;
+                } else {
+                    slot.className = 'position-slot';
+                    slot.innerHTML = `
+                        <div class="position-label">${pos}</div>
+                        <div style="color: #999; font-size: 12px;">Tap to assign</div>
+                    `;
+                    slot.onclick = () => openPlayerSelector(period, position);
+                }
+                
+                grid.appendChild(slot);
+            });
+        }
+        
+        // DRAG AND DROP HANDLERS
+        function handleDragStart(e, period, position, playerNumber) {
+            draggedPlayer = playerNumber;
+            draggedFromPeriod = period;
+            draggedFromPosition = position;
+            e.target.style.opacity = '0.5';
+        }
+        
+        function handleDragEnd(e) {
+            e.target.style.opacity = '1';
+        }
+        
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.currentTarget.classList.add('drag-over');
+        }
+        
+        function handleDragLeave(e) {
+            e.currentTarget.classList.remove('drag-over');
+        }
+        
+        function handleDrop(e) {
+            e.preventDefault();
+            e.currentTarget.classList.remove('drag-over');
+            
+            const toPeriod = e.currentTarget.dataset.period;
+            const toPosition = parseInt(e.currentTarget.dataset.position);
+            const fromPeriod = draggedFromPeriod;
+            const fromPosition = parseInt(draggedFromPosition);
+            
+            // Get current player at target position (if any)
+            const currentAtTarget = lineups[toPeriod] ? lineups[toPeriod][toPosition] : null;
+            
+            // Initialize periods if needed
+            if (!lineups[toPeriod]) lineups[toPeriod] = {};
+            if (!lineups[fromPeriod]) lineups[fromPeriod] = {};
+            
+            // Perform swap
+            lineups[toPeriod][toPosition] = draggedPlayer;
+            
+            if (currentAtTarget) {
+                // Swap: put target player in source position
+                lineups[fromPeriod][fromPosition] = currentAtTarget;
+            } else {
+                // Just move: remove from source position
+                delete lineups[fromPeriod][fromPosition];
+            }
+            
+            saveToStorage();
+            
+            // Re-render both periods if different
+            if (String(toPeriod) !== String(fromPeriod)) {
+                renderPositions(toPeriod);
+                renderPositions(fromPeriod);
+            } else {
+                renderPositions(toPeriod);
+            }
+            
+            updatePreview();
+        }
+        
+        // Check Consecutive Periods
+        function checkConsecutivePeriods(playerNumber, currentPeriod) {
+            const regularPeriods = [1, 2, 3, 4, 5, 6, 7, 8];
+            const periodIndex = regularPeriods.indexOf(parseInt(currentPeriod));
+            
+            if (periodIndex === -1) return 0; // OT doesn't count
+            
+            let consecutive = 1;
+            let consecutiveBefore = 0;
+            let consecutiveAfter = 0;
+            
+            // Check backwards
+            for (let i = periodIndex - 1; i >= 0; i--) {
+                const period = regularPeriods[i];
+                const periodLineup = lineups[period] || {};
+                const isPlaying = Object.values(periodLineup).includes(playerNumber);
+                
+                if (isPlaying) {
+                    consecutiveBefore++;
+                } else {
+                    break;
+                }
+            }
+            
+            // Check forwards
+            for (let i = periodIndex + 1; i < regularPeriods.length; i++) {
+                const period = regularPeriods[i];
+                const periodLineup = lineups[period] || {};
+                const isPlaying = Object.values(periodLineup).includes(playerNumber);
+                
+                if (isPlaying) {
+                    consecutiveAfter++;
+                } else {
+                    break;
+                }
+            }
+            
+            consecutive = 1 + consecutiveBefore + consecutiveAfter;
+            return consecutive;
+        }
+        
+        // Open Player Selector
+        function openPlayerSelector(period, position) {
+            currentPeriod = period;
+            currentPosition = position;
+            
+            const modal = document.getElementById('playerModal');
+            const title = document.getElementById('modalTitle');
+            const options = document.getElementById('playerOptions');
+            
+            title.textContent = `Select Player - ${period.toString().includes('OT') ? period : 'Period ' + period} - ${POSITIONS[position-1]}`;
+            options.innerHTML = '';
+            
+            const availablePlayers = ROSTER.filter(p => p.available);
+            const currentLineup = lineups[period] || {};
+            const alreadyAssigned = Object.values(currentLineup);
+            
+            availablePlayers.forEach(player => {
+                // Check if already assigned in this period
+                if (alreadyAssigned.includes(player.number)) {
+                    return; // Skip - can't assign same player twice
+                }
+                
+                const usage = getPlayerUsage(player.number);
+                const maxed = period.toString().includes('OT') ? false : usage >= 5;
+                const disabled = maxed;
+                
+                const isPreferred = player.positions[0] === position;
+                const canPlay = player.positions.includes(position);
+                
+                let optionClass = 'player-option';
+                if (disabled) {
+                    optionClass += ' disabled';
+                } else if (isPreferred) {
+                    optionClass += ' preferred';
+                } else if (canPlay) {
+                    optionClass += ' can-play';
+                }
+                
+                const option = document.createElement('div');
+                option.className = optionClass;
+                
+                let matchText = '';
+                if (isPreferred) {
+                    matchText = '⭐ Primary Position';
+                } else if (canPlay) {
+                    matchText = '✓ Can Play';
+                } else {
+                    matchText = 'Not typical';
+                }
+                
+                let warningText = '';
+                if (maxed) {
+                    warningText = ' (Max 5 periods)';
+                }
+                
+                option.innerHTML = `
+                    <div class="player-info">
+                        <div>
+                            <strong>${player.name} #${player.number}</strong>
+                            <div class="position-match ${isPreferred ? 'preferred' : ''}">${matchText}</div>
+                        </div>
+                        <div style="text-align: right; font-size: 11px;">
+                            <div>${usage}/5 periods${warningText}</div>
+                        </div>
+                    </div>
+                `;
+                
+                if (!disabled) {
+                    option.onclick = () => assignPlayer(player.number);
+                }
+                
+                options.appendChild(option);
+            });
+            
+            modal.classList.add('active');
+        }
+        
+        // Close Modal
+        function closeModal() {
+            document.getElementById('playerModal').classList.remove('active');
+        }
+        
+        // Assign Player
+        function assignPlayer(playerNumber) {
+            if (!lineups[currentPeriod]) {
+                lineups[currentPeriod] = {};
+            }
+            
+            lineups[currentPeriod][currentPosition] = playerNumber;
+            
+            saveToStorage();
+            renderPositions(currentPeriod);
+            updatePreview();
+            closeModal();
+        }
+        
+        // Remove Player
+        function removePlayer(period, position) {
+            if (lineups[period]) {
+                delete lineups[period][position];
+                saveToStorage();
+                renderPositions(period);
+                updatePreview();
+            }
+        }
+        
+        // Get Player Usage
+        function getPlayerUsage(playerNumber) {
+            let count = 0;
+            [1, 2, 3, 4, 5, 6, 7, 8].forEach(period => {
+                if (lineups[period]) {
+                    if (Object.values(lineups[period]).includes(playerNumber)) {
+                        count++;
+                    }
+                }
+            });
+            return count;
+        }
+        
+        // Load Template
+        function loadTemplate(templateName) {
+            if (!confirm('This will replace your current lineup. Continue?')) {
+                return;
+            }
+            
+            lineups = {};
+            
+            if (templateName === '10player') {
+                // 10 players: All play 4 periods each, 1 OT each
+                // Unit A (odd periods 1,3,5,7) + OT1
+                // Unit B (even periods 2,4,6,8) + OT2
+                // DYNAMIC: Uses whoever is available
+
+                const available = ROSTER.filter(p => p.available);
+                if (available.length !== 10) {
+                    alert(`10-player template requires exactly 10 available players. You have ${available.length}.`);
+                    return;
+                }
+
+                // Split Top 4 evenly between units (2 each)
+                const top4 = available.filter(p => p.isTop4);
+                const nonTop4 = available.filter(p => !p.isTop4);
+
+                // Unit A: 2 Top 4 + 3 non-Top4
+                // Unit B: 2 Top 4 + 3 non-Top4
+                const unitATop4 = top4.slice(0, 2);
+                const unitBTop4 = top4.slice(2, 4);
+
+                // Sort non-Top4 by versatility
+                const sortedNonTop4 = [...nonTop4].sort((a, b) => b.positions.length - a.positions.length);
+                const unitANonTop4 = sortedNonTop4.slice(0, 3);
+                const unitBNonTop4 = sortedNonTop4.slice(3, 6);
+
+                const unitA = [...unitATop4, ...unitANonTop4];
+                const unitB = [...unitBTop4, ...unitBNonTop4];
+
+                // Helper: assign players to positions
+                function assignToPositions(players, periodLineup) {
+                    const assigned = [];
+
+                    // First pass: primary positions
+                    players.forEach(p => {
+                        const primaryPos = p.positions[0];
+                        if (!periodLineup[primaryPos] && !assigned.includes(p.number)) {
+                            periodLineup[primaryPos] = p.number;
+                            assigned.push(p.number);
+                        }
+                    });
+
+                    // Second pass: any position they can play
+                    players.forEach(p => {
+                        if (assigned.includes(p.number)) return;
+                        for (const pos of p.positions) {
+                            if (!periodLineup[pos]) {
+                                periodLineup[pos] = p.number;
+                                assigned.push(p.number);
+                                break;
+                            }
+                        }
+                    });
+
+                    // Third pass: any available position
+                    players.forEach(p => {
+                        if (assigned.includes(p.number)) return;
+                        for (let pos = 1; pos <= 5; pos++) {
+                            if (!periodLineup[pos]) {
+                                periodLineup[pos] = p.number;
+                                assigned.push(p.number);
+                                break;
+                            }
+                        }
+                    });
+                }
+
+                // Unit A plays odd periods (1,3,5,7)
+                [1, 3, 5, 7].forEach(period => {
+                    lineups[period] = {};
+                    assignToPositions(unitA, lineups[period]);
+                });
+
+                // Unit B plays even periods (2,4,6,8)
+                [2, 4, 6, 8].forEach(period => {
+                    lineups[period] = {};
+                    assignToPositions(unitB, lineups[period]);
+                });
+
+                // OT: Unit A plays OT1, Unit B plays OT2 (each player gets 1 OT)
+                lineups['OT1'] = {};
+                lineups['OT2'] = {};
+                assignToPositions(unitA, lineups['OT1']);
+                assignToPositions(unitB, lineups['OT2']);
+
+            } else if (templateName === '9player') {
+                // 9 players: 5 play 4 periods + both OTs, 4 play 5 periods + no OT
+                // DYNAMIC: Uses whoever is available, not hardcoded players
+
+                const available = ROSTER.filter(p => p.available);
+                if (available.length !== 9) {
+                    alert(`9-player template requires exactly 9 available players. You have ${available.length}.`);
+                    return;
+                }
+
+                // WAA 9-player structure:
+                // - "4+OT" group (5 players): 4 regular periods + both OTs
+                //   - 1 "odd anchor" plays all odd periods (1,3,5,7)
+                //   - 4 "even core" play all even periods (2,4,6,8)
+                // - "5+noOT" group (4 players): 5 regular periods + no OT
+                //   - Play all odd periods (1,3,5,7) = 4 periods
+                //   - Each rotates into 1 even period = +1 period = 5 total
+
+                const top4Available = available.filter(p => p.isTop4);
+                const nonTop4 = available.filter(p => !p.isTop4);
+
+                // Build "4+OT" group: prioritize Top 4, then most versatile
+                // We need 5 players, but want to spread Top 4 load
+                let fourPlusOT = [];
+                let fivePlusNoOT = [];
+
+                // Strategy: Put 3 Top 4 in 4+OT group, 1 Top 4 in 5+noOT group
+                // This prevents all Top 4 from sitting out even periods together
+                if (top4Available.length >= 4) {
+                    // All 4 Top 4 available - put 3 in 4+OT, 1 in 5+noOT
+                    fourPlusOT = top4Available.slice(0, 3);
+                    fivePlusNoOT = [top4Available[3]];
+                } else {
+                    // Fewer Top 4 available - put all in 4+OT
+                    fourPlusOT = [...top4Available];
+                }
+
+                // Fill 4+OT to 5 players with most versatile non-Top4
+                const sortedNonTop4 = nonTop4.sort((a, b) => b.positions.length - a.positions.length);
+                while (fourPlusOT.length < 5 && sortedNonTop4.length > 0) {
+                    fourPlusOT.push(sortedNonTop4.shift());
+                }
+
+                // Remaining players go to 5+noOT
+                fivePlusNoOT = [...fivePlusNoOT, ...sortedNonTop4];
+
+                // Pick "odd anchor" from 4+OT (prefer point guard for odd periods)
+                const oddAnchor = fourPlusOT.find(p => p.positions.includes(1)) || fourPlusOT[0];
+                const evenCore = fourPlusOT.filter(p => p !== oddAnchor);
+
+                // Helper: assign players to positions
+                function assignToPositions(players, periodLineup) {
+                    const assigned = [];
+                    // First pass: primary positions
+                    players.forEach(p => {
+                        const primaryPos = p.positions[0];
+                        if (!periodLineup[primaryPos] && !assigned.includes(p.number)) {
+                            periodLineup[primaryPos] = p.number;
+                            assigned.push(p.number);
+                        }
+                    });
+                    // Second pass: any available position
+                    players.forEach(p => {
+                        if (assigned.includes(p.number)) return;
+                        for (let pos = 1; pos <= 5; pos++) {
+                            if (!periodLineup[pos]) {
+                                periodLineup[pos] = p.number;
+                                assigned.push(p.number);
+                                break;
+                            }
+                        }
+                    });
+                }
+
+                // ODD PERIODS (1,3,5,7): oddAnchor + all 4 from fivePlusNoOT
+                const oddPlayers = [oddAnchor, ...fivePlusNoOT];
+                [1, 3, 5, 7].forEach(period => {
+                    lineups[period] = {};
+                    assignToPositions(oddPlayers, lineups[period]);
+                });
+
+                // EVEN PERIODS (2,4,6,8): evenCore (4 players) + 1 rotating from fivePlusNoOT
+                [2, 4, 6, 8].forEach((period, idx) => {
+                    lineups[period] = {};
+                    const rotatingPlayer = fivePlusNoOT[idx]; // Each plays 1 even period
+                    const evenPlayers = [...evenCore, rotatingPlayer];
+                    assignToPositions(evenPlayers, lineups[period]);
+                });
+
+                // OT: All 5 from 4+OT group (oddAnchor + evenCore)
+                lineups['OT1'] = {};
+                lineups['OT2'] = {};
+                assignToPositions(fourPlusOT, lineups['OT1']);
+                assignToPositions(fourPlusOT, lineups['OT2']);
+                
+            } else if (templateName === '8player') {
+                // 8 players: All play 5 periods each
+                // OT: 6 play one OT, 2 play both OTs
+                // DYNAMIC: Uses whoever is available
+
+                const available = ROSTER.filter(p => p.available);
+                if (available.length !== 8) {
+                    alert(`8-player template requires exactly 8 available players. You have ${available.length}.`);
+                    return;
+                }
+
+                // Sort players: Top 4 first, then by position versatility
+                const sorted = [...available].sort((a, b) => {
+                    if (a.isTop4 && !b.isTop4) return -1;
+                    if (!a.isTop4 && b.isTop4) return 1;
+                    return b.positions.length - a.positions.length;
+                });
+
+                // WAA 8-player distribution: each plays exactly 5 periods
+                // Pattern: Players 0-3 play P1-4 together, Players 4-7 play P5-8 together
+                // Cross-rotation ensures everyone gets 5 periods
+
+                // Period assignments (which player indices play each period)
+                const periodAssignments = {
+                    1: [0, 1, 2, 3, 4],  // 5,6,7 sit
+                    2: [0, 1, 2, 3, 5],  // 4,6,7 sit
+                    3: [0, 1, 2, 3, 6],  // 4,5,7 sit
+                    4: [0, 1, 2, 3, 7],  // 4,5,6 sit
+                    5: [0, 4, 5, 6, 7],  // 1,2,3 sit
+                    6: [1, 4, 5, 6, 7],  // 0,2,3 sit
+                    7: [2, 4, 5, 6, 7],  // 0,1,3 sit
+                    8: [3, 4, 5, 6, 7],  // 0,1,2 sit
+                };
+
+                // Helper: assign players to positions for a period
+                function assignToPositions(playerIndices, periodLineup) {
+                    const players = playerIndices.map(i => sorted[i]);
+                    const assigned = [];
+
+                    // First pass: primary positions
+                    players.forEach(p => {
+                        const primaryPos = p.positions[0];
+                        if (!periodLineup[primaryPos] && !assigned.includes(p.number)) {
+                            periodLineup[primaryPos] = p.number;
+                            assigned.push(p.number);
+                        }
+                    });
+
+                    // Second pass: any available position
+                    players.forEach(p => {
+                        if (assigned.includes(p.number)) return;
+                        for (let pos = 1; pos <= 5; pos++) {
+                            if (!periodLineup[pos]) {
+                                periodLineup[pos] = p.number;
+                                assigned.push(p.number);
+                                break;
+                            }
+                        }
+                    });
+                }
+
+                // Build regulation lineups
+                for (let period = 1; period <= 8; period++) {
+                    lineups[period] = {};
+                    assignToPositions(periodAssignments[period], lineups[period]);
+                }
+
+                // OT: 6 play one OT, 2 play both OTs
+                // Pick top 2 (likely Top 4) to play both OTs
+                // OT1: players 0,1 (both OTs) + 2,3,4 (OT1 only)
+                // OT2: players 0,1 (both OTs) + 5,6,7 (OT2 only)
+                lineups['OT1'] = {};
+                lineups['OT2'] = {};
+                assignToPositions([0, 1, 2, 3, 4], lineups['OT1']);
+                assignToPositions([0, 1, 5, 6, 7], lineups['OT2']);
+            }
+            
+            saveToStorage();
+            renderPeriodBuilder();
+            updatePreview();
+            alert(`Template loaded: ${templateName}`);
+        }
+        
+        // Auto-fill (simplified version)
+        function autoFillLineup() {
+            lineups = {};
+            const availablePlayers = ROSTER.filter(p => p.available);
+            const playerCount = availablePlayers.length;
+            
+            if (playerCount < 5) {
+                alert('Need at least 5 available players');
+                return;
+            }
+            
+            // Simple rotation strategy
+            for (let period = 1; period <= 8; period++) {
+                lineups[period] = {};
+                for (let pos = 1; pos <= 5; pos++) {
+                    const playerIndex = ((period - 1) * 5 + (pos - 1)) % playerCount;
+                    lineups[period][pos] = availablePlayers[playerIndex].number;
+                }
+            }
+            
+            // OT
+            lineups['OT1'] = {1: availablePlayers[0].number, 2: availablePlayers[1].number, 3: availablePlayers[2].number, 4: availablePlayers[3].number, 5: availablePlayers[4].number};
+            lineups['OT2'] = {1: availablePlayers[5 % playerCount].number, 2: availablePlayers[6 % playerCount].number, 3: availablePlayers[7 % playerCount].number, 4: availablePlayers[8 % playerCount].number, 5: availablePlayers[9 % playerCount].number};
+            
+            saveToStorage();
+            renderPeriodBuilder();
+            updatePreview();
+        }
+        
+        // Validate Lineups
+        function validateLineups() {
+            const list = document.getElementById('validationList');
+            const status = document.getElementById('validation-status');
+            list.innerHTML = '';
+
+            const errors = [];   // Blocking issues
+            const warnings = []; // Informational
+            const infos = [];    // FYI only
+
+            const availablePlayers = ROSTER.filter(p => p.available);
+            const playerCount = availablePlayers.length;
+
+            if (playerCount < 5) {
+                list.innerHTML = '<div class="validation-item invalid">Need at least 5 available players</div>';
+                status.textContent = 'Invalid';
+                status.className = 'section-status warning';
+                return;
+            }
+
+            // CHECK 1: Each regulation period has 5 players (ERROR if not)
+            [1, 2, 3, 4, 5, 6, 7, 8].forEach(period => {
+                const count = Object.keys(lineups[period] || {}).length;
+                if (count !== 5) {
+                    errors.push(`Period ${period}: Only ${count}/5 players assigned`);
+                }
+            });
+
+            // CHECK 2: Equal playing time (practical check)
+            // Calculate expected range based on player count
+            const totalSlots = 40; // 8 periods × 5 positions
+            const avgPeriods = totalSlots / playerCount;
+            const minPeriods = Math.floor(avgPeriods);
+            const maxPeriods = Math.ceil(avgPeriods);
+
+            let playingTimeOk = true;
+            availablePlayers.forEach(player => {
+                const usage = getPlayerUsage(player.number);
+                if (usage < minPeriods || usage > maxPeriods) {
+                    errors.push(`${player.name} #${player.number}: Playing ${usage} periods (expected ${minPeriods}-${maxPeriods})`);
+                    playingTimeOk = false;
+                }
+            });
+
+            if (playingTimeOk && playerCount < 10) {
+                infos.push(`✓ Playing time balanced: ${minPeriods}-${maxPeriods} periods each`);
+            }
+
+            // CHECK 3: Top 4 consecutive periods (context-aware)
+            const threeConsecIsExpected = playerCount <= 9;
+            const top4 = availablePlayers.filter(p => p.isTop4);
+            const reportedStreaks = new Set();
+
+            top4.forEach(player => {
+                let maxConsecutive = 0;
+                for (let period = 1; period <= 8; period++) {
+                    const consecutiveCount = checkConsecutivePeriods(player.number, period);
+                    maxConsecutive = Math.max(maxConsecutive, consecutiveCount);
+                }
+
+                const streakKey = `${player.number}-${maxConsecutive}`;
+                if (maxConsecutive >= 3 && !reportedStreaks.has(streakKey)) {
+                    reportedStreaks.add(streakKey);
+
+                    if (maxConsecutive >= 4) {
+                        warnings.push(`⚠️ ${player.name} plays ${maxConsecutive} consecutive periods`);
+                    } else if (threeConsecIsExpected) {
+                        infos.push(`ℹ️ ${player.name} plays 3 consecutive (expected with ${playerCount} players)`);
+                    } else {
+                        warnings.push(`⚠️ ${player.name} plays ${maxConsecutive} consecutive periods`);
+                    }
+                }
+            });
+
+            // CHECK 4: OT assignments
+            const ot1Count = Object.keys(lineups['OT1'] || {}).length;
+            const ot2Count = Object.keys(lineups['OT2'] || {}).length;
+
+            if (ot1Count === 5 && ot2Count === 5) {
+                infos.push(`✓ OT lineups set (${ot1Count}/5, ${ot2Count}/5)`);
+            } else if (ot1Count > 0 || ot2Count > 0) {
+                infos.push(`ℹ️ OT lineups incomplete (OT1: ${ot1Count}/5, OT2: ${ot2Count}/5)`);
+            } else {
+                infos.push(`ℹ️ No OT lineups set (optional - set if needed)`);
+            }
+
+            // CHECK 5: WAA OT eligibility
+            if (playerCount === 9) {
+                // 9 players: 5-period players can't play OT
+                availablePlayers.forEach(player => {
+                    const usage = getPlayerUsage(player.number);
+                    if (usage >= 5) {
+                        const inOT1 = Object.values(lineups['OT1'] || {}).includes(player.number);
+                        const inOT2 = Object.values(lineups['OT2'] || {}).includes(player.number);
+
+                        if (inOT1 || inOT2) {
+                            warnings.push(`⚠️ ${player.name} plays ${usage} periods + OT (WAA: 5-period players sit OT)`);
+                        }
+                    }
+                });
+            } else if (playerCount === 8) {
+                // 8 players: 6 play one OT, 2 play both OTs
+                let bothOTCount = 0;
+                availablePlayers.forEach(player => {
+                    const inOT1 = Object.values(lineups['OT1'] || {}).includes(player.number);
+                    const inOT2 = Object.values(lineups['OT2'] || {}).includes(player.number);
+
+                    if (inOT1 && inOT2) {
+                        bothOTCount++;
+                    }
+                });
+
+                if (ot1Count === 5 && ot2Count === 5) {
+                    if (bothOTCount === 2) {
+                        infos.push(`✓ OT distribution correct: 2 play both, 6 play one`);
+                    } else if (bothOTCount > 2) {
+                        warnings.push(`⚠️ ${bothOTCount} players in both OTs (WAA: only 2 should play both)`);
+                    } else if (bothOTCount < 2) {
+                        infos.push(`ℹ️ ${bothOTCount} players in both OTs (WAA suggests 2)`);
+                    }
+                }
+            }
+
+            // Display results
+            const hasErrors = errors.length > 0;
+            const hasWarnings = warnings.length > 0;
+
+            if (!hasErrors && !hasWarnings) {
+                status.textContent = '✓ Valid';
+                status.className = 'section-status complete';
+            } else if (hasErrors) {
+                status.textContent = `${errors.length} Error${errors.length > 1 ? 's' : ''}`;
+                status.className = 'section-status warning';
+            } else {
+                status.textContent = `${warnings.length} Warning${warnings.length > 1 ? 's' : ''}`;
+                status.className = 'section-status incomplete';
+            }
+
+            // Render all messages
+            errors.forEach(msg => {
+                const item = document.createElement('div');
+                item.className = 'validation-item invalid';
+                item.textContent = '✗ ' + msg;
+                list.appendChild(item);
+            });
+
+            warnings.forEach(msg => {
+                const item = document.createElement('div');
+                item.className = 'validation-item';
+                item.style.background = '#fff3cd';
+                item.style.color = '#856404';
+                item.textContent = msg;
+                list.appendChild(item);
+            });
+
+            infos.forEach(msg => {
+                const item = document.createElement('div');
+                item.className = 'validation-item valid';
+                item.textContent = msg;
+                list.appendChild(item);
+            });
+
+            // Expand validation section
+            document.getElementById('validation-content').classList.add('expanded');
+            document.getElementById('validation-icon').classList.add('expanded');
+        }
+        
+        // Clear All Lineups
+        function clearAllLineups() {
+            if (confirm('Clear all lineups? This cannot be undone.')) {
+                lineups = {};
+                saveToStorage();
+                renderPeriodBuilder();
+                updatePreview();
+            }
+        }
+
+        // SAVED GAMES FUNCTIONS
+        let savedGames = [];
+
+        function loadSavedGames() {
+            const saved = localStorage.getItem('waa_saved_games');
+            if (saved) {
+                savedGames = JSON.parse(saved);
+            }
+            renderSavedGames();
+        }
+
+        function saveSavedGames() {
+            localStorage.setItem('waa_saved_games', JSON.stringify(savedGames));
+            renderSavedGames();
+        }
+
+        function saveGame() {
+            const opponent = document.getElementById('opponent').value || 'Unknown';
+            const gameDate = document.getElementById('gameDate').value || new Date().toISOString().split('T')[0];
+            const gameTime = document.getElementById('gameTime').value || '';
+
+            // Check if lineup has any data
+            const hasData = Object.keys(lineups).some(period => Object.keys(lineups[period] || {}).length > 0);
+            if (!hasData) {
+                alert('No lineup to save. Please build a lineup first.');
+                return;
+            }
+
+            // Create game object
+            const game = {
+                id: Date.now(),
+                opponent: opponent,
+                date: gameDate,
+                time: gameTime,
+                lineups: JSON.parse(JSON.stringify(lineups)),
+                playerCount: ROSTER.filter(p => p.available).length,
+                savedAt: new Date().toISOString()
+            };
+
+            // Check for duplicate (same opponent + date)
+            const existingIdx = savedGames.findIndex(g => g.opponent === opponent && g.date === gameDate);
+            if (existingIdx !== -1) {
+                if (confirm(`A game vs ${opponent} on ${gameDate} already exists. Replace it?`)) {
+                    savedGames[existingIdx] = game;
+                } else {
+                    return;
+                }
+            } else {
+                savedGames.unshift(game); // Add to beginning
+            }
+
+            // Keep only last 20 games
+            if (savedGames.length > 20) {
+                savedGames = savedGames.slice(0, 20);
+            }
+
+            saveSavedGames();
+            alert(`Game saved: vs ${opponent} (${gameDate})`);
+        }
+
+        function loadGame(gameId) {
+            const game = savedGames.find(g => g.id === gameId);
+            if (!game) {
+                alert('Game not found.');
+                return;
+            }
+
+            if (!confirm(`Load lineup from vs ${game.opponent} (${game.date})? This will replace your current lineup.`)) {
+                return;
+            }
+
+            // Load game data
+            lineups = JSON.parse(JSON.stringify(game.lineups));
+            document.getElementById('opponent').value = game.opponent;
+            document.getElementById('gameDate').value = game.date;
+            document.getElementById('gameTime').value = game.time || '';
+
+            saveToStorage();
+            saveGameInfo();
+            renderPeriodBuilder();
+            updatePreview();
+
+            alert(`Loaded: vs ${game.opponent}`);
+        }
+
+        function deleteGame(gameId) {
+            const game = savedGames.find(g => g.id === gameId);
+            if (!game) return;
+
+            if (confirm(`Delete saved game vs ${game.opponent} (${game.date})?`)) {
+                savedGames = savedGames.filter(g => g.id !== gameId);
+                saveSavedGames();
+            }
+        }
+
+        function renderSavedGames() {
+            const list = document.getElementById('savedGamesList');
+            const status = document.getElementById('savedGames-status');
+
+            if (!list) return;
+
+            status.textContent = `${savedGames.length} Saved`;
+
+            if (savedGames.length === 0) {
+                list.innerHTML = '<div class="no-saved-games">No saved games yet. Use "Save Game" to save your lineups.</div>';
+                return;
+            }
+
+            let html = '';
+            savedGames.forEach(game => {
+                const dateDisplay = formatDate(game.date);
+                html += `
+                    <div class="saved-game-item">
+                        <div class="saved-game-info">
+                            <div class="saved-game-title">vs ${game.opponent}</div>
+                            <div class="saved-game-meta">${dateDisplay} • ${game.playerCount} players</div>
+                        </div>
+                        <div class="saved-game-actions">
+                            <button onclick="loadGame(${game.id})" class="success">Load</button>
+                            <button onclick="deleteGame(${game.id})" class="danger">🗑️</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            list.innerHTML = html;
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return 'No date';
+            const [year, month, day] = dateStr.split('-');
+            return `${month}/${day}/${year}`;
+        }
+
+        // Update Preview
+        function updatePreview() {
+            const preview = document.getElementById('previewTable');
+            const availablePlayers = ROSTER.filter(p => p.available).sort((a, b) => a.number - b.number);
+            
+            let html = '<table class="preview-table"><thead><tr>';
+            html += '<th>Player</th><th>#</th>';
+            [1,2,3,4,5,6,7,8].forEach(p => html += `<th>P${p}</th>`);
+            html += '<th>OT1</th><th>OT2</th></tr></thead><tbody>';
+            
+            availablePlayers.forEach(player => {
+                html += `<tr><td>${player.name}</td><td>${player.number}</td>`;
+                
+                [1,2,3,4,5,6,7,8,'OT1','OT2'].forEach(period => {
+                    const periodLineup = lineups[period] || {};
+                    const isPlaying = Object.values(periodLineup).includes(player.number);
+                    html += `<td class="${isPlaying ? 'has-x' : ''}">${isPlaying ? 'X' : ''}</td>`;
+                });
+                
+                html += '</tr>';
+            });
+            
+            html += '</tbody></table>';
+            preview.innerHTML = html;
+        }
+        
+        // Save/Load from Storage
+        function saveToStorage() {
+            localStorage.setItem('waa_lineups_v2', JSON.stringify(lineups));
+        }
+        
+        function loadFromStorage() {
+            const saved = localStorage.getItem('waa_lineups_v2');
+            if (saved) {
+                lineups = JSON.parse(saved);
+            }
+            
+            const date = localStorage.getItem('waa_game_date');
+            const time = localStorage.getItem('waa_game_time');
+            const opponent = localStorage.getItem('waa_opponent');
+            
+            if (date) document.getElementById('gameDate').value = date;
+            if (time) document.getElementById('gameTime').value = time;
+            if (opponent) document.getElementById('opponent').value = opponent;
+        }
+        
+        function saveGameInfo() {
+            localStorage.setItem('waa_game_date', document.getElementById('gameDate').value);
+            localStorage.setItem('waa_game_time', document.getElementById('gameTime').value);
+            localStorage.setItem('waa_opponent', document.getElementById('opponent').value);
+            updatePreview();
+        }
+        
+        // Print Functions
+        function generatePrintTable() {
+            const tbody = document.getElementById('printTableBody');
+            const availablePlayers = ROSTER.filter(p => p.available).sort((a, b) => a.number - b.number);
+            
+            let html = '';
+            availablePlayers.forEach((player, idx) => {
+                html += `<tr><td style="border: 1px solid black; padding: 6px; text-align: left;">${idx + 1}. ${player.name}</td>`;
+                html += `<td style="border: 1px solid black; padding: 6px;">${player.number}</td>`;
+                
+                [1,2,3,4,5,6,7,8,'OT1','OT2'].forEach(period => {
+                    const periodLineup = lineups[period] || {};
+                    const isPlaying = Object.values(periodLineup).includes(player.number);
+                    html += `<td style="border: 1px solid black; padding: 6px;">${isPlaying ? 'X' : ''}</td>`;
+                });
+                
+                html += '</tr>';
+            });
+            
+            for (let i = availablePlayers.length; i < 12; i++) {
+                html += `<tr><td style="border: 1px solid black; padding: 6px;">${i + 1}.</td>`;
+                html += `<td style="border: 1px solid black; padding: 6px;"></td>`;
+                for (let j = 0; j < 10; j++) {
+                    html += `<td style="border: 1px solid black; padding: 6px;"></td>`;
+                }
+                html += '</tr>';
+            }
+            
+            tbody.innerHTML = html;
+            
+            const opponent = document.getElementById('opponent').value;
+            document.getElementById('printTeamName').textContent = opponent ? `Simmons 9th/10th vs ${opponent}` : 'Simmons 9th/10th';
+            
+            const dateInput = document.getElementById('gameDate').value;
+            if (dateInput) {
+                const [year, month, day] = dateInput.split('-');
+                document.getElementById('printDate').textContent = `${month}-${day}-${year}`;
+            } else {
+                document.getElementById('printDate').textContent = '';
+            }
+            
+            const timeInput = document.getElementById('gameTime').value;
+            if (timeInput) {
+                const [hours, minutes] = timeInput.split(':');
+                const hour = parseInt(hours);
+                const ampm = hour >= 12 ? 'pm' : 'am';
+                const hour12 = hour % 12 || 12;
+                document.getElementById('printTime').textContent = `${hour12}:${minutes} ${ampm}`;
+            } else {
+                document.getElementById('printTime').textContent = '';
+            }
+        }
+        
+        function printBlankSheet() {
+            const savedLineups = {...lineups};
+            lineups = {};
+            
+            const tbody = document.getElementById('printTableBody');
+            const allPlayers = [...ROSTER].sort((a, b) => a.number - b.number);
+            
+            let html = '';
+            allPlayers.forEach((player, idx) => {
+                html += `<tr><td style="border: 1px solid black; padding: 6px; text-align: left;">${idx + 1}. ${player.name}</td>`;
+                html += `<td style="border: 1px solid black; padding: 6px;">${player.number}</td>`;
+                for (let j = 0; j < 10; j++) {
+                    html += `<td style="border: 1px solid black; padding: 6px;"></td>`;
+                }
+                html += '</tr>';
+            });
+            
+            for (let i = allPlayers.length; i < 12; i++) {
+                html += `<tr><td style="border: 1px solid black; padding: 6px;">${i + 1}.</td>`;
+                html += `<td style="border: 1px solid black; padding: 6px;"></td>`;
+                for (let j = 0; j < 10; j++) {
+                    html += `<td style="border: 1px solid black; padding: 6px;"></td>`;
+                }
+                html += '</tr>';
+            }
+            
+            tbody.innerHTML = html;
+            
+            document.getElementById('printTeamName').textContent = '';
+            document.getElementById('printDate').textContent = '';
+            document.getElementById('printTime').textContent = '';
+            
+            setTimeout(() => {
+                window.print();
+                lineups = savedLineups;
+                generatePrintTable();
+            }, 100);
+        }
+        
+        const originalPrint = window.print;
+        window.print = function() {
+            generatePrintTable();
+            originalPrint.call(window);
+        };
+        
+        window.onload = init;
+    </script>
+</body>
+</html>

@@ -366,4 +366,223 @@ b93c435 - Expand Coach D vision: multi-role, multi-sport, Sonnet-powered
 
 ---
 
-**Status:** Architecture designed. Documentation complete. Ready for implementation.
+## Session: January 2, 2026 - BLAST Curriculum Restructure
+
+**Session focus:** Transform Tim's BLAST curriculum from hard-to-parse Word documents into a clean, organized drill library.
+
+### The Problem
+
+Tim's original curriculum format was run-on text with slashes:
+```
+*Triple threat / (RH) 1st dribble / Left foot step hop / (LH) 2nd dribble land left right as you go behind back...*
+```
+
+Even as a basketball trainer, Derek found it hard to parse. The knowledge was valuable but inaccessible.
+
+### What We Did
+
+**1. Extracted content from three sources:**
+- `BLAST-Recruit.md` (existing markdown - 1074 lines)
+- `(Travel) BLAST HOOPS TRAINER GUIDE.docx` (converted via `textutil`)
+- `(Varsity) BLAST HOOPS TRAINER GUIDE.docx` (converted via `textutil`)
+
+**2. Identified the structure:**
+- 16 drill categories across all levels
+- 3 progression levels: Travel (youth), Varsity (high school), Recruit (college)
+- Level coding: T, V, R, TVR, VR
+
+**3. Created new format:**
+
+```markdown
+### Basic Layup - Right Hand
+**Levels:** Travel
+
+| Component | Details |
+|-----------|---------|
+| **Sequence** | 1 dribble from 3-point line |
+| **Balance** | Feet shoulder width as you run... |
+
+**Modifications:**
+- Footwork only (no ball)
+- 2 steps, no dribble
+- 1 dribble from elbow
+
+**Execution:**
+1. Start in triple threat
+2. Right hand dribble, left foot step
+3. Gather
+4. Right step, left step
+5. Jump off left foot
+6. Finish right hand
+```
+
+**4. Built new drill library structure:**
+
+```
+main-court/blast-curriculum/
+├── README.md                      # Overview, levels, how to use
+├── drill-index.md                 # Master index with practice builders
+├── 01-spin-cycle.md              # 14 drills
+├── 02-finish.md                  # 16 drills
+├── 03-handles.md                 # 24 drills
+├── 04-handles-on-the-move.md     # 17 drills
+├── 05-the-box.md                 # 2 drills
+├── 06-combos.md                  # 9 drills
+├── 07-tennis-ball.md             # 7 drills
+├── 08-tennis-ball-basketball.md  # 4 drills
+├── 09-drop-n-dimes.md            # 22 drills
+├── 10-pivot-jab-steps.md         # 10 drills
+├── 11-step-backs.md              # 6 drills
+├── 12-step-to-the-side.md        # 8 drills
+├── 13-lock-up.md                 # 3 drills
+├── 14-pull-the-trigger.md        # 6 drills
+├── 15-footwork.md                # 4 drills
+└── 16-ball-screen.md             # 3 drills
+```
+
+### Key Design Decision
+
+User chose **Option B: Organize by category** (not by level)
+
+**Why:** Trainers can now see skill progression from Travel → Varsity → Recruit within each category. A coach can open one file and see the full progression path for any skill area.
+
+### What This Enables
+
+- **Coach D integration:** Drill library can power AI practice planning
+- **Search/filter:** Structured format enables finding drills by level, category, skill
+- **Progression tracking:** Clear path shows what comes next
+- **Practice cards:** Could generate printable cards from markdown
+
+### Files Created
+
+```
+Created (18 files):
+- main-court/blast-curriculum/README.md
+- main-court/blast-curriculum/drill-index.md
+- main-court/blast-curriculum/01-spin-cycle.md
+- main-court/blast-curriculum/02-finish.md
+- main-court/blast-curriculum/03-handles.md
+- main-court/blast-curriculum/04-handles-on-the-move.md
+- main-court/blast-curriculum/05-the-box.md
+- main-court/blast-curriculum/06-combos.md
+- main-court/blast-curriculum/07-tennis-ball.md
+- main-court/blast-curriculum/08-tennis-ball-basketball.md
+- main-court/blast-curriculum/09-drop-n-dimes.md
+- main-court/blast-curriculum/10-pivot-jab-steps.md
+- main-court/blast-curriculum/11-step-backs.md
+- main-court/blast-curriculum/12-step-to-the-side.md
+- main-court/blast-curriculum/13-lock-up.md
+- main-court/blast-curriculum/14-pull-the-trigger.md
+- main-court/blast-curriculum/15-footwork.md
+- main-court/blast-curriculum/16-ball-screen.md
+
+Updated:
+- STATUS.md (Phase 7 added, stats updated)
+- HANDOFF.md (this file)
+```
+
+### Repository Stats
+
+| Metric | Count |
+|--------|-------|
+| BLAST drill categories | 16 |
+| Total documented drills | ~155 |
+| Original Word docs | Preserved in main-court/ |
+
+### Not Committed Yet
+
+User requested documentation update but no commit this session. Changes are staged but not committed.
+
+### Ideas Sparked
+
+Derek noted the restructuring "could spark some interesting ideas" - potential future exploration:
+- AI-powered practice planning from drill library
+- Printable practice cards generated from markdown
+- Interactive drill browser on the website
+- Progression tracking for athletes
+
+---
+
+**Status:** BLAST curriculum restructured. ~155 drills documented across 16 categories. Changes ready for commit when desired.
+
+---
+
+## Session: January 17, 2026 - WAA Lineup Builder V2 Enhancements
+
+**Session focus:** Battle-tested V2 with 9 players, fixed bugs, added dynamic templates and save/load functionality.
+
+### Issues Discovered During Real Game Use
+
+Derek used the lineup builder with 9 players (Ben was out, not Teegan). Three issues emerged:
+
+| Issue | Problem | Solution |
+|-------|---------|----------|
+| 9-player template hardcoded | Assumed Teegan was always out | Made dynamic - uses whoever is unavailable |
+| 3-consecutive warnings too aggressive | With 9 players, 3 consecutive is expected | Context-aware: blue info for 9 players, warning for 10 |
+| No save/load feature | Had to rebuild lineups every game | Added localStorage save/load with game history |
+
+### Features Added
+
+**1. Dynamic Templates (8, 9, 10 players)**
+- All templates now use whoever is available (no hardcoded jersey numbers)
+- Smart position assignment: primary position → can play → any available
+- Top 4 players distributed evenly between units
+- Follows WAA playing time rules exactly
+
+**2. Save/Load Games**
+- Save current lineup with opponent/date
+- Load previous games from history
+- Duplicate detection (same opponent + date)
+- Delete old games
+
+**3. Context-Aware Validation**
+- **Errors** (red): Blocking issues (incomplete periods, wrong playing time)
+- **Warnings** (yellow): Important but not blocking (4+ consecutive)
+- **Info** (blue): Expected behavior (3 consecutive with 9 players, OT status)
+
+**4. WAA OT Rules Enforcement**
+- 9 players: 5-period players can't play OT (warns if violated)
+- 8 players: Confirms 2 play both OTs, 6 play one OT
+- 10 players: Each player gets exactly 1 OT
+
+### Template Logic (WAA Compliant)
+
+| Players | Regulation | OT Distribution |
+|---------|------------|-----------------|
+| 10 | 4 periods each (Unit A/B) | 1 OT each (Unit A→OT1, Unit B→OT2) |
+| 9 | 5 play 4 periods, 4 play 5 periods | 4-period players play both OTs, 5-period players sit |
+| 8 | 5 periods each | 2 play both OTs, 6 play one (3 in OT1, 3 in OT2) |
+
+### Code Changes
+
+**Lines modified in WAA_Lineup_Builder_V2.html:**
+- ~1230-1313: Dynamic 10-player template
+- ~1315-1408: Dynamic 9-player template
+- ~1410-1485: Dynamic 8-player template
+- ~874-913: Context-aware consecutive warnings
+- ~1522-1687: Practical validation function
+- ~1699-1780: Save/Load game functionality
+- CSS additions for info badges and saved games UI
+
+### Files Changed
+
+```
+Modified:
+- practice-gym/lineup-builder/WAA_Lineup_Builder_V2.html (major enhancements)
+- practice-gym/lineup-builder/WAA_Lineup_Builder_V2_Handoff.md (updated)
+- HANDOFF.md (this file)
+- STATUS.md
+
+Ready to commit with all lineup builder files.
+```
+
+### Key Decision
+
+**User chose to follow WAA rules exactly:**
+> "We should follow the established rules. I don't want to be the coach who breaks the rules during the season."
+
+This means 9-player templates enforce the 4+OT/5+noOT split even though it seems counterintuitive.
+
+---
+
+**Status:** WAA Lineup Builder V2 enhanced with dynamic templates, save/load, and context-aware validation. Battle-tested and ready for next game.

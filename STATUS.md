@@ -1,6 +1,6 @@
 # Coach Repository - Current Status
 
-**Last Updated:** December 29, 2025
+**Last Updated:** January 17, 2026
 **Repository:** [github.com/dereksimmons23/coach](https://github.com/dereksimmons23/coach) (public)
 **Live Site:** [coach.claudewill.io](https://coach.claudewill.io)
 
@@ -29,13 +29,14 @@
 | netlify.toml | Yes | Yes | Yes |
 | LICENSE (MIT) | Yes | Yes | Yes |
 
-### Phase 3: Content Migration - 80% COMPLETE
+### Phase 3: Content Migration - COMPLETE
 
 **Main Court** (Core Methodology):
 - [x] Neuroplasticity framework (anonymized)
 - [x] BLAST Recruit level guide
-- [ ] BLAST Travel level guide (.docx - needs conversion)
-- [ ] BLAST Varsity level guide (.docx - needs conversion)
+- [x] BLAST Travel level guide (converted from .docx)
+- [x] BLAST Varsity level guide (converted from .docx)
+- [x] **BLAST Curriculum restructured into 16-category drill library** (see Phase 7)
 
 **Practice Gym** (Tools & Templates):
 - [x] WAA Lineup Builder (complete tool)
@@ -111,6 +112,83 @@
 
 **Next:** Implementation (Supabase setup → serverless function → chat UI)
 
+### Phase 7: BLAST Curriculum Restructure - COMPLETE
+
+| Task | Status |
+|------|--------|
+| Analyze Tim's curriculum structure | Done |
+| Design clean drill template format | Done |
+| Convert Travel level (.docx → structured .md) | Done |
+| Convert Varsity level (.docx → structured .md) | Done |
+| Restructure Recruit level (existing .md) | Done |
+| Create 16 category files with progressions | Done |
+| Create master drill index | Done |
+| Create curriculum README | Done |
+
+**What Changed:**
+- Tim's run-on slash-separated instructions → numbered step-by-step execution
+- All three levels (Travel/Varsity/Recruit) consolidated by category
+- Progression summary tables at end of each file
+- Coaching notes with common errors and cues
+- Master index with ~155 documented drills
+
+**New Structure:** `main-court/blast-curriculum/`
+```
+├── README.md                      # Overview, levels, how to use
+├── drill-index.md                 # Master index with practice builders
+├── 01-spin-cycle.md              # 14 drills
+├── 02-finish.md                  # 16 drills
+├── 03-handles.md                 # 24 drills
+├── 04-handles-on-the-move.md     # 17 drills
+├── 05-the-box.md                 # 2 drills
+├── 06-combos.md                  # 9 drills
+├── 07-tennis-ball.md             # 7 drills
+├── 08-tennis-ball-basketball.md  # 4 drills
+├── 09-drop-n-dimes.md            # 22 drills
+├── 10-pivot-jab-steps.md         # 10 drills
+├── 11-step-backs.md              # 6 drills
+├── 12-step-to-the-side.md        # 8 drills
+├── 13-lock-up.md                 # 3 drills
+├── 14-pull-the-trigger.md        # 6 drills
+├── 15-footwork.md                # 4 drills
+└── 16-ball-screen.md             # 3 drills
+```
+
+**Original files preserved:** Word docs still in `main-court/` for reference
+
+**Potential Ideas Sparked:**
+- Drill library could power Coach D's practice planning
+- Structured format enables search/filter by level, category, skill
+- Progression tables show clear path from Travel → Varsity → Recruit
+- Could generate printable practice cards from markdown
+
+### Phase 8: WAA Lineup Builder V2 Enhancements - COMPLETE
+
+| Task | Status |
+|------|--------|
+| Fix 9-player template (dynamic, not hardcoded) | Done |
+| Add save/load game functionality | Done |
+| Context-aware consecutive period warnings | Done |
+| Dynamic 8-player template with WAA OT rules | Done |
+| Dynamic 10-player template | Done |
+| Practical validation (errors/warnings/info) | Done |
+| WAA OT eligibility enforcement | Done |
+
+**What Changed:**
+- Templates no longer hardcoded to specific players - use whoever is available
+- 3 consecutive periods shows as info (blue) for 9 players, warning for 10
+- Save games to localStorage, load previous games
+- Validation categorized: errors (blocking), warnings (important), info (FYI)
+
+**Template Logic (WAA Compliant):**
+| Players | Regulation | OT Distribution |
+|---------|------------|-----------------|
+| 10 | 4 periods each (Unit A/B) | 1 OT each |
+| 9 | 5 play 4 periods, 4 play 5 periods | 4-period players play both OTs |
+| 8 | 5 periods each | 2 play both OTs, 6 play one |
+
+**Battle-tested:** Used in real games with 9 players. Issues found and fixed.
+
 ---
 
 ## Repository Stats
@@ -118,10 +196,12 @@
 | Metric | Count |
 |--------|-------|
 | Total sections | 6 fieldhouse areas + docs |
-| Files tracked | 30 |
+| Files tracked | ~50 |
 | Working HTML pages | 4 |
 | Case studies | 2 |
 | Methodology docs | 3 |
+| BLAST drill categories | 16 |
+| Total documented drills | ~155 |
 | Design documents | 3 (CLAUDE.md, system prompt, Supabase schema) |
 | All content privacy-compliant | Yes |
 
