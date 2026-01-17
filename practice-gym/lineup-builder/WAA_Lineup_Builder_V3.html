@@ -1,0 +1,2028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>WAA Lineup Builder V3</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 10px;
+            overflow-x: hidden;
+        }
+
+        .main-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Panel Styles */
+        .panel {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .header .subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 25px;
+        }
+
+        /* Setup Wizard Styles */
+        .wizard-step {
+            display: none;
+        }
+
+        .wizard-step.active {
+            display: block;
+        }
+
+        .wizard-progress {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 25px;
+        }
+
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            transition: all 0.3s;
+        }
+
+        .progress-dot.active {
+            background: #667eea;
+            transform: scale(1.2);
+        }
+
+        .progress-dot.complete {
+            background: #28a745;
+        }
+
+        .wizard-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1e3c72;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .wizard-description {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        /* Button Styles */
+        button {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-height: 50px;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-full {
+            width: 100%;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .btn-group button {
+            flex: 1;
+        }
+
+        /* Player List Styles */
+        .player-list {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .player-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+            gap: 12px;
+        }
+
+        .player-item:last-child {
+            border-bottom: none;
+        }
+
+        .player-item .number {
+            background: #667eea;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .player-item .name {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .player-item .actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .player-item .btn-icon {
+            width: 36px;
+            height: 36px;
+            padding: 0;
+            min-height: unset;
+            border-radius: 50%;
+            font-size: 16px;
+        }
+
+        /* Quick Add Form */
+        .quick-add {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .quick-add input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        .quick-add input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .quick-add .number-input {
+            width: 80px;
+            flex: none;
+        }
+
+        /* Position Grid */
+        .position-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .position-btn {
+            padding: 12px 8px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            background: white;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .position-btn.selected {
+            background: #667eea;
+            border-color: #667eea;
+            color: white;
+        }
+
+        .position-btn.primary {
+            background: #28a745;
+            border-color: #28a745;
+            color: white;
+        }
+
+        /* Player Editor */
+        .player-editor {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .player-editor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .player-editor-title {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .top-player-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 15px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .top-player-toggle.active {
+            background: #ffc107;
+            border-color: #ffc107;
+            color: #000;
+        }
+
+        /* Home Screen Styles */
+        .team-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .team-card.active {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .team-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .team-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e3c72;
+        }
+
+        .team-meta {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .quick-action-btn {
+            padding: 15px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quick-action-btn:hover {
+            border-color: #667eea;
+            background: #f8f9fa;
+        }
+
+        .quick-action-btn .icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .quick-action-btn .label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        /* Summary Box */
+        .summary-box {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .summary-box h3 {
+            color: #155724;
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: #e7f3ff;
+            border: 2px solid #0066cc;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #004085;
+        }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background: #e0e0e0;
+            margin: 25px 0;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+
+        .empty-state .icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        /* Import/Export Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 25px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1e3c72;
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: monospace;
+            font-size: 13px;
+            resize: vertical;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        /* Hidden elements */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .position-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .btn-group button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- WIZARD PANEL -->
+        <div class="panel" id="wizardPanel">
+            <div class="header">
+                <h1>WAA LINEUP BUILDER</h1>
+                <div class="subtitle">Build WAA-compliant lineups in minutes</div>
+            </div>
+
+            <div class="content">
+                <div class="wizard-progress" id="wizardProgress">
+                    <div class="progress-dot active" data-step="1"></div>
+                    <div class="progress-dot" data-step="2"></div>
+                    <div class="progress-dot" data-step="3"></div>
+                    <div class="progress-dot" data-step="4"></div>
+                    <div class="progress-dot" data-step="5"></div>
+                    <div class="progress-dot" data-step="6"></div>
+                </div>
+
+                <!-- Step 1: Welcome -->
+                <div class="wizard-step active" id="step1">
+                    <div class="wizard-title">Welcome!</div>
+                    <div class="wizard-description">
+                        Set up your team once, build lineups all season.<br>
+                        No technical skills required.
+                    </div>
+
+                    <div class="info-box">
+                        <strong>What you'll do:</strong><br>
+                        1. Enter your team name<br>
+                        2. Add your players<br>
+                        3. Set position preferences<br>
+                        4. Ready to build lineups!
+                    </div>
+
+                    <button class="btn-primary btn-full" onclick="nextStep()">Get Started</button>
+
+                    <div class="divider"></div>
+
+                    <button class="btn-secondary btn-full" onclick="showImportModal()">Import Existing Roster</button>
+                </div>
+
+                <!-- Step 2: Team Info -->
+                <div class="wizard-step" id="step2">
+                    <div class="wizard-title">Your Team</div>
+                    <div class="wizard-description">Tell us about your team</div>
+
+                    <div class="form-group">
+                        <label>Team Name</label>
+                        <input type="text" id="teamName" placeholder="e.g., Simmons 9th/10th">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Coach Name</label>
+                        <input type="text" id="coachName" placeholder="e.g., Coach Simmons">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Grade Level</label>
+                        <select id="gradeLevel">
+                            <option value="">Select grade level...</option>
+                            <option value="3rd/4th">3rd/4th Grade</option>
+                            <option value="5th/6th">5th/6th Grade</option>
+                            <option value="7th/8th">7th/8th Grade</option>
+                            <option value="9th/10th">9th/10th Grade</option>
+                            <option value="11th/12th">11th/12th Grade</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>League</label>
+                        <select id="league">
+                            <option value="WAA">WAA (Wayzata Athletic Association)</option>
+                            <option value="Other">Other (manual rules)</option>
+                        </select>
+                    </div>
+
+                    <div class="btn-group">
+                        <button class="btn-secondary" onclick="prevStep()">Back</button>
+                        <button class="btn-primary" onclick="saveTeamInfo(); nextStep()">Next</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Add Players -->
+                <div class="wizard-step" id="step3">
+                    <div class="wizard-title">Build Your Roster</div>
+                    <div class="wizard-description">Add your players (you can edit later)</div>
+
+                    <div class="quick-add">
+                        <input type="text" id="newPlayerName" placeholder="Player name">
+                        <input type="number" id="newPlayerNumber" class="number-input" placeholder="#" min="0" max="99">
+                        <button class="btn-success" onclick="addPlayer()">+ Add</button>
+                    </div>
+
+                    <div class="player-list" id="playerList">
+                        <div class="empty-state">
+                            <div class="icon">👥</div>
+                            <div>No players added yet</div>
+                        </div>
+                    </div>
+
+                    <div id="playerCount" style="text-align: center; color: #666; margin-bottom: 15px;">
+                        0 players added
+                    </div>
+
+                    <div class="btn-group">
+                        <button class="btn-secondary" onclick="prevStep()">Back</button>
+                        <button class="btn-primary" onclick="validatePlayers() && nextStep()">Next</button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Position Preferences -->
+                <div class="wizard-step" id="step4">
+                    <div class="wizard-title">Position Preferences</div>
+                    <div class="wizard-description">For each player, select positions they CAN play.<br>First position selected = primary position.</div>
+
+                    <div id="positionEditor"></div>
+
+                    <div class="btn-group">
+                        <button class="btn-secondary" onclick="prevStep()">Back</button>
+                        <button class="btn-primary" onclick="savePositions(); nextStep()">Next</button>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <button class="btn-secondary btn-full" onclick="skipPositions(); nextStep()">Skip - I'll Assign Manually</button>
+                </div>
+
+                <!-- Step 5: Default Templates -->
+                <div class="wizard-step" id="step5">
+                    <div class="wizard-title">Default Lineups</div>
+                    <div class="wizard-description">Want to save default Unit A/B rotations?</div>
+
+                    <div class="form-group">
+                        <label style="display: flex; align-items: center; gap: 10px; padding: 15px; background: #f8f9fa; border-radius: 10px; cursor: pointer; margin-bottom: 10px;">
+                            <input type="radio" name="templateOption" value="auto" checked>
+                            <span>Auto-generate based on positions</span>
+                        </label>
+
+                        <label style="display: flex; align-items: center; gap: 10px; padding: 15px; background: #f8f9fa; border-radius: 10px; cursor: pointer; margin-bottom: 10px;">
+                            <input type="radio" name="templateOption" value="manual">
+                            <span>I'll build templates manually later</span>
+                        </label>
+
+                        <label style="display: flex; align-items: center; gap: 10px; padding: 15px; background: #f8f9fa; border-radius: 10px; cursor: pointer;">
+                            <input type="radio" name="templateOption" value="skip">
+                            <span>No templates - build from scratch each game</span>
+                        </label>
+                    </div>
+
+                    <div class="info-box">
+                        Templates save time on game day but aren't required. You can always adjust lineups manually.
+                    </div>
+
+                    <div class="btn-group">
+                        <button class="btn-secondary" onclick="prevStep()">Back</button>
+                        <button class="btn-primary" onclick="generateTemplates(); nextStep()">Next</button>
+                    </div>
+                </div>
+
+                <!-- Step 6: Ready -->
+                <div class="wizard-step" id="step6">
+                    <div class="wizard-title">Setup Complete!</div>
+                    <div class="wizard-description">Your roster is saved and ready to use.</div>
+
+                    <div class="summary-box">
+                        <h3 id="summaryTeamName">Team Name</h3>
+                        <div class="summary-item">
+                            <span>Players</span>
+                            <span id="summaryPlayerCount">0</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Top Players</span>
+                            <span id="summaryTopCount">0</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Templates</span>
+                            <span id="summaryTemplates">Ready</span>
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        You can edit your roster anytime, save multiple teams, and share with assistant coaches.
+                    </div>
+
+                    <button class="btn-primary btn-full" onclick="finishSetup()">Start Building Lineups</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- HOME PANEL (shown after setup) -->
+        <div class="panel hidden" id="homePanel">
+            <div class="header">
+                <h1>WAA LINEUP BUILDER</h1>
+                <div class="subtitle" id="homeSubtitle">Welcome back, Coach</div>
+            </div>
+
+            <div class="content">
+                <div class="team-card active" id="activeTeamCard">
+                    <div class="team-card-header">
+                        <span class="team-name" id="homeTeamName">Team Name</span>
+                        <button class="btn-secondary" style="padding: 8px 12px; min-height: unset; font-size: 13px;" onclick="showTeamSwitcher()">Switch</button>
+                    </div>
+                    <div class="team-meta" id="homeTeamMeta">10 players - Last used: Today</div>
+                </div>
+
+                <div class="quick-actions">
+                    <button class="quick-action-btn" onclick="startNewGame()">
+                        <div class="icon">📋</div>
+                        <div class="label">Build New Lineup</div>
+                    </button>
+                    <button class="quick-action-btn" onclick="showRosterEditor()">
+                        <div class="icon">👥</div>
+                        <div class="label">Edit Roster</div>
+                    </button>
+                    <button class="quick-action-btn" onclick="showSavedGames()">
+                        <div class="icon">📁</div>
+                        <div class="label">Saved Games</div>
+                    </button>
+                    <button class="quick-action-btn" onclick="showImportExport()">
+                        <div class="icon">📤</div>
+                        <div class="label">Import/Export</div>
+                    </button>
+                </div>
+
+                <div class="divider"></div>
+
+                <div id="recentGames">
+                    <h3 style="margin-bottom: 15px; color: #1e3c72;">Recent Games</h3>
+                    <div id="recentGamesList"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BUILDER PANEL (the actual lineup builder) -->
+        <div class="panel hidden" id="builderPanel">
+            <!-- This will contain the full lineup builder UI from V2 -->
+            <div class="header">
+                <h1 id="builderTitle">WAA LINEUP BUILDER</h1>
+                <div class="subtitle" id="builderSubtitle">Building lineup...</div>
+            </div>
+            <div class="content" id="builderContent">
+                <!-- Builder UI will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Import Modal -->
+    <div class="modal" id="importModal">
+        <div class="modal-content">
+            <div class="modal-title">Import Roster</div>
+            <p style="margin-bottom: 15px; color: #666;">Paste JSON data from a previous export:</p>
+            <textarea id="importData" placeholder='{"teamName": "...", "players": [...] }'></textarea>
+            <div class="btn-group">
+                <button class="btn-secondary" onclick="closeModal('importModal')">Cancel</button>
+                <button class="btn-primary" onclick="importRoster()">Import</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Export Modal -->
+    <div class="modal" id="exportModal">
+        <div class="modal-content">
+            <div class="modal-title">Export Roster</div>
+            <p style="margin-bottom: 15px; color: #666;">Copy this JSON to share or backup:</p>
+            <textarea id="exportData" readonly></textarea>
+            <div class="btn-group">
+                <button class="btn-secondary" onclick="closeModal('exportModal')">Close</button>
+                <button class="btn-primary" onclick="copyExport()">Copy to Clipboard</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Player Selection Modal -->
+    <div class="modal" id="playerSelectModal">
+        <div class="modal-content">
+            <div class="modal-title" id="playerSelectTitle">Select Player</div>
+            <div id="playerSelectOptions" style="max-height: 400px; overflow-y: auto;"></div>
+            <div class="btn-group" style="margin-top: 15px;">
+                <button class="btn-secondary" onclick="closeModal('playerSelectModal')">Cancel</button>
+                <button class="btn-danger" id="clearPositionBtn" onclick="clearPosition()" style="display: none;">Remove Player</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===============================================
+        // V3 DATA STRUCTURE
+        // ===============================================
+
+        const APP_VERSION = "3.0";
+        const STORAGE_KEY = "waa_lineup_builder_v3";
+
+        // Default app state
+        let appData = {
+            version: APP_VERSION,
+            teams: [],
+            activeTeamId: null,
+            settings: {
+                theme: "light",
+                showTutorial: true
+            }
+        };
+
+        // Current wizard state
+        let wizardState = {
+            step: 1,
+            teamData: {
+                id: null,
+                name: "",
+                coach: "",
+                grade: "",
+                league: "WAA",
+                players: [],
+                templates: {}
+            }
+        };
+
+        // Lineup state (for builder)
+        let lineups = {};
+        let currentTeam = null;
+
+        // WAA Rules
+        const WAA_RULES = {
+            5: {periods: 8, ot: 'all'},
+            6: {periods: [7,7,7,7,6,6], ot: [2,2,1,1,2,2]},
+            7: {periods: [6,6,6,6,6,5,5], ot: [1,1,1,1,2,2,2]},
+            8: {periods: 5, ot: [1,1,1,1,1,1,2,2]},
+            9: {periods: [4,4,4,4,4,5,5,5,5], ot: [2,2,2,2,2,0,0,0,0]},
+            10: {periods: 4, ot: 1},
+            11: {periods: [4,4,4,4,4,4,4,3,3,3,3], ot: [1,1,0,0,0,0,0,2,2,2,2]},
+            12: {periods: [3,3,3,3,3,3,3,3,4,4,4,4], ot: [1,1,1,1,1,1,2,2,0,0,0,0]}
+        };
+
+        const POSITIONS = [
+            {id: 1, name: "PG", full: "Point Guard"},
+            {id: 2, name: "SG", full: "Shooting Guard"},
+            {id: 3, name: "SF", full: "Small Forward"},
+            {id: 4, name: "PF", full: "Power Forward"},
+            {id: 5, name: "C", full: "Center"}
+        ];
+
+        // ===============================================
+        // INITIALIZATION
+        // ===============================================
+
+        function init() {
+            loadAppData();
+
+            if (appData.teams.length === 0) {
+                // First time user - show wizard
+                showWizard();
+            } else if (appData.activeTeamId) {
+                // Returning user - show home
+                currentTeam = appData.teams.find(t => t.id === appData.activeTeamId);
+                if (currentTeam) {
+                    showHome();
+                } else {
+                    showWizard();
+                }
+            } else {
+                showWizard();
+            }
+        }
+
+        function loadAppData() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                try {
+                    appData = JSON.parse(saved);
+                } catch (e) {
+                    console.error("Failed to load app data:", e);
+                }
+            }
+        }
+
+        function saveAppData() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
+        }
+
+        // ===============================================
+        // PANEL MANAGEMENT
+        // ===============================================
+
+        function showWizard() {
+            document.getElementById('wizardPanel').classList.remove('hidden');
+            document.getElementById('homePanel').classList.add('hidden');
+            document.getElementById('builderPanel').classList.add('hidden');
+            wizardState.step = 1;
+            updateWizardUI();
+        }
+
+        function showHome() {
+            document.getElementById('wizardPanel').classList.add('hidden');
+            document.getElementById('homePanel').classList.remove('hidden');
+            document.getElementById('builderPanel').classList.add('hidden');
+            updateHomeUI();
+        }
+
+        function showBuilder() {
+            document.getElementById('wizardPanel').classList.add('hidden');
+            document.getElementById('homePanel').classList.add('hidden');
+            document.getElementById('builderPanel').classList.remove('hidden');
+            initBuilder();
+        }
+
+        // ===============================================
+        // WIZARD NAVIGATION
+        // ===============================================
+
+        function nextStep() {
+            if (wizardState.step < 6) {
+                wizardState.step++;
+                updateWizardUI();
+            }
+        }
+
+        function prevStep() {
+            if (wizardState.step > 1) {
+                wizardState.step--;
+                updateWizardUI();
+            }
+        }
+
+        function goToStep(step) {
+            wizardState.step = step;
+            updateWizardUI();
+        }
+
+        function updateWizardUI() {
+            // Update progress dots
+            const dots = document.querySelectorAll('.progress-dot');
+            dots.forEach((dot, index) => {
+                const stepNum = index + 1;
+                dot.classList.remove('active', 'complete');
+                if (stepNum === wizardState.step) {
+                    dot.classList.add('active');
+                } else if (stepNum < wizardState.step) {
+                    dot.classList.add('complete');
+                }
+            });
+
+            // Show current step
+            const steps = document.querySelectorAll('.wizard-step');
+            steps.forEach((step, index) => {
+                step.classList.remove('active');
+                if (index + 1 === wizardState.step) {
+                    step.classList.add('active');
+                }
+            });
+
+            // Step-specific updates
+            if (wizardState.step === 3) {
+                renderPlayerList();
+            } else if (wizardState.step === 4) {
+                renderPositionEditor();
+            } else if (wizardState.step === 6) {
+                renderSummary();
+            }
+        }
+
+        // ===============================================
+        // STEP 2: TEAM INFO
+        // ===============================================
+
+        function saveTeamInfo() {
+            wizardState.teamData.name = document.getElementById('teamName').value.trim();
+            wizardState.teamData.coach = document.getElementById('coachName').value.trim();
+            wizardState.teamData.grade = document.getElementById('gradeLevel').value;
+            wizardState.teamData.league = document.getElementById('league').value;
+        }
+
+        // ===============================================
+        // STEP 3: ADD PLAYERS
+        // ===============================================
+
+        function addPlayer() {
+            const nameInput = document.getElementById('newPlayerName');
+            const numberInput = document.getElementById('newPlayerNumber');
+
+            const name = nameInput.value.trim();
+            const number = parseInt(numberInput.value);
+
+            if (!name) {
+                alert('Please enter a player name');
+                nameInput.focus();
+                return;
+            }
+
+            if (isNaN(number) || number < 0 || number > 99) {
+                alert('Please enter a valid jersey number (0-99)');
+                numberInput.focus();
+                return;
+            }
+
+            // Check for duplicate number
+            if (wizardState.teamData.players.some(p => p.number === number)) {
+                alert(`Jersey #${number} is already taken`);
+                numberInput.focus();
+                return;
+            }
+
+            wizardState.teamData.players.push({
+                id: Date.now(),
+                name: name,
+                number: number,
+                positions: [1, 2, 3, 4, 5], // Default: can play all positions
+                isTop4: false,
+                available: true
+            });
+
+            nameInput.value = '';
+            numberInput.value = '';
+            nameInput.focus();
+
+            renderPlayerList();
+        }
+
+        function removePlayer(playerId) {
+            wizardState.teamData.players = wizardState.teamData.players.filter(p => p.id !== playerId);
+            renderPlayerList();
+        }
+
+        function renderPlayerList() {
+            const list = document.getElementById('playerList');
+            const count = document.getElementById('playerCount');
+
+            if (wizardState.teamData.players.length === 0) {
+                list.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">👥</div>
+                        <div>No players added yet</div>
+                    </div>
+                `;
+            } else {
+                // Sort by number
+                const sorted = [...wizardState.teamData.players].sort((a, b) => a.number - b.number);
+
+                list.innerHTML = sorted.map(player => `
+                    <div class="player-item">
+                        <div class="number">${player.number}</div>
+                        <div class="name">${player.name}</div>
+                        <div class="actions">
+                            <button class="btn-icon btn-danger" onclick="removePlayer(${player.id})">×</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            count.textContent = `${wizardState.teamData.players.length} players added`;
+        }
+
+        function validatePlayers() {
+            if (wizardState.teamData.players.length < 5) {
+                alert('You need at least 5 players to build a lineup');
+                return false;
+            }
+            return true;
+        }
+
+        // ===============================================
+        // STEP 4: POSITION PREFERENCES
+        // ===============================================
+
+        let currentEditingPlayer = 0;
+
+        function renderPositionEditor() {
+            const container = document.getElementById('positionEditor');
+            const players = wizardState.teamData.players;
+
+            if (players.length === 0) {
+                container.innerHTML = '<div class="empty-state">No players to configure</div>';
+                return;
+            }
+
+            // Show one player at a time for mobile-friendliness
+            const player = players[currentEditingPlayer];
+
+            container.innerHTML = `
+                <div style="text-align: center; margin-bottom: 15px; color: #666;">
+                    Player ${currentEditingPlayer + 1} of ${players.length}
+                </div>
+
+                <div class="player-editor">
+                    <div class="player-editor-header">
+                        <span class="player-editor-title">${player.name} #${player.number}</span>
+                        <div class="top-player-toggle ${player.isTop4 ? 'active' : ''}" onclick="toggleTopPlayer(${player.id})">
+                            ⭐ Top Player
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 10px; font-size: 13px; color: #666;">
+                        Tap positions this player can play. First = primary.
+                    </div>
+
+                    <div class="position-grid">
+                        ${POSITIONS.map(pos => {
+                            const idx = player.positions.indexOf(pos.id);
+                            const isPrimary = idx === 0;
+                            const isSelected = idx >= 0;
+                            let className = 'position-btn';
+                            if (isPrimary) className += ' primary';
+                            else if (isSelected) className += ' selected';
+
+                            return `
+                                <button class="${className}" onclick="togglePosition(${player.id}, ${pos.id})">
+                                    ${pos.id}<br>${pos.name}
+                                </button>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 10px; margin-top: 15px;">
+                    <button class="btn-secondary" ${currentEditingPlayer === 0 ? 'disabled style="opacity: 0.5;"' : ''} onclick="prevPlayer()">← Previous</button>
+                    <button class="btn-secondary" style="flex: 1;" ${currentEditingPlayer === players.length - 1 ? 'disabled style="opacity: 0.5;"' : ''} onclick="nextPlayer()">Next →</button>
+                </div>
+            `;
+        }
+
+        function togglePosition(playerId, positionId) {
+            const player = wizardState.teamData.players.find(p => p.id === playerId);
+            if (!player) return;
+
+            const idx = player.positions.indexOf(positionId);
+            if (idx >= 0) {
+                // Only remove if not the last position
+                if (player.positions.length > 1) {
+                    player.positions.splice(idx, 1);
+                }
+            } else {
+                player.positions.push(positionId);
+            }
+
+            renderPositionEditor();
+        }
+
+        function toggleTopPlayer(playerId) {
+            const player = wizardState.teamData.players.find(p => p.id === playerId);
+            if (player) {
+                player.isTop4 = !player.isTop4;
+                renderPositionEditor();
+            }
+        }
+
+        function prevPlayer() {
+            if (currentEditingPlayer > 0) {
+                currentEditingPlayer--;
+                renderPositionEditor();
+            }
+        }
+
+        function nextPlayer() {
+            if (currentEditingPlayer < wizardState.teamData.players.length - 1) {
+                currentEditingPlayer++;
+                renderPositionEditor();
+            }
+        }
+
+        function savePositions() {
+            // Positions are saved as we go
+        }
+
+        function skipPositions() {
+            // Set all players to play all positions
+            wizardState.teamData.players.forEach(p => {
+                p.positions = [1, 2, 3, 4, 5];
+            });
+        }
+
+        // ===============================================
+        // STEP 5: TEMPLATES
+        // ===============================================
+
+        function generateTemplates() {
+            const option = document.querySelector('input[name="templateOption"]:checked').value;
+
+            if (option === 'auto') {
+                // Auto-generate Unit A/B templates
+                wizardState.teamData.templates = generateAutoTemplates(wizardState.teamData.players);
+            } else {
+                wizardState.teamData.templates = {};
+            }
+        }
+
+        function generateAutoTemplates(players) {
+            const count = players.length;
+            if (count < 5) return {};
+
+            const templates = {};
+
+            // Sort by: Top 4 first, then by position versatility
+            const sorted = [...players].sort((a, b) => {
+                if (a.isTop4 && !b.isTop4) return -1;
+                if (!a.isTop4 && b.isTop4) return 1;
+                return b.positions.length - a.positions.length;
+            });
+
+            if (count >= 10) {
+                // 10-player template: Unit A (odd periods) + Unit B (even periods)
+                const unitA = sorted.slice(0, 5);
+                const unitB = sorted.slice(5, 10);
+                templates['10player'] = { unitA, unitB };
+            }
+
+            if (count >= 9) {
+                // 9-player template
+                const fourPlusOT = sorted.slice(0, 5);
+                const fivePlusNoOT = sorted.slice(5, 9);
+                templates['9player'] = { fourPlusOT, fivePlusNoOT };
+            }
+
+            if (count >= 8) {
+                // 8-player template
+                templates['8player'] = { players: sorted.slice(0, 8) };
+            }
+
+            return templates;
+        }
+
+        // ===============================================
+        // STEP 6: SUMMARY & FINISH
+        // ===============================================
+
+        function renderSummary() {
+            const team = wizardState.teamData;
+            document.getElementById('summaryTeamName').textContent = team.name || 'My Team';
+            document.getElementById('summaryPlayerCount').textContent = team.players.length;
+            document.getElementById('summaryTopCount').textContent = team.players.filter(p => p.isTop4).length;
+            document.getElementById('summaryTemplates').textContent = Object.keys(team.templates).length > 0 ? 'Ready' : 'Not set';
+        }
+
+        function finishSetup() {
+            // Create team ID
+            wizardState.teamData.id = 'team_' + Date.now();
+            wizardState.teamData.created = new Date().toISOString();
+            wizardState.teamData.lastModified = new Date().toISOString();
+            wizardState.teamData.savedGames = [];
+
+            // Add to app data
+            appData.teams.push(wizardState.teamData);
+            appData.activeTeamId = wizardState.teamData.id;
+            saveAppData();
+
+            // Set current team and go to home
+            currentTeam = wizardState.teamData;
+            showHome();
+        }
+
+        // ===============================================
+        // HOME SCREEN
+        // ===============================================
+
+        function updateHomeUI() {
+            if (!currentTeam) return;
+
+            document.getElementById('homeSubtitle').textContent = `Welcome back, ${currentTeam.coach || 'Coach'}`;
+            document.getElementById('homeTeamName').textContent = currentTeam.name;
+
+            const lastUsed = currentTeam.lastModified ? new Date(currentTeam.lastModified).toLocaleDateString() : 'Never';
+            document.getElementById('homeTeamMeta').textContent = `${currentTeam.players.length} players - Last used: ${lastUsed}`;
+
+            renderRecentGames();
+        }
+
+        function renderRecentGames() {
+            const list = document.getElementById('recentGamesList');
+            const games = currentTeam.savedGames || [];
+
+            if (games.length === 0) {
+                list.innerHTML = '<div class="empty-state" style="padding: 20px;"><div>No saved games yet</div></div>';
+                return;
+            }
+
+            // Show last 5 games
+            const recent = games.slice(0, 5);
+            list.innerHTML = recent.map(game => `
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #f8f9fa; border-radius: 8px; margin-bottom: 8px;">
+                    <div>
+                        <div style="font-weight: 600;">vs ${game.opponent || 'Unknown'}</div>
+                        <div style="font-size: 12px; color: #666;">${game.date || 'No date'}</div>
+                    </div>
+                    <button class="btn-secondary" style="padding: 8px 12px; min-height: unset; font-size: 13px;" onclick="loadSavedGame('${game.id}')">Load</button>
+                </div>
+            `).join('');
+        }
+
+        // ===============================================
+        // HOME ACTIONS
+        // ===============================================
+
+        function startNewGame() {
+            lineups = {};
+            showBuilder();
+        }
+
+        function showRosterEditor() {
+            // Reset wizard to step 3 with current team data
+            wizardState.teamData = JSON.parse(JSON.stringify(currentTeam));
+            wizardState.step = 3;
+            currentEditingPlayer = 0;
+
+            document.getElementById('wizardPanel').classList.remove('hidden');
+            document.getElementById('homePanel').classList.add('hidden');
+
+            updateWizardUI();
+        }
+
+        function showSavedGames() {
+            alert('Saved games feature - coming soon!');
+        }
+
+        function showImportExport() {
+            showExportModal();
+        }
+
+        function showTeamSwitcher() {
+            if (appData.teams.length <= 1) {
+                if (confirm('No other teams. Create a new team?')) {
+                    wizardState.teamData = {
+                        id: null,
+                        name: "",
+                        coach: "",
+                        grade: "",
+                        league: "WAA",
+                        players: [],
+                        templates: {}
+                    };
+                    wizardState.step = 1;
+                    showWizard();
+                }
+                return;
+            }
+
+            // Simple team switcher
+            const teamNames = appData.teams.map((t, i) => `${i + 1}. ${t.name}`).join('\n');
+            const choice = prompt(`Select team number:\n${teamNames}`);
+
+            if (choice) {
+                const idx = parseInt(choice) - 1;
+                if (idx >= 0 && idx < appData.teams.length) {
+                    currentTeam = appData.teams[idx];
+                    appData.activeTeamId = currentTeam.id;
+                    saveAppData();
+                    updateHomeUI();
+                }
+            }
+        }
+
+        function loadSavedGame(gameId) {
+            const game = currentTeam.savedGames.find(g => g.id === gameId);
+            if (game) {
+                lineups = JSON.parse(JSON.stringify(game.lineups));
+                showBuilder();
+            }
+        }
+
+        // ===============================================
+        // IMPORT/EXPORT
+        // ===============================================
+
+        function showImportModal() {
+            document.getElementById('importModal').classList.add('active');
+            document.getElementById('importData').value = '';
+        }
+
+        function showExportModal() {
+            if (!currentTeam) {
+                alert('No team to export');
+                return;
+            }
+
+            const exportData = {
+                version: APP_VERSION,
+                exportDate: new Date().toISOString(),
+                team: currentTeam
+            };
+
+            document.getElementById('exportData').value = JSON.stringify(exportData, null, 2);
+            document.getElementById('exportModal').classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function importRoster() {
+            const data = document.getElementById('importData').value.trim();
+
+            if (!data) {
+                alert('Please paste JSON data');
+                return;
+            }
+
+            try {
+                const imported = JSON.parse(data);
+
+                if (imported.team) {
+                    // Full export format
+                    imported.team.id = 'team_' + Date.now(); // New ID
+                    imported.team.created = new Date().toISOString();
+                    imported.team.lastModified = new Date().toISOString();
+
+                    appData.teams.push(imported.team);
+                    appData.activeTeamId = imported.team.id;
+                    currentTeam = imported.team;
+                    saveAppData();
+
+                    closeModal('importModal');
+                    showHome();
+                    alert('Roster imported successfully!');
+                } else {
+                    alert('Invalid format. Please use a proper export file.');
+                }
+            } catch (e) {
+                alert('Failed to parse JSON: ' + e.message);
+            }
+        }
+
+        function copyExport() {
+            const textarea = document.getElementById('exportData');
+            textarea.select();
+            document.execCommand('copy');
+            alert('Copied to clipboard!');
+        }
+
+        // ===============================================
+        // BUILDER (placeholder - will integrate V2 logic)
+        // ===============================================
+
+        function initBuilder() {
+            if (!currentTeam) {
+                showHome();
+                return;
+            }
+
+            document.getElementById('builderTitle').textContent = currentTeam.name;
+            document.getElementById('builderSubtitle').textContent = `${currentTeam.players.length} players - ${currentTeam.league}`;
+
+            // Build the full lineup builder UI
+            renderBuilderUI();
+        }
+
+        function renderBuilderUI() {
+            const content = document.getElementById('builderContent');
+
+            // For now, create a simplified builder
+            // In full implementation, this would be the complete V2 builder
+            content.innerHTML = `
+                <!-- Game Info -->
+                <div style="margin-bottom: 20px;">
+                    <div class="form-group">
+                        <label>Opponent</label>
+                        <input type="text" id="opponent" placeholder="Team name">
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <div class="form-group" style="flex: 1;">
+                            <label>Date</label>
+                            <input type="date" id="gameDate" value="${new Date().toISOString().split('T')[0]}">
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label>Time</label>
+                            <input type="time" id="gameTime">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Roster Availability -->
+                <div style="margin-bottom: 20px;">
+                    <h3 style="margin-bottom: 10px;">Player Availability</h3>
+                    <div id="rosterAvailability" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px;">
+                        ${currentTeam.players.map(p => `
+                            <div class="player-chip ${p.available !== false ? 'available' : 'unavailable'}"
+                                 onclick="toggleAvailability(${p.id})"
+                                 id="player-${p.id}">
+                                <div style="font-weight: bold;">#${p.number}</div>
+                                <div>${p.name}</div>
+                                ${p.isTop4 ? '<div style="font-size: 10px;">⭐ Top</div>' : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div id="availableCount" style="text-align: center; margin-top: 10px; color: #666;">
+                        ${currentTeam.players.filter(p => p.available !== false).length} available
+                    </div>
+                </div>
+
+                <!-- Templates -->
+                <div style="margin-bottom: 20px;">
+                    <h3 style="margin-bottom: 10px;">Quick Templates</h3>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button class="btn-success" onclick="loadTemplate('10player')">10 Player</button>
+                        <button class="btn-success" onclick="loadTemplate('9player')">9 Player</button>
+                        <button class="btn-success" onclick="loadTemplate('8player')">8 Player</button>
+                    </div>
+                </div>
+
+                <!-- Period Builder -->
+                <div id="periodBuilder"></div>
+
+                <!-- Actions -->
+                <div style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button class="btn-secondary" onclick="showHome()">← Back</button>
+                    <button class="btn-primary" onclick="validateLineups()">Check Rules</button>
+                    <button class="btn-success" onclick="saveCurrentGame()">Save Game</button>
+                    <button class="btn-secondary" onclick="window.print()">Print</button>
+                </div>
+
+                <!-- Preview -->
+                <div style="margin-top: 20px;">
+                    <h3 style="margin-bottom: 10px;">Preview</h3>
+                    <div id="previewTable"></div>
+                </div>
+            `;
+
+            // Add player chip styles
+            const style = document.createElement('style');
+            style.textContent = `
+                .player-chip {
+                    padding: 12px;
+                    border: 2px solid #28a745;
+                    border-radius: 8px;
+                    text-align: center;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                    background: #d4edda;
+                }
+                .player-chip.unavailable {
+                    background: #f8d7da;
+                    border-color: #dc3545;
+                    opacity: 0.6;
+                }
+                .player-chip:active {
+                    transform: scale(0.95);
+                }
+            `;
+            document.head.appendChild(style);
+
+            renderPeriodBuilder();
+            updatePreview();
+        }
+
+        function toggleAvailability(playerId) {
+            const player = currentTeam.players.find(p => p.id === playerId);
+            if (player) {
+                player.available = player.available === false ? true : false;
+
+                const chip = document.getElementById(`player-${playerId}`);
+                chip.classList.toggle('available', player.available !== false);
+                chip.classList.toggle('unavailable', player.available === false);
+
+                document.getElementById('availableCount').textContent =
+                    `${currentTeam.players.filter(p => p.available !== false).length} available`;
+            }
+        }
+
+        function renderPeriodBuilder() {
+            const container = document.getElementById('periodBuilder');
+            const periods = [1, 2, 3, 4, 5, 6, 7, 8, 'OT1', 'OT2'];
+
+            container.innerHTML = `
+                <h3 style="margin-bottom: 10px;">Lineups by Period</h3>
+                ${periods.map(period => `
+                    <div style="margin-bottom: 15px; border: 2px solid #e0e0e0; border-radius: 10px; overflow: hidden;">
+                        <div style="background: #f8f9fa; padding: 12px; font-weight: 600; display: flex; justify-content: space-between;">
+                            <span>Period ${period}</span>
+                            <span id="period-${period}-count">${Object.keys(lineups[period] || {}).length}/5</span>
+                        </div>
+                        <div style="padding: 12px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;">
+                            ${[1,2,3,4,5].map(pos => {
+                                const playerNum = lineups[period]?.[pos];
+                                const player = playerNum ? currentTeam.players.find(p => p.number === playerNum) : null;
+                                return `
+                                    <div style="text-align: center; padding: 10px; background: ${player ? '#d4edda' : '#f0f0f0'}; border-radius: 8px; cursor: pointer; min-height: 60px;"
+                                         onclick="assignPosition(${typeof period === 'string' ? `'${period}'` : period}, ${pos})">
+                                        <div style="font-size: 12px; color: #666;">${pos}</div>
+                                        <div style="font-weight: 600;">${player ? `#${player.number}` : '—'}</div>
+                                        <div style="font-size: 11px;">${player ? player.name : 'Tap to assign'}</div>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+                `).join('')}
+            `;
+        }
+
+        let selectingPeriod = null;
+        let selectingPosition = null;
+
+        function assignPosition(period, position) {
+            selectingPeriod = period;
+            selectingPosition = position;
+
+            const available = currentTeam.players.filter(p => p.available !== false);
+            const assigned = Object.values(lineups[period] || {});
+            const currentPlayer = lineups[period]?.[position];
+
+            // Show/hide clear button
+            const clearBtn = document.getElementById('clearPositionBtn');
+            clearBtn.style.display = currentPlayer ? 'block' : 'none';
+
+            document.getElementById('playerSelectTitle').textContent = `Period ${period} - Position ${position}`;
+
+            const container = document.getElementById('playerSelectOptions');
+
+            // Sort players: primary position first, then can play, then others
+            const sorted = [...available].sort((a, b) => {
+                const aAssigned = assigned.includes(a.number);
+                const bAssigned = assigned.includes(b.number);
+                if (aAssigned && !bAssigned) return 1;
+                if (!aAssigned && bAssigned) return -1;
+
+                const aPrimary = a.positions[0] === position;
+                const bPrimary = b.positions[0] === position;
+                if (aPrimary && !bPrimary) return -1;
+                if (!aPrimary && bPrimary) return 1;
+
+                const aCanPlay = a.positions.includes(position);
+                const bCanPlay = b.positions.includes(position);
+                if (aCanPlay && !bCanPlay) return -1;
+                if (!aCanPlay && bCanPlay) return 1;
+
+                return a.number - b.number;
+            });
+
+            container.innerHTML = sorted.map(player => {
+                const isAssigned = assigned.includes(player.number);
+                const isPrimary = player.positions[0] === position;
+                const canPlay = player.positions.includes(position);
+                const isCurrent = player.number === currentPlayer;
+
+                let style = 'padding: 15px; border-radius: 10px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; cursor: pointer; transition: all 0.2s;';
+
+                if (isCurrent) {
+                    style += 'background: #667eea; color: white; border: 2px solid #667eea;';
+                } else if (isAssigned) {
+                    style += 'background: #f0f0f0; color: #999; border: 2px solid #e0e0e0; cursor: not-allowed;';
+                } else if (isPrimary) {
+                    style += 'background: #d4edda; border: 2px solid #28a745;';
+                } else if (canPlay) {
+                    style += 'background: #fff3cd; border: 2px solid #ffc107;';
+                } else {
+                    style += 'background: #f8f9fa; border: 2px solid #e0e0e0;';
+                }
+
+                let badge = '';
+                if (isPrimary) badge = '<span style="font-size: 11px; background: #28a745; color: white; padding: 2px 6px; border-radius: 4px;">Primary</span>';
+                else if (canPlay) badge = '<span style="font-size: 11px; background: #ffc107; color: #000; padding: 2px 6px; border-radius: 4px;">Can Play</span>';
+
+                if (player.isTop4) badge += ' <span style="font-size: 11px;">⭐</span>';
+
+                return `
+                    <div style="${style}" onclick="${isAssigned && !isCurrent ? '' : `selectPlayer(${player.number})`}">
+                        <div style="width: 40px; height: 40px; border-radius: 50%; background: ${isCurrent ? 'white' : '#667eea'}; color: ${isCurrent ? '#667eea' : 'white'}; display: flex; align-items: center; justify-content: center; font-weight: bold;">${player.number}</div>
+                        <div style="flex: 1;">
+                            <div style="font-weight: 600;">${player.name}</div>
+                            <div style="font-size: 12px; opacity: 0.8;">
+                                ${isAssigned && !isCurrent ? 'Already in lineup' : `Positions: ${player.positions.join(', ')}`}
+                            </div>
+                        </div>
+                        ${badge}
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('playerSelectModal').classList.add('active');
+        }
+
+        function selectPlayer(playerNumber) {
+            if (!lineups[selectingPeriod]) lineups[selectingPeriod] = {};
+            lineups[selectingPeriod][selectingPosition] = playerNumber;
+
+            closeModal('playerSelectModal');
+            renderPeriodBuilder();
+            updatePreview();
+        }
+
+        function clearPosition() {
+            if (lineups[selectingPeriod]) {
+                delete lineups[selectingPeriod][selectingPosition];
+            }
+
+            closeModal('playerSelectModal');
+            renderPeriodBuilder();
+            updatePreview();
+        }
+
+        function loadTemplate(templateName) {
+            const available = currentTeam.players.filter(p => p.available !== false);
+            const count = available.length;
+
+            if (templateName === '10player' && count !== 10) {
+                alert(`10-player template requires exactly 10 available players. You have ${count}.`);
+                return;
+            }
+            if (templateName === '9player' && count !== 9) {
+                alert(`9-player template requires exactly 9 available players. You have ${count}.`);
+                return;
+            }
+            if (templateName === '8player' && count !== 8) {
+                alert(`8-player template requires exactly 8 available players. You have ${count}.`);
+                return;
+            }
+
+            if (!confirm('This will replace your current lineup. Continue?')) {
+                return;
+            }
+
+            lineups = {};
+
+            // Sort players: Top 4 first, then by versatility
+            const sorted = [...available].sort((a, b) => {
+                if (a.isTop4 && !b.isTop4) return -1;
+                if (!a.isTop4 && b.isTop4) return 1;
+                return b.positions.length - a.positions.length;
+            });
+
+            function assignToPositions(players, periodLineup) {
+                const assigned = [];
+
+                // First pass: primary positions
+                players.forEach(p => {
+                    const primaryPos = p.positions[0];
+                    if (!periodLineup[primaryPos] && !assigned.includes(p.number)) {
+                        periodLineup[primaryPos] = p.number;
+                        assigned.push(p.number);
+                    }
+                });
+
+                // Second pass: any available position
+                players.forEach(p => {
+                    if (assigned.includes(p.number)) return;
+                    for (let pos = 1; pos <= 5; pos++) {
+                        if (!periodLineup[pos]) {
+                            periodLineup[pos] = p.number;
+                            assigned.push(p.number);
+                            break;
+                        }
+                    }
+                });
+            }
+
+            if (templateName === '10player') {
+                const top4 = sorted.filter(p => p.isTop4);
+                const nonTop4 = sorted.filter(p => !p.isTop4);
+
+                const unitATop4 = top4.slice(0, 2);
+                const unitBTop4 = top4.slice(2, 4);
+                const sortedNonTop4 = [...nonTop4].sort((a, b) => b.positions.length - a.positions.length);
+                const unitANonTop4 = sortedNonTop4.slice(0, 3);
+                const unitBNonTop4 = sortedNonTop4.slice(3, 6);
+
+                const unitA = [...unitATop4, ...unitANonTop4];
+                const unitB = [...unitBTop4, ...unitBNonTop4];
+
+                [1, 3, 5, 7].forEach(period => {
+                    lineups[period] = {};
+                    assignToPositions(unitA, lineups[period]);
+                });
+
+                [2, 4, 6, 8].forEach(period => {
+                    lineups[period] = {};
+                    assignToPositions(unitB, lineups[period]);
+                });
+
+                lineups['OT1'] = {};
+                lineups['OT2'] = {};
+                assignToPositions(unitA, lineups['OT1']);
+                assignToPositions(unitB, lineups['OT2']);
+
+            } else if (templateName === '9player') {
+                const top4Available = sorted.filter(p => p.isTop4);
+                let fourPlusOT = [];
+                let fivePlusNoOT = [];
+
+                if (top4Available.length >= 4) {
+                    fourPlusOT = top4Available.slice(0, 3);
+                    fivePlusNoOT = [top4Available[3]];
+                } else {
+                    fourPlusOT = [...top4Available];
+                }
+
+                const nonTop4 = sorted.filter(p => !p.isTop4);
+                while (fourPlusOT.length < 5 && nonTop4.length > 0) {
+                    fourPlusOT.push(nonTop4.shift());
+                }
+                fivePlusNoOT = [...fivePlusNoOT, ...nonTop4];
+
+                const oddAnchor = fourPlusOT.find(p => p.positions.includes(1)) || fourPlusOT[0];
+                const evenCore = fourPlusOT.filter(p => p !== oddAnchor);
+
+                const oddPlayers = [oddAnchor, ...fivePlusNoOT];
+                [1, 3, 5, 7].forEach(period => {
+                    lineups[period] = {};
+                    assignToPositions(oddPlayers, lineups[period]);
+                });
+
+                [2, 4, 6, 8].forEach((period, idx) => {
+                    lineups[period] = {};
+                    const rotatingPlayer = fivePlusNoOT[idx];
+                    const evenPlayers = [...evenCore, rotatingPlayer];
+                    assignToPositions(evenPlayers, lineups[period]);
+                });
+
+                lineups['OT1'] = {};
+                lineups['OT2'] = {};
+                assignToPositions(fourPlusOT, lineups['OT1']);
+                assignToPositions(fourPlusOT, lineups['OT2']);
+
+            } else if (templateName === '8player') {
+                const periodAssignments = {
+                    1: [0, 1, 2, 3, 4],
+                    2: [0, 1, 2, 3, 5],
+                    3: [0, 1, 2, 3, 6],
+                    4: [0, 1, 2, 3, 7],
+                    5: [0, 4, 5, 6, 7],
+                    6: [1, 4, 5, 6, 7],
+                    7: [2, 4, 5, 6, 7],
+                    8: [3, 4, 5, 6, 7],
+                };
+
+                function assignByIndices(indices, periodLineup) {
+                    const players = indices.map(i => sorted[i]);
+                    assignToPositions(players, periodLineup);
+                }
+
+                for (let period = 1; period <= 8; period++) {
+                    lineups[period] = {};
+                    assignByIndices(periodAssignments[period], lineups[period]);
+                }
+
+                lineups['OT1'] = {};
+                lineups['OT2'] = {};
+                assignByIndices([0, 1, 2, 3, 4], lineups['OT1']);
+                assignByIndices([0, 1, 5, 6, 7], lineups['OT2']);
+            }
+
+            renderPeriodBuilder();
+            updatePreview();
+            alert(`${templateName} template loaded!`);
+        }
+
+        function updatePreview() {
+            const container = document.getElementById('previewTable');
+            if (!container) return;
+
+            const periods = [1, 2, 3, 4, 5, 6, 7, 8, 'OT1', 'OT2'];
+            const players = currentTeam.players.filter(p => p.available !== false).sort((a, b) => a.number - b.number);
+
+            let html = `
+                <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+                    <tr>
+                        <th style="border: 1px solid #000; padding: 6px; background: #f0f0f0;">Player</th>
+                        ${periods.map(p => `<th style="border: 1px solid #000; padding: 6px; background: #f0f0f0;">${p}</th>`).join('')}
+                        <th style="border: 1px solid #000; padding: 6px; background: #f0f0f0;">Total</th>
+                    </tr>
+            `;
+
+            players.forEach(player => {
+                let total = 0;
+                html += `<tr>
+                    <td style="border: 1px solid #000; padding: 6px;">#${player.number} ${player.name}</td>
+                `;
+
+                periods.forEach(period => {
+                    const inPeriod = Object.values(lineups[period] || {}).includes(player.number);
+                    if (inPeriod) total++;
+                    html += `<td style="border: 1px solid #000; padding: 6px; text-align: center; font-weight: ${inPeriod ? 'bold' : 'normal'};">${inPeriod ? 'X' : ''}</td>`;
+                });
+
+                html += `<td style="border: 1px solid #000; padding: 6px; text-align: center; font-weight: bold;">${total}</td></tr>`;
+            });
+
+            html += '</table>';
+            container.innerHTML = html;
+        }
+
+        function validateLineups() {
+            const available = currentTeam.players.filter(p => p.available !== false);
+            const count = available.length;
+
+            let errors = [];
+            let warnings = [];
+            let infos = [];
+
+            // Check each period has 5 players
+            [1, 2, 3, 4, 5, 6, 7, 8].forEach(period => {
+                const periodCount = Object.keys(lineups[period] || {}).length;
+                if (periodCount !== 5) {
+                    errors.push(`Period ${period}: Only ${periodCount}/5 players assigned`);
+                }
+            });
+
+            // Check playing time
+            const totalSlots = 40;
+            const avgPeriods = totalSlots / count;
+            const minPeriods = Math.floor(avgPeriods);
+            const maxPeriods = Math.ceil(avgPeriods);
+
+            available.forEach(player => {
+                let usage = 0;
+                [1, 2, 3, 4, 5, 6, 7, 8].forEach(period => {
+                    if (Object.values(lineups[period] || {}).includes(player.number)) {
+                        usage++;
+                    }
+                });
+
+                if (usage < minPeriods || usage > maxPeriods) {
+                    errors.push(`${player.name} #${player.number}: Playing ${usage} periods (expected ${minPeriods}-${maxPeriods})`);
+                }
+            });
+
+            // Show results
+            let message = '';
+            if (errors.length > 0) {
+                message = `ERRORS:\n${errors.join('\n')}`;
+            }
+            if (warnings.length > 0) {
+                message += `\n\nWARNINGS:\n${warnings.join('\n')}`;
+            }
+            if (errors.length === 0 && warnings.length === 0) {
+                message = '✓ All WAA rules validated!';
+            }
+
+            alert(message);
+        }
+
+        function saveCurrentGame() {
+            const opponent = document.getElementById('opponent')?.value || 'Unknown';
+            const gameDate = document.getElementById('gameDate')?.value || new Date().toISOString().split('T')[0];
+            const gameTime = document.getElementById('gameTime')?.value || '';
+
+            const hasData = Object.keys(lineups).some(period => Object.keys(lineups[period] || {}).length > 0);
+            if (!hasData) {
+                alert('No lineup to save. Please build a lineup first.');
+                return;
+            }
+
+            const game = {
+                id: 'game_' + Date.now(),
+                opponent: opponent,
+                date: gameDate,
+                time: gameTime,
+                lineups: JSON.parse(JSON.stringify(lineups)),
+                playerCount: currentTeam.players.filter(p => p.available !== false).length,
+                savedAt: new Date().toISOString()
+            };
+
+            if (!currentTeam.savedGames) {
+                currentTeam.savedGames = [];
+            }
+
+            // Check for duplicate
+            const existingIdx = currentTeam.savedGames.findIndex(g => g.opponent === opponent && g.date === gameDate);
+            if (existingIdx !== -1) {
+                if (confirm(`A game vs ${opponent} on ${gameDate} already exists. Replace it?`)) {
+                    currentTeam.savedGames[existingIdx] = game;
+                } else {
+                    return;
+                }
+            } else {
+                currentTeam.savedGames.unshift(game);
+            }
+
+            currentTeam.lastModified = new Date().toISOString();
+            saveAppData();
+
+            alert('Game saved!');
+        }
+
+        // ===============================================
+        // INITIALIZE
+        // ===============================================
+
+        // Handle Enter key in quick add
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const nameInput = document.getElementById('newPlayerName');
+                const numberInput = document.getElementById('newPlayerNumber');
+
+                if (document.activeElement === nameInput) {
+                    numberInput.focus();
+                } else if (document.activeElement === numberInput) {
+                    addPlayer();
+                }
+            }
+        });
+
+        // Initialize app
+        init();
+    </script>
+</body>
+</html>
