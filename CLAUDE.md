@@ -1,6 +1,6 @@
 # CLAUDE.md — Technical Handoff for Coach D
 
-> Last updated: December 29, 2025
+> Last updated: January 18, 2026
 > Live site: [coach.claudewill.io](https://coach.claudewill.io)
 > Repository: [github.com/dereksimmons23/coach](https://github.com/dereksimmons23/coach)
 
@@ -17,14 +17,20 @@
 **What's documented (knowledge base):**
 - Neuroplasticity training framework
 - BLAST Recruit curriculum
-- Case studies (paint confidence breakthrough, extension vs escape)
+- Case studies (paint confidence breakthrough, special needs game awareness)
+- Teaching moments (extension vs escape, empathy in competition)
 - Pete Koland reference letter
 - In-season training guide with pricing
 
 **What's planned:**
-- Coach D AI agent (same architecture as CW at claudewill.io)
-- Additional BLAST curriculum (Travel, Varsity levels)
+- Coach D AI agent with **voice** (ElevenLabs cloned voice)
+- Text + audio responses for authentic coaching experience
 - More case studies as training progresses
+
+**What's ready to build (January 11, 2026):**
+- `netlify/functions/coach-d.js` — Stubbed with voice architecture
+- `docs/VOICE-INTEGRATION.md` — Full ElevenLabs integration plan
+- `coach-d-office/CoachD_Agent_Basketball_Intelligence.md` — Coaching knowledge base
 
 ---
 
@@ -35,15 +41,20 @@ coach/
 ├── index.html                    # Fieldhouse landing page
 ├── main-court/                   # Core methodology
 │   ├── neuroplasticity-framework.md
-│   ├── BLAST-Recruit.md
+│   ├── blast-curriculum/         # 16 categories, ~155 drills (NEW)
+│   │   ├── README.md
+│   │   ├── drill-index.md
+│   │   └── 01-16 category files
 │   └── README.md
 ├── practice-gym/                 # Tools & templates
 │   ├── lineup-builder/           # WAA-compliant lineup tool
 │   └── README.md
 ├── film-room/                    # Case studies & teaching moments
 │   ├── case-studies/
-│   │   └── paint-confidence-breakthrough.md
+│   │   ├── paint-confidence-breakthrough.md
+│   │   └── special-needs-game-awareness.md
 │   ├── teaching-moment-extension-vs-escape.md
+│   ├── teaching-moment-empathy-in-competition.md
 │   └── README.md
 ├── coach-d-office/               # Credentials & profiles
 │   ├── index.html                # Coach D profile page (live)
@@ -54,8 +65,12 @@ coach/
 │   └── README.md
 ├── docs/                         # Strategy & vision
 │   ├── phoenixgrind-arena-vision.md
+│   ├── VOICE-INTEGRATION.md      # ElevenLabs voice integration plan
 │   └── README.md
-├── netlify/                      # (Future: Coach D serverless function)
+├── netlify/                      # Serverless functions
+│   └── functions/
+│       ├── coach-d.js            # Voice-enabled Coach D agent (stubbed)
+│       └── package.json          # Dependencies
 ├── CLAUDE.md                     # This file
 ├── README.md                     # User-facing documentation
 ├── HANDOFF.md                    # Session-based notes
@@ -82,13 +97,17 @@ coach/
   publish = "."
   command = "echo 'No build needed - static site'"
 
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
 [[headers]]
   for = "/*"
   [headers.values]
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+    Permissions-Policy = "geolocation=(), microphone=(self), camera=()"
 ```
 
 ---
@@ -128,8 +147,37 @@ coach.claudewill.io/
 
 ### Technical Stack
 - **Model:** claude-3-5-sonnet-latest (upgraded from Haiku for multi-role complexity)
+- **Voice:** ElevenLabs (Derek's cloned voice for authentic Coach D)
 - **Backend:** Supabase (sessions, logging, athlete profiles)
 - **Max tokens:** 1000 (complex role-switching needs room)
+
+### Voice Integration (NEW - January 11, 2026)
+
+Coach D speaks with Derek's actual voice via ElevenLabs cloning.
+
+**Why voice matters:**
+- Coaching is verbal — "Hear the ball pop" makes more sense spoken
+- Tone conveys encouragement, urgency, patience
+- Athletes are used to hearing coaching, not reading it
+- Differentiator from every other AI assistant
+
+**Architecture:**
+```
+User Message → Netlify Function → Claude Response → ElevenLabs TTS → Audio + Text
+```
+
+**Implementation phases:**
+1. **MVP:** Server-side voice generation, return base64 audio with text
+2. **Toggle:** User opt-in for voice (not everyone wants audio)
+3. **Streaming:** Client-side ElevenLabs SDK for faster playback
+
+**Environment variables needed:**
+- `ELEVENLABS_API_KEY` — Voice synthesis API
+- `ELEVENLABS_VOICE_ID` — Coach D's cloned voice ID
+
+**Cost:** ~$22/month (ElevenLabs Creator tier, ~100 voiced responses)
+
+**Full details:** `docs/VOICE-INTEGRATION.md`
 
 ### Design Documents
 - `docs/COACH-D-SYSTEM-PROMPT.md` — Full system prompt outline (~500 lines)
@@ -217,9 +265,36 @@ Like CW's time-based conditions, Coach D would adjust personality based on conte
 | File | Content |
 |------|---------|
 | `main-court/neuroplasticity-framework.md` | Get 50, boxing glove, cognitive load training |
-| `main-court/BLAST-Recruit.md` | Competitive development curriculum |
-| `film-room/teaching-moment-extension-vs-escape.md` | Philosophy case study |
+| `main-court/blast-curriculum/` | **Complete drill library - 16 categories, ~155 drills** |
+| `main-court/blast-curriculum/drill-index.md` | Master index with practice builders |
+| `film-room/teaching-moment-extension-vs-escape.md` | Philosophy: basketball as expression |
+| `film-room/teaching-moment-empathy-in-competition.md` | I-words framework, empathy in athletics |
 | `film-room/case-studies/paint-confidence-breakthrough.md` | 60-minute breakthrough session |
+| `film-room/case-studies/special-needs-game-awareness.md` | Situational awareness, coaching humility |
+
+### BLAST Curriculum (NEW - January 2, 2026)
+Restructured from three sources (Recruit .md, Travel .docx, Varsity .docx) into organized drill library:
+
+| File | Category | Drills |
+|------|----------|--------|
+| `01-spin-cycle.md` | Spin Cycle | 14 |
+| `02-finish.md` | Finish | 16 |
+| `03-handles.md` | Handles | 24 |
+| `04-handles-on-the-move.md` | Handles (Move) | 17 |
+| `05-the-box.md` | The Box | 2 |
+| `06-combos.md` | Combos | 9 |
+| `07-tennis-ball.md` | Tennis Ball | 7 |
+| `08-tennis-ball-basketball.md` | Tennis + BB | 4 |
+| `09-drop-n-dimes.md` | Drop N Dimes | 22 |
+| `10-pivot-jab-steps.md` | Pivot & Jab | 10 |
+| `11-step-backs.md` | Step Backs | 6 |
+| `12-step-to-the-side.md` | Side Step | 8 |
+| `13-lock-up.md` | Lock Up | 3 |
+| `14-pull-the-trigger.md` | Shooting | 6 |
+| `15-footwork.md` | Footwork | 4 |
+| `16-ball-screen.md` | Ball Screen | 3 |
+
+**Three levels per category:** Travel (youth), Varsity (high school), Recruit (college)
 
 ### Operational
 | File | Content |
@@ -229,9 +304,9 @@ Like CW's time-based conditions, Coach D would adjust personality based on conte
 | `coach-d-office/pete-koland-reference-letter.md` | Reference template |
 
 ### Missing (Needed for Full Coach D)
-- [ ] BLAST Travel/Varsity curriculum (.docx conversion)
+- [x] BLAST Travel/Varsity curriculum — **DONE** (January 2, 2026)
+- [x] Special needs coaching frameworks — **DONE** (January 18, 2026)
 - [ ] Mandatory reporting protocols (by state)
-- [ ] Special needs coaching frameworks
 - [ ] Crisis response guidance
 - [ ] Parent communication templates
 
@@ -310,6 +385,29 @@ netlify dev    # Test serverless functions locally
 
 ## Changelog
 
+### January 18, 2026
+- Added case study: special-needs-game-awareness.md (situational awareness, coaching humility)
+- Added teaching moment: empathy-in-competition.md (I-words framework, empathy in athletics)
+- Updated Coach D system prompt with "Empathy in intensity" philosophy
+- Added special needs & adaptive coaching guidance to boundaries
+- Added empathy/awareness testing scenarios
+- Marked "Special needs coaching frameworks" complete in roadmap
+
+### January 11, 2026
+- Voice integration designed with ElevenLabs
+- Created `netlify/functions/coach-d.js` with voice architecture
+- Created `docs/VOICE-INTEGRATION.md` design document
+- Added `CoachD_Agent_Basketball_Intelligence.md` to coach-d-office/
+- Updated `netlify.toml` with functions configuration
+- Set up `coach` terminal alias
+
+### January 2, 2026
+- BLAST curriculum restructured into 16-category drill library
+- ~155 drills documented with step-by-step execution format
+- Travel and Varsity .docx files converted and consolidated
+- Master drill index created with practice builders
+- STATUS.md updated with Phase 7
+
 ### December 27, 2025
 - Coach's Office launched (coach-d-office/index.html)
 - Switched from GitHub Pages to Netlify
@@ -330,18 +428,30 @@ netlify dev    # Test serverless functions locally
 
 ## Next Session Focus
 
-**Immediate options:**
-1. Build Coach D AI (copy CW architecture, swap system prompt)
-2. Expand will-call with training packages
-3. Convert BLAST Travel/Varsity docs
+**Ready to build — Voice-Enabled Coach D:**
 
-**When building Coach D:**
-1. Create system prompt (~300 lines) based on methodology above
-2. Create `netlify/functions/coach-d.js` following CW pattern
-3. Create chat interface (copy CW's index.html, rebrand)
-4. Update netlify.toml with functions config
-5. Test with real coaching scenarios
+| Step | Status | Notes |
+|------|--------|-------|
+| 1. Create ElevenLabs voice clone | TODO | Need 1-3 min audio samples |
+| 2. Get API credentials | TODO | Add to Netlify env vars |
+| 3. Set up Supabase tables | TODO | Run SQL from schema doc |
+| 4. Test `coach-d.js` function | TODO | Verify text responses work |
+| 5. Add voice generation | TODO | Enable ElevenLabs integration |
+| 6. Build chat interface | TODO | Copy CW pattern, rebrand |
+| 7. Test with coaching scenarios | TODO | Use scenarios from system prompt doc |
+
+**Pre-flight checklist (before next session):**
+- [ ] Record 1-3 minutes of coaching audio for voice cloning
+- [ ] Create ElevenLabs account (Creator tier for cloning)
+- [ ] Have Supabase project ready (or use existing)
+
+**Alternative paths:**
+- Interactive drill browser on website
+- AI-powered practice planning from drill library
+- Printable practice cards from markdown
 
 ---
 
 **Philosophy:** This repository operates on accumulation, not deadlines. Build tools when you need them. Document what works. Let it grow organically.
+
+**2026 is the year for voice.** The technology is ready. Coach D will speak.
