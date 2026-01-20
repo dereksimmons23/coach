@@ -40,3 +40,4 @@ netlify/*.txt
 
 # Private content (if any added later)
 # Add sensitive docs here as needed
+docs/coachd-api.txt
