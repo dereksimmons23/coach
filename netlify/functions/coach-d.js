@@ -337,7 +337,7 @@ exports.handler = async (event, context) => {
     });
 
     const response = await client.messages.create({
-      model: 'claude-3-5-haiku-latest', // Haiku for speed/cost, upgrade to Sonnet if needed
+      model: 'claude-sonnet-4-20250514', // Sonnet 4 for consistent personality and instruction following
       max_tokens: 800,
       system: SYSTEM_PROMPT,
       messages: messages
