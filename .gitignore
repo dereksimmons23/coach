@@ -41,3 +41,14 @@ netlify/*.txt
 # Private content (if any added later)
 # Add sensitive docs here as needed
 docs/coachd-api.txt
+
+# Internal documentation (local only, not needed in public repo)
+CLAUDE.md
+HANDOFF.md
+STATUS.md
+ROADMAP.md
+
+# Strategy & methodology docs (proprietary)
+docs/COACH-D-SYSTEM-PROMPT.md
+docs/SUPABASE-SCHEMA.md
+docs/VOICE-INTEGRATION.md
