@@ -3,6 +3,39 @@
 // The host of the fieldhouse at coach.claudewill.io
 
 const Anthropic = require('@anthropic-ai/sdk');
+const { createClient } = require('@supabase/supabase-js');
+const crypto = require('crypto');
+
+// Initialize Supabase (optional - graceful degradation if not configured)
+const supabase = process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY
+  ? createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY)
+  : null;
+
+// Hash IP for privacy
+function hashIp(ip) {
+  if (!ip || ip === 'unknown') return null;
+  return crypto.createHash('sha256').update(ip).digest('hex').substring(0, 16);
+}
+
+// Log conversation (non-blocking)
+async function logConversation(data) {
+  if (!supabase) return;
+
+  try {
+    await supabase.from('coach_d_conversations').insert({
+      session_id: data.sessionId,
+      user_message: data.userMessage,
+      coach_d_response: data.response,
+      context: data.context,
+      ip_hash: data.ipHash,
+      token_usage: data.tokenUsage,
+      response_time_ms: data.responseTime
+    });
+  } catch (error) {
+    // Log error but don't fail the request
+    console.error('Supabase logging error:', error);
+  }
+}
 
 // Simple rate limiting (resets on function cold start)
 const rateLimiter = {
@@ -224,6 +257,8 @@ function getAllowedOrigin(origin) {
 // =============================================================================
 
 exports.handler = async (event, context) => {
+  const startTime = Date.now();
+
   // CORS headers
   const origin = event.headers.origin || event.headers.Origin || '';
   const allowedOrigin = getAllowedOrigin(origin);
@@ -231,7 +266,7 @@ exports.handler = async (event, context) => {
   const headers = {
     'Access-Control-Allow-Origin': allowedOrigin,
     'Vary': 'Origin',
-    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Headers': 'Content-Type, X-Session-Id',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Content-Type': 'application/json'
   };
@@ -267,6 +302,9 @@ exports.handler = async (event, context) => {
       })
     };
   }
+
+  // Get session ID from header
+  const sessionId = event.headers['x-session-id'] || event.headers['X-Session-Id'] || null;
 
   try {
     let { messages } = JSON.parse(event.body);
@@ -331,6 +369,9 @@ exports.handler = async (event, context) => {
       }
     }
 
+    // Get the latest user message for logging
+    const lastUserMessage = messages.filter(m => m.role === 'user').pop();
+
     // Call Claude
     const client = new Anthropic({
       apiKey: process.env.ANTHROPIC_API_KEY
@@ -344,6 +385,21 @@ exports.handler = async (event, context) => {
     });
 
     const coachResponse = response.content[0].text;
+    const responseTime = Date.now() - startTime;
+
+    // Log conversation (non-blocking)
+    logConversation({
+      sessionId: sessionId,
+      userMessage: lastUserMessage?.content || '',
+      response: coachResponse,
+      context: null, // Could be detected from message content later
+      ipHash: hashIp(clientIp),
+      tokenUsage: {
+        input_tokens: response.usage.input_tokens,
+        output_tokens: response.usage.output_tokens
+      },
+      responseTime: responseTime
+    });
 
     return {
       statusCode: 200,
