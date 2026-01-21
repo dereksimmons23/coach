@@ -7,8 +7,10 @@ const { createClient } = require('@supabase/supabase-js');
 const crypto = require('crypto');
 
 // Initialize Supabase (optional - graceful degradation if not configured)
-const supabase = process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY
-  ? createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY)
+// Uses service role key (preferred) or anon key as fallback
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
+const supabase = process.env.SUPABASE_URL && supabaseKey
+  ? createClient(process.env.SUPABASE_URL, supabaseKey)
   : null;
 
 // Hash IP for privacy
