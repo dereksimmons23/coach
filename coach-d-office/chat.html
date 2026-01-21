@@ -383,6 +383,13 @@
 
         let conversationHistory = [];
 
+        // Generate or retrieve session ID
+        let sessionId = sessionStorage.getItem('coach-d-session-id');
+        if (!sessionId) {
+            sessionId = Date.now().toString(36) + Math.random().toString(36).substr(2);
+            sessionStorage.setItem('coach-d-session-id', sessionId);
+        }
+
         // Greeting based on time
         function getGreeting() {
             const hour = new Date().getHours();
@@ -452,7 +459,8 @@
                 const response = await fetch('/.netlify/functions/coach-d', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'X-Session-Id': sessionId
                     },
                     body: JSON.stringify({
                         messages: conversationHistory
