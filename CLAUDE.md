@@ -1,6 +1,6 @@
 # CLAUDE.md — Technical Handoff for Coach D
 
-> Last updated: January 18, 2026
+> Last updated: January 20, 2026
 > Live site: [coach.claudewill.io](https://coach.claudewill.io)
 > Repository: [github.com/dereksimmons23/coach](https://github.com/dereksimmons23/coach)
 
@@ -10,6 +10,7 @@
 
 **What's live:**
 - Fieldhouse landing page (coach.claudewill.io)
+- **Coach D AI agent** (/coach-d-office/chat.html) — TEXT WORKING, voice next
 - Coach D profile page (/coach-d-office/)
 - WAA Lineup Builder (/practice-gym/lineup-builder/) - battle-tested in real games
 - Practice Schedule Parser (/practice-gym/)
@@ -22,15 +23,16 @@
 - Pete Koland reference letter
 - In-season training guide with pricing
 
-**What's planned:**
-- Coach D AI agent with **voice** (ElevenLabs cloned voice)
-- Text + audio responses for authentic coaching experience
+**What's planned (voice integration):**
+- ElevenLabs voice cloning for authentic Coach D voice
+- Text + audio responses for coaching experience
 - More case studies as training progresses
 
-**What's ready to build (January 11, 2026):**
-- `netlify/functions/coach-d.js` — Stubbed with voice architecture
-- `docs/VOICE-INTEGRATION.md` — Full ElevenLabs integration plan
-- `coach-d-office/CoachD_Agent_Basketball_Intelligence.md` — Coaching knowledge base
+**What's configured (January 20, 2026):**
+- `netlify/functions/coach-d.js` — Live with Sonnet 4, Supabase logging
+- `coach-d-office/chat.html` — Chat interface with session tracking
+- Supabase `coach_d_conversations` table logging all interactions
+- `docs/VOICE-INTEGRATION.md` — ElevenLabs integration plan (next phase)
 
 ---
 
@@ -58,6 +60,7 @@ coach/
 │   └── README.md
 ├── coach-d-office/               # Credentials & profiles
 │   ├── index.html                # Coach D profile page (live)
+│   ├── chat.html                 # Coach D AI chat interface (live)
 │   ├── pete-koland-reference-letter.md
 │   └── README.md
 ├── will-call/                    # Training packages & services
@@ -69,8 +72,9 @@ coach/
 │   └── README.md
 ├── netlify/                      # Serverless functions
 │   └── functions/
-│       ├── coach-d.js            # Voice-enabled Coach D agent (stubbed)
-│       └── package.json          # Dependencies
+│       ├── coach-d.js            # Coach D agent (Sonnet 4, Supabase logging)
+│       ├── package.json          # Dependencies
+│       └── package-lock.json
 ├── CLAUDE.md                     # This file
 ├── README.md                     # User-facing documentation
 ├── HANDOFF.md                    # Session-based notes
@@ -95,7 +99,7 @@ coach/
 ```toml
 [build]
   publish = "."
-  command = "echo 'No build needed - static site'"
+  command = "cd netlify/functions && npm install"
 
 [functions]
   directory = "netlify/functions"
@@ -107,7 +111,7 @@ coach/
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "geolocation=(), microphone=(self), camera=()"
+    Permissions-Policy = "geolocation=(), microphone=(self), camera=(), payment=(), usb=()"
 ```
 
 ---
@@ -146,10 +150,21 @@ coach.claudewill.io/
 ```
 
 ### Technical Stack
-- **Model:** claude-3-5-sonnet-latest (upgraded from Haiku for multi-role complexity)
-- **Voice:** ElevenLabs (Derek's cloned voice for authentic Coach D)
-- **Backend:** Supabase (sessions, logging, athlete profiles)
-- **Max tokens:** 1000 (complex role-switching needs room)
+- **Model:** claude-sonnet-4-20250514 (Sonnet 4 for consistent personality)
+- **Voice:** ElevenLabs (planned — Derek's cloned voice for authentic Coach D)
+- **Backend:** Supabase (`cw-logging` project, `coach_d_conversations` table)
+- **Max tokens:** 800 (focused responses)
+- **Rate limiting:** 20 requests/minute per IP (in-memory, resets on cold start)
+
+### Environment Variables (Netlify)
+| Variable | Purpose |
+|----------|---------|
+| `ANTHROPIC_API_KEY` | Claude API access |
+| `SUPABASE_URL` | Supabase project URL |
+| `SUPABASE_ANON_KEY` | Supabase client key (fallback) |
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase admin key (preferred, not yet set) |
+| `ELEVENLABS_API_KEY` | Voice synthesis (future) |
+| `ELEVENLABS_VOICE_ID` | Coach D voice ID (future) |
 
 ### Voice Integration (NEW - January 11, 2026)
 
@@ -334,10 +349,13 @@ netlify dev    # Test serverless functions locally
 | Environment | URL |
 |-------------|-----|
 | **Production** | https://coach.claudewill.io |
+| **Coach D AI Chat** | https://coach.claudewill.io/coach-d-office/chat.html |
 | **Coach D Office** | https://coach.claudewill.io/coach-d-office/ |
 | **Lineup Builder** | https://coach.claudewill.io/practice-gym/lineup-builder/ |
 | **Netlify Dashboard** | https://app.netlify.com/sites/coachd |
+| **Netlify Function Logs** | https://app.netlify.com/projects/coachd/logs/functions |
 | **GitHub** | https://github.com/dereksimmons23/coach |
+| **Supabase Dashboard** | https://supabase.com/dashboard (cw-logging project) |
 
 ---
 
@@ -385,6 +403,16 @@ netlify dev    # Test serverless functions locally
 
 ## Changelog
 
+### January 20, 2026
+- **Coach D AI agent is LIVE** at /coach-d-office/chat.html
+- Built serverless function with full system prompt (~200 lines)
+- Integrated Supabase logging (session ID, messages, token usage, response time)
+- Chat interface with session tracking, time-based greetings, prompt chips
+- Model: Sonnet 4 (`claude-sonnet-4-20250514`) for consistent personality
+- Rate limiting: 20 requests/minute per IP
+- CORS origin allowlist configured
+- Build command updated to install function dependencies
+
 ### January 18, 2026
 - Added case study: special-needs-game-awareness.md (situational awareness, coaching humility)
 - Added teaching moment: empathy-in-competition.md (I-words framework, empathy in athletics)
@@ -428,22 +456,31 @@ netlify dev    # Test serverless functions locally
 
 ## Next Session Focus
 
-**Ready to build — Voice-Enabled Coach D:**
+**Coach D text is live. Next: testing and voice.**
 
 | Step | Status | Notes |
 |------|--------|-------|
-| 1. Create ElevenLabs voice clone | TODO | Need 1-3 min audio samples |
-| 2. Get API credentials | TODO | Add to Netlify env vars |
-| 3. Set up Supabase tables | TODO | Run SQL from schema doc |
-| 4. Test `coach-d.js` function | TODO | Verify text responses work |
-| 5. Add voice generation | TODO | Enable ElevenLabs integration |
-| 6. Build chat interface | TODO | Copy CW pattern, rebrand |
-| 7. Test with coaching scenarios | TODO | Use scenarios from system prompt doc |
+| 1. Test Coach D with coaching scenarios | **NEXT** | Use scenarios from system prompt doc |
+| 2. Verify Supabase logging | **NEXT** | Check `coach_d_conversations` table |
+| 3. Create ElevenLabs voice clone | TODO | Need 1-3 min audio samples |
+| 4. Get ElevenLabs API credentials | TODO | Add to Netlify env vars |
+| 5. Add voice generation to function | TODO | Enable ElevenLabs integration |
+| 6. Add voice toggle to chat UI | TODO | User opt-in for audio |
 
-**Pre-flight checklist (before next session):**
+**What's working now:**
+- [x] Coach D responds at /coach-d-office/chat.html
+- [x] Sonnet 4 model with full system prompt
+- [x] Supabase logging configured (URL + anon key)
+- [x] Session tracking in chat UI
+- [x] Rate limiting (20/min)
+- [x] CORS configured for production domains
+
+**Supabase logging note:**
+Currently using `SUPABASE_ANON_KEY` (same as CW). For better security, could add `SUPABASE_SERVICE_ROLE_KEY` from Supabase dashboard → Settings → API → service_role key.
+
+**Pre-flight for voice (future session):**
 - [ ] Record 1-3 minutes of coaching audio for voice cloning
 - [ ] Create ElevenLabs account (Creator tier for cloning)
-- [ ] Have Supabase project ready (or use existing)
 
 **Alternative paths:**
 - Interactive drill browser on website
