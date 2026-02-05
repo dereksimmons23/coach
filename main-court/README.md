@@ -2,78 +2,84 @@
 
 **The foundation.** Training systems, philosophy, and frameworks that define how Coach D develops players.
 
----
-
-## What Belongs Here
-
-**Training Systems:**
-- BLAST curriculum (Tim Levy's methodology)
-- Phoenix Grind training framework
-- Position-specific development guides
-- Skill progression maps
-
-**Philosophy & Frameworks:**
-- Coaching philosophy and principles
-- Neuroplasticity-based training approach
-- Mental game integration
-- Game application strategies
-
-**Core Principles:**
-- How players learn and develop
-- Why certain methods work
-- The "operating system" behind the tools
+**[View the Main Court →](https://coach.claudewill.io/main-court/)**
 
 ---
 
-## Current Contents
+## What's Here
 
-### blast-curriculum/
-*Empty - ready for Travel, Recruit, and Varsity level documentation*
+### BLAST Curriculum
+- **156 drills** across 16 categories
+- **3 progression levels:** Travel (Youth), Varsity (High School), Recruit (College-Bound)
+- Interactive drill browser with search and filters
+- Practice builder with print functionality
+- Full execution details for every drill
 
-### phoenix-grind/
-*Empty - ready for training philosophy and methodology*
+### Neuroplasticity Framework
+- "Get 50" bilateral assessment protocol
+- Boxing glove constraint training
+- Cognitive load training
+- Frustration as fuel methodology
+- Flow state through chaos system
 
-### (Root level)
-- neuroplasticity-framework.md *(coming)*
-- coaching-philosophy.md *(coming)*
-- development-stages.md *(coming)*
-
----
-
-## What This Section Does
-
-**For players/parents:**
-- Understand the training approach
-- See the thought behind the methods
-- Learn why we train the way we do
-
-**For other coaches:**
-- Reference systematic methodology
-- Adapt principles to their context
-- Understand the foundational framework
-
-**For Coach D:**
-- Document what's been developed over 15+ years
-- Organize thinking and approach
-- Create teaching materials
+### Coaching Cues Reference
+- 15 core coaching cues with meanings
+- Quick reference for practice
 
 ---
 
-## Content Guidelines
+## Files
 
-**When adding to Main Court:**
-- Focus on principles, not just tactics
-- Explain the "why" behind methods
-- Make it practical and applicable
-- Use real examples from player development
-- Keep coach language authentic
-
-**This is not:**
-- Marketing material
-- Generic coaching advice
-- Overly academic theory
-- Disconnected from real practice
+| File | Purpose |
+|------|---------|
+| `index.html` | Interactive drill browser and methodology overview |
+| `drills.js` | Complete drill database (156 drills) |
+| `neuroplasticity-framework.md` | Full neuroplasticity training documentation |
+| `blast-curriculum/` | Source drill files by category (16 markdown files) |
+| `BLAST-Recruit.md` | Original recruit curriculum source |
 
 ---
 
-**Status:** Structure ready. Content coming from Obsidian vault review.
+## Drill Categories
+
+| # | Category | Drills | Focus |
+|---|----------|--------|-------|
+| 1 | Spin Cycle | 14 | Pivot and spin moves |
+| 2 | Finish | 16 | Rim finishes and layups |
+| 3 | Handles | 24 | Stationary ball handling |
+| 4 | Handles (Move) | 17 | Ball handling in motion |
+| 5 | The Box | 2 | Signature pattern drill |
+| 6 | Combos | 9 | Multi-move combinations |
+| 7 | Tennis Ball | 7 | Coordination drills |
+| 8 | Tennis + Basketball | 4 | Two-ball coordination |
+| 9 | Drop 'N' Dimes | 22 | Passing |
+| 10 | Pivot & Jab | 10 | Footwork fundamentals |
+| 11 | Step Backs | 6 | Creating space |
+| 12 | Step to Side | 8 | Side step shooting |
+| 13 | Lock Up | 3 | Defensive drills |
+| 14 | Pull the Trigger | 6 | Shooting |
+| 15 | Footwork | 4 | Fundamental patterns |
+| 16 | Ball Screen | 3 | Screen reads |
+
+---
+
+## Using the Drill Browser
+
+1. **Search** by drill name or category
+2. **Filter** by level (Travel/Varsity/Recruit)
+3. **Click category pills** to focus on specific skills
+4. **Expand any drill** to see full execution steps
+5. **Add to Practice** to build a session
+6. **Print Practice** for a formatted practice plan
+
+---
+
+## Source Attribution
+
+**BLAST Curriculum** by [Phoenix Grind Basketball](https://phoenixgrindbasketball.com) / Tim Levy
+
+**Platform & Format** by Derek Claude Simmons / Coach D
+
+---
+
+**Status:** Live at coach.claudewill.io/main-court/
