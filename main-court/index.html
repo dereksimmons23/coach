@@ -1543,32 +1543,44 @@
 
   <!-- Password Check Script -->
   <script>
-    // Simple password protection (client-side)
-    // Password: blast2026 (hash below)
-    const PASS_HASH = '8a9bcf3d'; // Simple hash of "blast2026"
+    // Server-side password verification
+    // Access code validated via Netlify function — never stored client-side
 
-    function simpleHash(str) {
-      let hash = 0;
-      for (let i = 0; i < str.length; i++) {
-        const char = str.charCodeAt(i);
-        hash = ((hash << 5) - hash) + char;
-        hash = hash & hash;
-      }
-      return Math.abs(hash).toString(16).slice(0, 8);
-    }
-
-    function checkPassword() {
+    async function checkPassword() {
       const input = document.getElementById('passwordInput').value;
-      const hash = simpleHash(input);
+      const errorEl = document.getElementById('passwordError');
+      const submitBtn = document.querySelector('.password-submit');
 
-      if (hash === PASS_HASH || input === 'blast2026') {
-        localStorage.setItem('mainCourtAccess', 'granted');
-        unlockContent();
-      } else {
-        document.getElementById('passwordError').classList.add('show');
-        document.getElementById('passwordInput').value = '';
-        document.getElementById('passwordInput').focus();
+      if (!input) return;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Checking...';
+      errorEl.classList.remove('show');
+
+      try {
+        const res = await fetch('/.netlify/functions/verify-access', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ code: input })
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+          localStorage.setItem('mainCourtAccess', 'granted');
+          unlockContent();
+        } else {
+          errorEl.classList.add('show');
+          document.getElementById('passwordInput').value = '';
+          document.getElementById('passwordInput').focus();
+        }
+      } catch (err) {
+        errorEl.textContent = 'Connection error. Try again.';
+        errorEl.classList.add('show');
       }
+
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Enter';
     }
 
     function unlockContent() {
