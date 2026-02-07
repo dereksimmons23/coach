@@ -9,7 +9,7 @@
 ## What's Here
 
 ### BLAST Curriculum
-- **156 drills** across 16 categories
+- **157 drills** across 16 categories
 - **3 progression levels:** Travel (Youth), Varsity (High School), Recruit (College-Bound)
 - Interactive drill browser with search and filters
 - Practice builder with print functionality
@@ -33,7 +33,7 @@
 | File | Purpose |
 |------|---------|
 | `index.html` | Interactive drill browser and methodology overview |
-| `drills.js` | Complete drill database (156 drills) |
+| `drills.js` | Complete drill database (157 drills) |
 | `neuroplasticity-framework.md` | Full neuroplasticity training documentation |
 | `blast-curriculum/` | Source drill files by category (16 markdown files) |
 | `BLAST-Recruit.md` | Original recruit curriculum source |

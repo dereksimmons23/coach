@@ -98,7 +98,7 @@ Advanced drills with complex sequences, elite coordination, and game-situation r
 | 15 | Footwork | [15-footwork.md](15-footwork.md) | 4 |
 | 16 | Ball Screen | [16-ball-screen.md](16-ball-screen.md) | 3 |
 
-**Total: ~155 documented drills**
+**Total: 157 documented drills**
 
 ---
 
