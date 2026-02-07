@@ -111,7 +111,7 @@ A mobile-optimized, drag-and-drop basketball lineup management tool for Wayzata 
 3. Teegan #13 - Positions: 5,3,2,4 (CANNOT play 1)
 4. Kabir #22 - Positions: 1,2,3,4 (TOP 4)
 5. Caleb #23 - Positions: 1,2,3,4,5 (TOP 4)
-6. Ben #30 - Positions: 2,3,4
+6. Ben #30 - Positions: 1,2,3,4
 7. Charlie #35 - Positions: 1,2,3,4
 8. Michael #44 - Positions: 2,3,4,5
 9. John #52 - Positions: 5,4,3,2 (TOP 4)

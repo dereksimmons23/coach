@@ -98,8 +98,8 @@
 - Dominic #55
 - John #52
 
-**Tier 4 - Guard/Wing Specialist (2-3):**
-- Ben #30
+**Tier 4 - Guard/Wing Specialist (1-3):**
+- Ben #30 (can run point)
 - Tommy #2
 
 **Tier 5 - Big Specialist (5, can slide to 3/4):**

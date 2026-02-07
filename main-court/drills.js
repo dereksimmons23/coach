@@ -7,8 +7,8 @@
 const CATEGORIES = [
   { id: 1, name: "Spin Cycle", slug: "spin-cycle", icon: "🔄", description: "Pivot and spin moves to create separation", drillCount: 14 },
   { id: 2, name: "Finish", slug: "finish", icon: "🎯", description: "Rim finishes and layup variations", drillCount: 16 },
-  { id: 3, name: "Handles", slug: "handles", icon: "🏀", description: "Stationary ball handling", drillCount: 24 },
-  { id: 4, name: "Handles on the Move", slug: "handles-move", icon: "💨", description: "Ball handling while moving", drillCount: 17 },
+  { id: 3, name: "Handles", slug: "handles", icon: "🏀", description: "Stationary ball handling", drillCount: 25 },
+  { id: 4, name: "Handles on the Move", slug: "handles-move", icon: "💨", description: "Ball handling while moving", drillCount: 18 },
   { id: 5, name: "The Box", slug: "the-box", icon: "📦", description: "Pattern drill combining multiple skills", drillCount: 2 },
   { id: 6, name: "Combos", slug: "combos", icon: "🔗", description: "Combination moves linking skills", drillCount: 9 },
   { id: 7, name: "Tennis Ball", slug: "tennis-ball", icon: "🎾", description: "Coordination with tennis ball", drillCount: 7 },
@@ -121,7 +121,7 @@ const DRILLS = [
   },
   {
     id: "spin-5",
-    name: "Pound Hop, Spin, Punch - Right Hand",
+    name: "Pound Hop, Land Left-Right, Spin Right, Punch",
     category: 1,
     levels: ["varsity"],
     sequence: "4 dribbles",
@@ -137,7 +137,7 @@ const DRILLS = [
   },
   {
     id: "spin-6",
-    name: "Pound Hop, Spin, Punch - Left Hand",
+    name: "Pound Hop, Land Right-Left, Spin Left, Punch",
     category: 1,
     levels: ["varsity"],
     sequence: "4 dribbles",
@@ -153,7 +153,7 @@ const DRILLS = [
   },
   {
     id: "spin-7",
-    name: "Behind the Back Spin Entry - Right Hand",
+    name: "Pound Hop, Behind Back, Spin Right, Punch",
     category: 1,
     levels: ["recruit"],
     sequence: "3 dribbles",
@@ -168,7 +168,7 @@ const DRILLS = [
   },
   {
     id: "spin-8",
-    name: "Behind the Back Spin Entry - Left Hand",
+    name: "Pound Hop, Behind Back, Spin Left, Punch",
     category: 1,
     levels: ["recruit"],
     sequence: "3 dribbles",
@@ -183,7 +183,7 @@ const DRILLS = [
   },
   {
     id: "spin-9",
-    name: "Between the Legs Spin Entry - Right Hand",
+    name: "Pound Hop, Between Legs, Spin Right, Punch",
     category: 1,
     levels: ["recruit"],
     sequence: "3 dribbles",
@@ -198,7 +198,7 @@ const DRILLS = [
   },
   {
     id: "spin-10",
-    name: "Between the Legs Spin Entry - Left Hand",
+    name: "Pound Hop, Between Legs, Spin Left, Punch",
     category: 1,
     levels: ["recruit"],
     sequence: "3 dribbles",
@@ -213,7 +213,7 @@ const DRILLS = [
   },
   {
     id: "spin-11",
-    name: "Half Spin Shimmy - Right Hand",
+    name: "Pound Hop, Half Spin/Reverse Pivot, Shimmy, Explode Right, Punch",
     category: 1,
     levels: ["recruit"],
     sequence: "4 dribbles",
@@ -229,7 +229,7 @@ const DRILLS = [
   },
   {
     id: "spin-12",
-    name: "Half Spin Shimmy - Left Hand",
+    name: "Pound Hop, Half Spin/Reverse Pivot, Shimmy, Explode Left, Punch",
     category: 1,
     levels: ["recruit"],
     sequence: "4 dribbles",
@@ -245,34 +245,38 @@ const DRILLS = [
   },
   {
     id: "spin-13",
-    name: "Spin Move into Floater",
+    name: "Pound Hop, Half Spin/Reverse Pivot Left, Forward Pivot, Punch",
     category: 1,
     levels: ["recruit"],
-    sequence: "Game situation",
-    balance: "Balance through contact",
-    modifications: ["No defender", "Add cone as defender"],
+    sequence: "4 dribbles",
+    balance: "Knees 90 degrees, butt down, pivot on balls of feet, engage toes for balance. Lean aggressively in the direction you are spinning",
+    modifications: ["Footwork only", "4 dribbles: pound, pivot-spin, pivot-spin back, punch (no dribble hop to start)", "2 dribble gather: pound hop, pound gather, tuck ball under right arm on spin"],
     execution: [
-      "Attack baseline or middle",
-      "Execute full spin move",
-      "After spin, read help defender",
-      "Floater finish over help",
-      "Focus on touch and arc"
+      "Start in triple threat",
+      "Right hand 1st dribble, left foot step hop",
+      "Right hand 2nd dribble - land left-right",
+      "Left foot reverse pivot spin into 3rd dribble",
+      "Right hand 4th dribble",
+      "Forward pivot, spin into punch dribble",
+      "Right hand and right foot together"
     ]
   },
   {
     id: "spin-14",
-    name: "Spin Counter - Pull Back",
+    name: "Pound Hop, Half Spin/Reverse Pivot Right, Forward Pivot, Punch",
     category: 1,
     levels: ["recruit"],
     sequence: "4 dribbles",
-    balance: "Change of pace is key",
-    modifications: ["Slow motion", "Add finish"],
+    balance: "Knees 90 degrees, butt down, pivot on balls of feet, engage toes for balance. Lean aggressively in the direction you are spinning",
+    modifications: ["Footwork only", "4 dribbles: pound, pivot-spin, pivot-spin back, punch (no dribble hop to start)", "2 dribble gather: pound hop, pound gather, tuck ball under left arm on spin"],
     execution: [
-      "Start spin motion",
-      "Read defender overplaying",
-      "Pull back instead of completing spin",
-      "Attack opposite direction",
-      "Counter move when defender anticipates spin"
+      "Start in triple threat",
+      "Left hand 1st dribble, right foot step hop",
+      "Left hand 2nd dribble - land right-left",
+      "Right foot reverse pivot spin into 3rd dribble",
+      "Left hand 4th dribble",
+      "Forward pivot, spin into punch dribble",
+      "Left hand and left foot together"
     ]
   },
 
@@ -941,6 +945,25 @@ const DRILLS = [
     sequence: "4 dribble sequence / 30 reps",
     balance: "Knees 90 degrees, butt down, shoulders back, back straight",
     modifications: [],
+    execution: [
+      "1st dribble: left hand pound straight down",
+      "2nd dribble: pound between legs",
+      "3rd dribble: right hand pound behind back (under butt)",
+      "4th dribble: left hand pound straight down",
+      "Right hand: catch second ball and pound straight down",
+      "Snap back pass with right hand",
+      "Cross with left hand",
+      "Repeat sequence on other side"
+    ]
+  },
+  {
+    id: "handles-25",
+    name: "Pound Between Behind, Catch Second Ball, Pass Back, Cross (Alternating)",
+    category: 3,
+    levels: ["varsity"],
+    sequence: "4 dribble sequence / 30 reps",
+    balance: "Knees 90 degrees, butt down, shoulders back, back straight",
+    modifications: ["2 extra dribbles before pass back with off hand on 6 count", "Catch with off hand, pass back without dribbling"],
     execution: [
       "1st dribble: left hand pound straight down",
       "2nd dribble: pound between legs",
@@ -1907,7 +1930,7 @@ const DRILLS = [
   },
   {
     id: "foot-4",
-    name: "Load and Explode",
+    name: "Load, Explode, Glide, Drag, Plant",
     category: 15,
     levels: ["travel", "varsity", "recruit"],
     sequence: "Fundamental",
@@ -1924,7 +1947,7 @@ const DRILLS = [
   // ===== CATEGORY 16: BALL SCREEN =====
   {
     id: "screen-1",
-    name: "Ball Screen - Under",
+    name: "Under The Screen Read",
     category: 16,
     levels: ["travel", "varsity", "recruit"],
     sequence: "Ball screen read",
@@ -1939,7 +1962,7 @@ const DRILLS = [
   },
   {
     id: "screen-2",
-    name: "Ball Screen - Hip Pocket",
+    name: "Hip Pocket Read",
     category: 16,
     levels: ["travel", "varsity", "recruit"],
     sequence: "Ball screen read",
@@ -1954,7 +1977,7 @@ const DRILLS = [
   },
   {
     id: "screen-3",
-    name: "Ball Screen - Hard Hedge Reads",
+    name: "Hard Hedge/Show Read",
     category: 16,
     levels: ["travel", "varsity", "recruit"],
     sequence: "Ball screen read",
@@ -2366,7 +2389,7 @@ const DRILLS = [
   },
   {
     id: "stepback-5",
-    name: "Step Back, Cross, Step Back - Right Foot Start",
+    name: "Step Back, Keep Dribble/Cross, Step Back - Right Foot Start",
     category: 11,
     levels: ["recruit"],
     sequence: "3 dribble sequence",
@@ -2383,7 +2406,7 @@ const DRILLS = [
   },
   {
     id: "stepback-6",
-    name: "Step Back, Cross, Step Back - Left Foot Start",
+    name: "Step Back, Keep Dribble/Cross, Step Back - Left Foot Start",
     category: 11,
     levels: ["recruit"],
     sequence: "3 dribble sequence",
@@ -2490,7 +2513,7 @@ const DRILLS = [
   },
   {
     id: "sidestep-6",
-    name: "Cross, Side Step, One More Hard - Left Hand Start",
+    name: "Cross, Side Step, Keep Dribble, One More Hard - Left Hand Start",
     category: 12,
     levels: ["recruit"],
     sequence: "4 dribble sequence",
@@ -2509,7 +2532,7 @@ const DRILLS = [
   },
   {
     id: "sidestep-7",
-    name: "Cross, Side Step, One More Hard - Right Hand Start",
+    name: "Cross, Side Step, Keep Dribble, One More Hard - Right Hand Start",
     category: 12,
     levels: ["recruit"],
     sequence: "4 dribble sequence",
@@ -2528,7 +2551,7 @@ const DRILLS = [
   },
   {
     id: "sidestep-8",
-    name: "Aggressive Side Step, Cross (Alternating) Jump Shot",
+    name: "Aggressive Side Step, Cross (Alternating) Jump Shot - Right Hand Start",
     category: 12,
     levels: ["recruit"],
     sequence: "4 dribble sequence",
@@ -2566,7 +2589,7 @@ const DRILLS = [
   },
   {
     id: "lockup-2",
-    name: "Defensive Shuffle - Left 1, Right 2, Left 3, Long Aggressive Slide",
+    name: "Defensive Shuffle/Slide - Left 1, Right 2, Left 3, Long Aggressive Slide",
     category: 13,
     levels: ["varsity", "recruit"],
     sequence: "Full court / stamina",
@@ -2584,7 +2607,7 @@ const DRILLS = [
   },
   {
     id: "lockup-3",
-    name: "Defensive Shuffle - Right 1, Left 2, Right 3, Long Aggressive Slide",
+    name: "Defensive Shuffle/Slide - Right 1, Left 2, Right 3, Long Aggressive Slide",
     category: 13,
     levels: ["varsity", "recruit"],
     sequence: "Full court / stamina",
