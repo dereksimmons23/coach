@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏀 Kabir's Training - India 2025</title>
+    <meta name="description" content="Personal basketball training app for Kabir Patel - Powered by Claude AI">
+    <meta name="theme-color" content="#ff6b35">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Kabir Basketball">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="data:application/json,{%22name%22:%22Kabir's%20Basketball%20Training%22,%22short_name%22:%22Basketball%22,%22display%22:%22standalone%22,%22background_color%22:%22%23000000%22,%22theme_color%22:%22%23ff6b35%22,%22icons%22:[{%22src%22:%22data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23ff6b35'/%3E%3Ctext x='50' y='65' text-anchor='middle' font-size='40'%3E🏀%3C/text%3E%3C/svg%3E%22,%22sizes%22:%22192x192%22,%22type%22:%22image/svg+xml%22}]}">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-991ML96NJ3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-991ML96NJ3');
+    </script>
+    
+    <link rel="stylesheet" href="kabir.css">
+</head>
+<body>
+    <!-- Simple Welcome Screen (No Password) -->
+    <div id="welcomeScreen" class="welcome-screen">
+        <div class="welcome-card">
+            <div class="welcome-logo">🏀</div>
+            <h1 class="welcome-title">Kabir's Training</h1>
+            <p class="welcome-subtitle">Personal basketball development app<br>Powered by Claude AI</p>
+            <button id="startBtn" class="start-btn" aria-label="Start training app">Start Training</button>
+            <p class="welcome-note">India Trip: July 13 - August 16<br>Sin Miedo - Be Fearless!</p>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="mainApp" class="app">
+        <header class="header">
+            <h1 class="logo">🏀 Kabir's Training</h1>
+            <p class="subtitle">Building basketball excellence daily • Powered by Claude</p>
+        </header>
+
+        <!-- Tab Navigation -->
+        <nav class="tab-nav" role="tablist">
+            <button class="tab-btn active" data-tab="today" role="tab" aria-selected="true" aria-controls="today">
+                <span class="tab-icon">📊</span>
+                <span class="tab-text">Today</span>
+            </button>
+            <button class="tab-btn" data-tab="conditioning" role="tab" aria-selected="false" aria-controls="conditioning">
+                <span class="tab-icon">💪</span>
+                <span class="tab-text">Fitness</span>
+            </button>
+            <button class="tab-btn" data-tab="coach" role="tab" aria-selected="false" aria-controls="coach">
+                <span class="tab-icon">🤖</span>
+                <span class="tab-text">Coach D</span>
+            </button>
+            <button class="tab-btn" data-tab="memory" role="tab" aria-selected="false" aria-controls="memory">
+                <span class="tab-icon">💭</span>
+                <span class="tab-text">Remember</span>
+            </button>
+            <button class="tab-btn" data-tab="progress" role="tab" aria-selected="false" aria-controls="progress">
+                <span class="tab-icon">📈</span>
+                <span class="tab-text">Progress</span>
+            </button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Today Tab -->
+            <div id="today" class="tab-content active" role="tabpanel">
+                <div class="score-group">
+                    <h2>🎯 Today's Training Scores</h2>
+                    
+                    <!-- Simplified Score Inputs - Single Method -->
+                    <div class="score-input">
+                        <label for="rightHand">Get 50 Right Hand:</label>
+                        <div class="input-controls">
+                            <button class="btn btn-minus" onclick="updateScore('rightHand', -1)" aria-label="Decrease right hand score">−</button>
+                            <div class="score-display" id="rightHandDisplay" aria-live="polite">0</div>
+                            <button class="btn btn-plus" onclick="updateScore('rightHand', 1)" aria-label="Increase right hand score">+</button>
+                        </div>
+                        <div class="goal-indicator">Goal: 50/50 for India</div>
+                    </div>
+                    
+                    <div class="score-input">
+                        <label for="leftHand">Get 50 Left Hand:</label>
+                        <div class="input-controls">
+                            <button class="btn btn-minus" onclick="updateScore('leftHand', -1)" aria-label="Decrease left hand score">−</button>
+                            <div class="score-display" id="leftHandDisplay" aria-live="polite">0</div>
+                            <button class="btn btn-plus" onclick="updateScore('leftHand', 1)" aria-label="Increase left hand score">+</button>
+                        </div>
+                        <div class="goal-indicator">Goal: 45/50 for India</div>
+                    </div>
+                    
+                    <div class="score-input">
+                        <label for="threePointers">3-Pointers in 2 min:</label>
+                        <div class="input-controls">
+                            <button class="btn btn-minus" onclick="updateScore('threePointers', -1)" aria-label="Decrease three-pointers score">−</button>
+                            <div class="score-display" id="threePointersDisplay" aria-live="polite">0</div>
+                            <button class="btn btn-plus" onclick="updateScore('threePointers', 1)" aria-label="Increase three-pointers score">+</button>
+                        </div>
+                        <div class="goal-indicator">Goal: 20 for India (Current best: 17!)</div>
+                    </div>
+                    
+                    <div class="score-input">
+                        <label for="freeThrows">Free Throws in 1 min:</label>
+                        <div class="input-controls">
+                            <button class="btn btn-minus" onclick="updateScore('freeThrows', -1)" aria-label="Decrease free throws score">−</button>
+                            <div class="score-display" id="freeThrowsDisplay" aria-live="polite">0</div>
+                            <button class="btn btn-plus" onclick="updateScore('freeThrows', 1)" aria-label="Increase free throws score">+</button>
+                        </div>
+                        <div class="goal-indicator">Goal: 20 for India (Current best: 17!)</div>
+                    </div>
+                    
+                    <div class="score-input">
+                        <label for="trainingTime">Training Minutes:</label>
+                        <div class="input-controls">
+                            <button class="btn btn-minus" onclick="updateScore('trainingTime', -5)" aria-label="Decrease training time by 5 minutes">−5</button>
+                            <div class="score-display" id="trainingTimeDisplay" aria-live="polite">0</div>
+                            <button class="btn btn-plus" onclick="updateScore('trainingTime', 5)" aria-label="Increase training time by 5 minutes">+5</button>
+                        </div>
+                        <div class="goal-indicator">Track your daily training time</div>
+                    </div>
+                    
+                    <button class="complete-session-btn" onclick="completeSession()" aria-label="Complete today's training session">
+                        ✅ Complete Today's Session
+                    </button>
+                </div>
+            </div>
+
+            <!-- Conditioning Tab -->
+            <div id="conditioning" class="tab-content" role="tabpanel">
+                <div class="conditioning-challenge">
+                    <h2>💪 Sideline Conditioning Challenge</h2>
+                    <p class="challenge-description">Progressive speed challenge - get faster each set!</p>
+                    <div class="conditioning-sets">
+                        <div class="conditioning-set">
+                            <strong>Set 1:</strong> 17 touches in 65 seconds<br>
+                            <small>Rest 60 seconds</small>
+                        </div>
+                        <div class="conditioning-set">
+                            <strong>Set 2:</strong> 13 touches in 45 seconds<br>
+                            <small>Rest 60 seconds</small>
+                        </div>
+                        <div class="conditioning-set">
+                            <strong>Set 3:</strong> 9 touches in 30 seconds<br>
+                            <small>Rest 60 seconds</small>
+                        </div>
+                        <div class="conditioning-set">
+                            <strong>Set 4:</strong> 7 touches in 20 seconds<br>
+                            <small>Challenge complete!</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="conditioning-challenge">
+                    <h3>🏃‍♂️ Baseline Challenge</h3>
+                    <p class="challenge-description">Build that game-ready conditioning</p>
+                    <div class="conditioning-set">
+                        <strong>Target:</strong> 28 baseline touches in 3 minutes<br>
+                        <small>Sprint baseline to baseline, touch each line</small>
+                    </div>
+                </div>
+
+                <div class="wisdom-library">
+                    <h3>💪 Mental Toughness</h3>
+                    <div class="wisdom-item">"Champions are made while drenched in sweat when no one is watching"</div>
+                    <div class="wisdom-item">"Energy = performance; Energy flows from your voice"</div>
+                    <div class="wisdom-item">"Impossible to stand still and be loud; easy to be quiet and be still"</div>
+                </div>
+            </div>
+
+            <!-- Coach D Tab -->
+            <div id="coach" class="tab-content" role="tabpanel">
+                <div class="coaching-section">
+                    <h2>🎯 Quick Coaching Help</h2>
+                    <div class="quick-questions">
+                        <button class="quick-btn" onclick="askQuickQuestion('leftHand')" aria-label="Get help with left hand struggles">Left Hand Struggles</button>
+                        <button class="quick-btn" onclick="askQuickQuestion('shooting')" aria-label="Get help with shooting form">Shooting Form</button>
+                        <button class="quick-btn" onclick="askQuickQuestion('spinMove')" aria-label="Get help with spin move issues">Spin Move Issues</button>
+                        <button class="quick-btn" onclick="askQuickQuestion('mentalGame')" aria-label="Get help with mental toughness">Mental Toughness</button>
+                        <button class="quick-btn" onclick="askQuickQuestion('fatigue')" aria-label="Get help training when tired">Training When Tired</button>
+                        <button class="quick-btn" onclick="askQuickQuestion('motivation')" aria-label="Get help staying motivated">Stay Motivated</button>
+                        <button class="quick-btn" onclick="askQuickQuestion('organization')" aria-label="Get help staying organized">Stay Organized</button>
+                        <button class="quick-btn" onclick="askQuickQuestion('overwhelmed')" aria-label="Get help when feeling overwhelmed">Feeling Overwhelmed</button>
+                        <button class="quick-btn" onclick="askQuickQuestion('focus')" aria-label="Get help when can't focus">Can't Focus</button>
+                        <button class="quick-btn" onclick="askQuickQuestion('alone')" aria-label="Get help training alone">Training Alone</button>
+                        <button class="quick-btn" onclick="askQuickQuestion('confidence')" aria-label="Get help when lost confidence">Lost Confidence</button>
+                        <button class="quick-btn" onclick="askQuickQuestion('pressure')" aria-label="Get help with game pressure">Game Pressure</button>
+                    </div>
+                </div>
+
+                <div class="coaching-section">
+                    <h3>💬 Ask Coach D Anything</h3>
+                    <div class="custom-question">
+                        <textarea id="customQuestion" placeholder="Ask Coach D any basketball question..." aria-label="Ask Coach D a custom question"></textarea>
+                        <button class="ask-btn" onclick="askCustomQuestion()" aria-label="Send question to Coach D">Ask Coach D</button>
+                    </div>
+                </div>
+
+                <div id="coachResponse" class="coach-response" style="display: none;" aria-live="polite"></div>
+
+                <div class="wisdom-library">
+                    <h3>🧠 Coach D's Core Wisdom</h3>
+                    <div class="wisdom-item">"Aim small, miss small"</div>
+                    <div class="wisdom-item">"Your inner voice is your champion of success"</div>
+                    <div class="wisdom-item">"Next shot goes in. Always."</div>
+                    <div class="wisdom-item">"High and soft. Three basketballs fit."</div>
+                    <div class="wisdom-item">"Slow is smooth, smooth is fast"</div>
+                    <div class="wisdom-item">"Change speed and direction. Unguardable."</div>
+                    <div class="wisdom-item">"Game shots from game spots at game speed"</div>
+                </div>
+            </div>
+
+            <!-- Memory Tab -->
+            <div id="memory" class="tab-content" role="tabpanel">
+                <div class="memory-form">
+                    <h2>💭 Things I Want to Remember</h2>
+                    <textarea id="memoryInput" placeholder="What did you learn or think about during today's training? What breakthrough moments happened? What mantras are you building?" aria-label="Enter your training memories and thoughts"></textarea>
+                    <button class="save-btn" onclick="saveMemory()" aria-label="Save your memory">Save Memory</button>
+                </div>
+
+                <div class="memories-list" id="memoriesList" aria-live="polite">
+                    <!-- Memories will be displayed here -->
+                </div>
+            </div>
+
+            <!-- Progress Tab -->
+            <div id="progress" class="tab-content" role="tabpanel">
+                <div class="progress-stats">
+                    <div class="stat-card">
+                        <span class="stat-value" id="trainingStreak" aria-label="Current training streak">1</span>
+                        <div class="stat-label">Training Streak</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value" id="totalSessions" aria-label="Total sessions completed">0</span>
+                        <div class="stat-label">Sessions Completed</div>
+                    </div>
+                </div>
+
+                <div class="goal-progress">
+                    <h3>🇮🇳 India Trip Goals</h3>
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span>Get 50 Right (Goal: 50/50)</span>
+                            <span id="rightHandGoal" aria-label="Right hand progress">0/50</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="rightHandProgress" style="width: 0%" aria-label="Right hand progress bar"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span>Get 50 Left (Goal: 45/50)</span>
+                            <span id="leftHandGoal" aria-label="Left hand progress">0/45</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="leftHandProgress" style="width: 0%" aria-label="Left hand progress bar"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span>3-Pointers (Goal: 20 in 2 min)</span>
+                            <span id="threePointGoal" aria-label="Three-point progress">0/20</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="threePointProgress" style="width: 0%" aria-label="Three-point progress bar"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span>Free Throws (Goal: 20 in 1 min)</span>
+                            <span id="freeThrowGoal" aria-label="Free throw progress">0/20</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="freeThrowProgress" style="width: 0%" aria-label="Free throw progress bar"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="logout-btn" onclick="resetApp()" aria-label="Reset app data">Reset App</button>
+            </div>
+        </main>
+    </div>
+
+    <script defer src="kabir.js"></script>
+</body>
+</html>

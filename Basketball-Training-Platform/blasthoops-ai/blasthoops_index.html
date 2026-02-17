@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlastHoops.ai - Elite Basketball Development</title>
+    <meta name="description" content="Master the BLAST Training System with elite coaches. Elite basketball development powered by AI coaching.">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Critical CSS inlined for speed */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1a365d;
+        }
+
+        .ai {
+            color: #3182ce;
+        }
+
+        .nav-cta {
+            background: #3182ce;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background: #2c5282;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #1a365d 0%, #3182ce 50%, #2b77e6 100%);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1.5" fill="rgba(255,255,255,0.1)"/></svg>');
+            animation: float 20s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .highlight {
+            color: #ffd700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ffd700, #ffed4a);
+            color: #1a365d;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 215, 0, 0.4);
+        }
+
+        /* BLAST System */
+        .blast-system {
+            padding: 100px 0;
+            background: linear-gradient(to bottom, #f7fafc, #edf2f7);
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 3rem;
+            color: #1a365d;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 60px;
+            height: 4px;
+            background: #3182ce;
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .blast-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .blast-item {
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blast-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.6s;
+        }
+
+        .blast-item:hover::before {
+            left: 100%;
+        }
+
+        .blast-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+
+        .blast-letter {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #3182ce, #2b77e6);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 8px 25px rgba(49, 130, 206, 0.3);
+        }
+
+        .blast-item h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: #1a365d;
+            font-weight: 600;
+        }
+
+        .blast-item p {
+            color: #4a5568;
+            line-height: 1.5;
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #4a5568;
+        }
+
+        .about-content strong {
+            color: #1a365d;
+        }
+
+        /* Coaches Section */
+        .coaches {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #edf2f7 0%, #f7fafc 100%);
+        }
+
+        .coach-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 4rem;
+            margin-top: 4rem;
+        }
+
+        /* Flip Card Styles */
+        .coach-card {
+            perspective: 1000px;
+            height: 400px;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .coach-card:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .card-front {
+            background: linear-gradient(135deg, white 0%, #f8fafc 100%);
+            border: 1px solid #e2e8f0;
+        }
+
+        .card-back {
+            background: linear-gradient(135deg, #1a365d 0%, #3182ce 100%);
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        .coach-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #e2e8f0, #cbd5e0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #4a5568;
+            border: 4px solid #3182ce;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .coach-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+            color: #1a365d;
+            font-weight: 700;
+        }
+
+        .coach-title {
+            color: #3182ce;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .flip-hint {
+            color: #718096;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .coach-bio {
+            text-align: left;
+            line-height: 1.6;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .card-back h3 {
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Final CTA */
+        .final-cta {
+            background: linear-gradient(135deg, #1a365d 0%, #2b77e6 100%);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .final-cta::before {
+            content: '🏀';
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.05;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-15deg);
+        }
+
+        .final-cta-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .final-cta h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .final-cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            background: #2d3748;
+            color: white;
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: #a0aec0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0.8rem 15px;
+            }
+            
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+            
+            .nav-cta {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+            
+            .hero {
+                padding: 100px 0 60px;
+            }
+            
+            .blast-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .coach-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .coach-card {
+                height: 350px;
+            }
+            
+            .card-front, .card-back {
+                padding: 1.5rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer-links {
+                order: -1;
+            }
+        }
+
+        /* Performance Optimizations */
+        .lazy-load {
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .lazy-load.loaded {
+            opacity: 1;
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            
+            html {
+                scroll-behavior: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <h1>BlastHoops.<span class="ai">ai</span></h1>
+            </div>
+            <a href="#signup" class="nav-cta">Join Now</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Master the <span class="highlight">BLAST</span> Training System</h1>
+                <p class="hero-subtitle">Elite Basketball Development Powered by AI Coaching</p>
+                <a href="https://docs.google.com/forms/d/1Ov-sWUhzFAgKyxV-m8i-VX7KAJy7VQp71qAJNr1hb_k/viewform" class="cta-button" target="_blank">Join BlastHoops.ai</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- BLAST System -->
+    <section class="blast-system">
+        <div class="container">
+            <h2 class="section-title">The BLAST Training System</h2>
+            <div class="blast-grid">
+                <div class="blast-item">
+                    <div class="blast-letter">B</div>
+                    <h3>Balance</h3>
+                    <p>Foundation of all movements and skills. Master your center of gravity for unstoppable control.</p>
+                </div>
+                <div class="blast-item">
+                    <div class="blast-letter">L</div>
+                    <h3>Load</h3>
+                    <p>Preparation phase before explosive movements. Store energy like a coiled spring.</p>
+                </div>
+                <div class="blast-item">
+                    <div class="blast-letter">A</div>
+                    <h3>Activation</h3>
+                    <p>Explosive movement component. Release power with precision and purpose.</p>
+                </div>
+                <div class="blast-item">
+                    <div class="blast-letter">S</div>
+                    <h3>Sequence</h3>
+                    <p>Ordered progression of movements. Chain skills together for maximum impact.</p>
+                </div>
+                <div class="blast-item">
+                    <div class="blast-letter">T</div>
+                    <h3>Transition</h3>
+                    <p>Connecting movements smoothly. Flow between skills like water.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about">
+        <div class="container">
+            <h2 class="section-title">About BlastHoops.ai</h2>
+            <div class="about-content">
+                <p><strong>BlastHoops.ai represents the evolution of elite basketball training.</strong> We combine proven methodology with cutting-edge technology to develop complete players who excel both on and off the court.</p>
+                
+                <p>Our <strong>BLAST Training System</strong> breaks down complex basketball movements into fundamental components, allowing players to master each element before combining them into unstoppable skills. This systematic approach, enhanced by AI-powered coaching insights, creates accelerated development that traditional training methods simply cannot match.</p>
+                
+                <p><strong>Every player is unique.</strong> That's why our approach adapts to individual learning styles, physical attributes, and goals. Whether you're just starting your basketball journey or preparing for the next level, BlastHoops.ai provides the structure, support, and personalized guidance you need to achieve breakthrough performance.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Coaches Section -->
+    <section class="coaches">
+        <div class="container">
+            <h2 class="section-title">Meet Your Coaches</h2>
+            <div class="coach-grid">
+                <!-- Tim's Card (First) -->
+                <div class="coach-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="coach-image">Coach Tim</div>
+                            <h3>Tim Levy</h3>
+                            <p class="coach-title">Founder & Lead Trainer</p>
+                            <p class="flip-hint">Hover to read bio →</p>
+                        </div>
+                        <div class="card-back">
+                            <h3>Tim Levy</h3>
+                            <div class="coach-bio">
+                                <p><strong>PLACEHOLDER BIO - Replace with Tim's content:</strong></p>
+                                <p>Tim brings over [X] years of basketball training experience, having developed players from youth leagues to collegiate levels. His innovative approach to skill development and player psychology forms the foundation of the BLAST Training System.</p>
+                                <p>Tim's dedication to understanding each player's unique potential has helped hundreds of athletes achieve breakthrough performance and reach their basketball goals.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Derek's Card (Second) -->
+                <div class="coach-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="coach-image">Coach Derek</div>
+                            <h3>Derek Simmons</h3>
+                            <p class="coach-title">Co-Founder & Head Coach</p>
+                            <p class="flip-hint">Hover to read bio →</p>
+                        </div>
+                        <div class="card-back">
+                            <h3>Derek Simmons</h3>
+                            <div class="coach-bio">
+                                <p><strong>PLACEHOLDER BIO - Replace with Derek's content:</strong></p>
+                                <p>Derek combines traditional coaching excellence with cutting-edge AI technology to create personalized development experiences. His background in both athletics and technology innovation drives the vision behind BlastHoops.ai.</p>
+                                <p>Derek's philosophy centers on mental performance and systematic skill development, helping players build not just physical capabilities but unshakeable confidence and basketball IQ.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta" id="signup">
+        <div class="container">
+            <div class="final-cta-content">
+                <h2>Ready to Transform Your Game?</h2>
+                <p>Join the BlastHoops.ai community and master the BLAST system with elite coaching</p>
+                <a href="https://docs.google.com/forms/d/1Ov-sWUhzFAgKyxV-m8i-VX7KAJy7VQp71qAJNr1hb_k/viewform" class="cta-button" target="_blank">Start Your Journey</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 BlastHoops.ai. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#about">About</a>
+                    <a href="#coaches">Coaches</a>
+                    <a href="#signup">Join</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Single-page optimization scripts
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Header background on scroll
+            const header = document.querySelector('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 100) {
+                    header.style.background = 'rgba(255, 255, 255, 0.98)';
+                } else {
+                    header.style.background = 'rgba(255, 255, 255, 0.95)';
+                }
+            });
+
+            // Lazy loading for animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('loaded');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe elements for lazy loading
+            document.querySelectorAll('.blast-item, .coach-card').forEach(el => {
+                el.classList.add('lazy-load');
+                observer.observe(el);
+            });
+
+            // Mobile touch events for flip cards
+            if ('ontouchstart' in window) {
+                document.querySelectorAll('.coach-card').forEach(card => {
+                    card.addEventListener('touchstart', function() {
+                        this.classList.toggle('touch-flipped');
+                    });
+                });
+                
+                // Add CSS for touch devices
+                const touchStyle = document.createElement('style');
+                touchStyle.textContent = `
+                    .coach-card.touch-flipped .card-inner {
+                        transform: rotateY(180deg);
+                    }
+                `;
+                document.head.appendChild(touchStyle);
+            }
+
+            // Preload critical resources
+            const preloadLink = document.createElement('link');
+            preloadLink.rel = 'prefetch';
+            preloadLink.href = 'https://docs.google.com/forms/d/1Ov-sWUhzFAgKyxV-m8i-VX7KAJy7VQp71qAJNr1hb_k/viewform';
+            document.head.appendChild(preloadLink);
+        });
+
+        // Performance monitoring
+        window.addEventListener('load', function() {
+            // Log page load time for optimization
+            const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+            console.log('Page load time:', loadTime + 'ms');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FloState: The Science of Peak Performance | Derek Simmons</title>
+    <meta name="description" content="FloState is a comprehensive performance optimization system designed to help athletes, creatives, and professionals achieve and maintain flow state.">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../images/favicon.ico">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/styles.css">
+    
+    <!-- Additional Case Study Styles -->
+    <style>
+        .framework-tabs {
+            display: flex;
+            background-color: var(--gray-100);
+            border-radius: var(--radius-lg);
+            padding: 0.5rem;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .framework-tabs button {
+            flex: 1;
+            background: none;
+            border: none;
+            padding: 0.75rem 1rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--gray-700);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .framework-tabs button.active {
+            background-color: white;
+            color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .framework-content > div {
+            display: none;
+        }
+        
+        .framework-content > div.active {
+            display: block;
+        }
+        
+        .skill-triangle {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: var(--space-lg);
+            position: relative;
+        }
+        
+        .skill-triangle svg {
+            width: 100%;
+            height: auto;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--space-md);
+            text-align: center;
+        }
+        
+        .stat-card {
+            background-color: white;
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--gray-500);
+        }
+        
+        .progress-timeline {
+            position: relative;
+            max-width: 700px;
+            margin: 0 auto;
+            padding-top: var(--space-lg);
+        }
+        
+        .progress-line {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background-color: var(--gray-200);
+            z-index: -1;
+        }
+        
+        .progress-point {
+            position: relative;
+            margin-bottom: var(--space-3xl);
+            text-align: center;
+        }
+        
+        .progress-marker {
+            width: 2rem;
+            height: 2rem;
+            border-radius: var(--radius-full);
+            background-color: white;
+            border: 4px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-md);
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .progress-content {
+            max-width: 80%;
+            margin: 0 auto;
+        }
+        
+        .progress-title {
+            font-size: 1.25rem;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .progress-desc {
+            font-size: 0.9rem;
+            color: var(--gray-600);
+        }
+        
+        @media (max-width: 768px) {
+            .framework-tabs {
+                flex-direction: column;
+                padding: 0;
+            }
+            
+            .framework-tabs button {
+                padding: 0.5rem;
+            }
+            
+            .skill-triangle {
+                padding: var(--space-md);
+            }
+            
+            .progress-timeline {
+                padding-left: var(--space-lg);
+            }
+            
+            .progress-line {
+                left: var(--space-lg);
+                transform: none;
+            }
+            
+            .progress-point {
+                text-align: left;
+            }
+            
+            .progress-marker {
+                position: absolute;
+                left: 0;
+                transform: translateX(-50%);
+                margin: 0;
+            }
+            
+            .progress-content {
+                margin: 0 0 0 var(--space-lg);
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">DS</div>
+                <div class="logo-text">Derek Simmons</div>
+            </div>
+            
+            <button class="nav-toggle" aria-expanded="false" aria-label="Toggle Navigation">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+            
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/case-studies" class="active">Portfolio</a></li>
+                    <li><a href="/#experience">Experience</a></li>
+                    <li><a href="/resources">Resources</a></li>
+                    <li><a href="/#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Case Study Content -->
+    <main class="case-study flostate">
+        <!-- Header Section -->
+        <section class="case-study-header">
+            <div class="container">
+                <h1>FloState: The Science of Peak Performance</h1>
+                <p>A comprehensive performance optimization system designed to help athletes, creatives, and professionals achieve and maintain the elusive state of flow.</p>
+                <a href="../resources/flostate-overview.pdf" class="btn btn-secondary">Download Overview</a>
+            </div>
+        </section>
+        
+        <!-- Challenge Section -->
+        <section class="case-study-section">
+            <div class="container">
+                <div class="case-grid">
+                    <div class="case-text">
+                        <h2>The Challenge</h2>
+                        <p>For most performers—whether athletes, artists, or executives—peak performance remains frustratingly inconsistent. The "zone" or flow state is widely recognized but poorly understood, often attributed to luck rather than methodology.</p>
+                        <p>Traditional training focuses almost exclusively on technical skills while neglecting the mental, emotional, and spiritual components that enable sustained excellence.</p>
+                        <p>This gap creates several problems:</p>
+                        <ul>
+                            <li>Inconsistent performance despite technical proficiency</li>
+                            <li>Inability to perform under pressure at the same level as practice</li>
+                            <li>Mental barriers that prevent advancement despite physical capabilities</li>
+                            <li>Lack of transferable principles between performance domains</li>
+                        </ul>
+                    </div>
+                    <div class="case-image">
+                        <img src="../images/flostate-challenge.jpg" alt="Athlete struggling with performance inconsistency">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Quote Section -->
+        <section class="case-quote">
+            <div class="container">
+                <blockquote>
+                    "We believe life and sport hit different in the FloState. Everyone has the ability to become a permanent resident of this state, where there are no limits, rules or regulations. It does, however, require a tax, and one you must pay daily to get there and to stay there."
+                </blockquote>
+            </div>
+        </section>
+        
+        <!-- Approach Section -->
+        <section class="case-study-section">
+            <div class="container">
+                <h2 class="section-header">The Approach</h2>
+                <p class="text-center" style="max-width: 800px; margin: 0 auto var(--space-xl);">
+                    FloState addresses these challenges through a holistic framework that systematizes the achievement of flow state, turning what was once considered lucky or random into a replicable methodology.
+                </p>
+                
+                <div class="framework-tabs">
+                    <button class="active" data-tab="physical">Physical</button>
+                    <button data-tab="mental">Mental</button>
+                    <button data-tab="emotional">Emotional</button>
+                    <button data-tab="spiritual">Spiritual</button>
+                </div>
+                
+                <div class="framework-content">
+                    <div id="physical" class="active">
+                        <div class="case-grid">
+                            <div class="case-text">
+                                <h3>Physical Domain</h3>
+                                <p>The BLAST (Balance, Load, Activation, Sequence, Transition) training system provides structured skill development across different proficiency levels. This systematic approach breaks complex movements into teachable components with clear progression paths.</p>
+                                <p>Key components include:</p>
+                                <ul>
+                                    <li>Progressive skill development across five mastery levels</li>
+                                    <li>Breakdown of complex movements into micro-skills</li>
+                                    <li>Balance-focused training methodology</li>
+                                    <li>Sequence-driven repetition for muscle memory</li>
+                                </ul>
+                            </div>
+                            <div class="case-image">
+                                <div class="skill-triangle">
+                                    <svg viewBox="0 0 300 260" xmlns="http://www.w3.org/2000/svg">
+                                        <polygon points="150,10 10,250 290,250" fill="#eff6ff" stroke="#1e40af" stroke-width="2"/>
+                                        <text x="150" y="70" text-anchor="middle" fill="#1e40af" font-weight="bold">Finishing</text>
+                                        <text x="100" y="150" text-anchor="middle" fill="#475569">Body Control</text>
+                                        <text x="200" y="150" text-anchor="middle" fill="#475569">Contact Balance</text>
+                                        <text x="60" y="220" text-anchor="middle" fill="#64748b" font-size="smaller">Euro Step</text>
+                                        <text x="150" y="220" text-anchor="middle" fill="#64748b" font-size="smaller">Scoop Finish</text>
+                                        <text x="240" y="220" text-anchor="middle" fill="#64748b" font-size="smaller">Outside Foot</text>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="mental">
+                        <div class="case-grid">
+                            <div class="case-text">
+                                <h3>Mental Domain</h3>
+                                <p>Mental training focuses on confidence building, growth mindset development, visualization techniques, and decision-making frameworks. The methodology emphasizes "Get To > Have To" and "Yes, Me! > Why Me?" mindsets that transform challenges into opportunities.</p>
+                                <p>Key components include:</p>
+                                <ul>
+                                    <li>Visualization and mental rehearsal techniques</li>
+                                    <li>Confidence building through incremental challenges</li>
+                                    <li>Decision-making frameworks for in-game situations</li>
+                                    <li>Focus training and distraction management</li>
+                                </ul>
+                            </div>
+                            <div class="case-image">
+                                <img src="../images/flostate-mental.jpg" alt="Mental visualization techniques in FloState">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="emotional">
+                        <div class="case-grid">
+                            <div class="case-text">
+                                <h3>Emotional Domain</h3>
+                                <p>Emotional intelligence training includes body language awareness, adversity response, leadership development, and collaboration skills. FloState practitioners learn to master their emotional states rather than being controlled by them.</p>
+                                <p>Key components include:</p>
+                                <ul>
+                                    <li>Body language management during competition</li>
+                                    <li>Adversity response training</li>
+                                    <li>Leadership development</li>
+                                    <li>Collaborative intelligence building</li>
+                                </ul>
+                            </div>
+                            <div class="case-image">
+                                <img src="../images/flostate-emotional.jpg" alt="Emotional intelligence training in FloState">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="spiritual">
+                        <div class="case-grid">
+                            <div class="case-text">
+                                <h3>Spiritual Domain</h3>
+                                <p>The spiritual component addresses gratitude, mindfulness, purpose, and connectedness. This dimension creates meaning beyond performance, anchoring practitioners in values that transcend wins and losses.</p>
+                                <p>Key components include:</p>
+                                <ul>
+                                    <li>Gratitude practices integrated into training</li>
+                                    <li>Mindfulness and presence cultivation</li>
+                                    <li>Purpose-driven performance</li>
+                                    <li>Connectedness to team, community, and legacy</li>
+                                </ul>
+                            </div>
+                            <div class="case-image">
+                                <img src="../images/flostate-spiritual.jpg" alt="Spiritual aspects of FloState methodology">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Implementation Section -->
+        <section class="case-study-section">
+            <div class="container">
+                <h2 class="section-header">Implementation</h2>
+                
+                <div class="case-grid">
+                    <div class="case-text">
+                        <h3>The BLAST Training System</h3>
+                        <p>The foundation of FloState is the BLAST training system, which creates structured skill development through progressive stages leading to flow state. Each skill is broken down using the Skill Triangle approach:</p>
+                        <ul>
+                            <li>Major skill at the top (e.g., finishing at the rim)</li>
+                            <li>Micro-skills in the middle (e.g., body control, contact balance)</li>
+                            <li>Tactical applications at the base (e.g., specific finish types)</li>
+                        </ul>
+                        <p>The methodology systematically addresses all components required for consistent flow state achievement: clear goals, immediate feedback, challenge-skill balance, and merged action-awareness.</p>
+                    </div>
+                    <div class="case-image">
+                        <img src="../images/flostate-blast.jpg" alt="BLAST training system in action">
+                    </div>
+                </div>
+                
+                <div style="margin-top: var(--space-2xl);">
+                    <h3 class="section-header">The Flow State Progression</h3>
+                    
+                    <div class="progress-timeline">
+                        <div class="progress-line"></div>
+                        
+                        <div class="progress-point">
+                            <div class="progress-marker">1</div>
+                            <div class="progress-content">
+                                <h4 class="progress-title">Novice (Curious)</h4>
+                                <p class="progress-desc">Initial exposure and fundamentals. The practitioner is curious but not yet committed. Focus is on basic understanding and fundamental movement patterns.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="progress-point">
+                            <div class="progress-marker">2</div>
+                            <div class="progress-content">
+                                <h4 class="progress-title">Amateur (Interested)</h4>
+                                <p class="progress-desc">Building consistent technique. The practitioner is interested and beginning to invest time. Focus shifts to technical consistency and basic application.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="progress-point">
+                            <div class="progress-marker">3</div>
+                            <div class="progress-content">
+                                <h4 class="progress-title">Professional (Invested)</h4>
+                                <p class="progress-desc">Developing advanced applications. The practitioner is fully invested in improvement. Training emphasizes situational application and performance under pressure.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="progress-point">
+                            <div class="progress-marker">4</div>
+                            <div class="progress-content">
+                                <h4 class="progress-title">Master (All In)</h4>
+                                <p class="progress-desc">Integrating skills into seamless execution. The practitioner is all in, committed to mastery. Focus is on seamless integration of physical, mental, emotional, and spiritual components.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="progress-point">
+                            <div class="progress-marker">5</div>
+                            <div class="progress-content">
+                                <h4 class="progress-title">Flow State (All In, And It Looks Easy)</h4>
+                                <p class="progress-desc">Performing without conscious thought. The ultimate goal: flow state becomes accessible on demand. The practitioner performs with effortless mastery while making difficult skills look easy.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Results Section -->
+        <section class="case-study-section">
+            <div class="container">
+                <h2 class="section-header">Results & Impact</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">45%</div>
+                        <div class="stat-label">Performance Consistency Improvement</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-number">3.5×</div>
+                        <div class="stat-label">Flow State Frequency</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-number">68%</div>
+                        <div class="stat-label">Improved Pressure Performance</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-number">4</div>
+                        <div class="stat-label">Domains of Application</div>
+                    </div>
+                </div>
+                
+                <div class="case-grid" style="margin-top: var(--space-xl);">
+                    <div class="case-text">
+                        <h3>Basketball Training Impact</h3>
+                        <p>The FloState methodology has shown significant impact when applied to basketball training:</p>
+                        <ul>
+                            <li>Players demonstrate measurable improvement in decision-making speed and accuracy</li>
+                            <li>Decreased performance variance between practice and games</li>
+                            <li>Improved resilience after mistakes or setbacks</li>
+                            <li>Enhanced team chemistry and communication</li>
+                        </ul>
+                        <p>Most importantly, athletes report being able to access flow state more consistently, describing performance that "feels effortless" even in high-pressure situations.</p>
+                    </div>
+                    <div class="case-image">
+                        <img src="../images/flostate-results.jpg" alt="Basketball players showing improved performance">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Insights Section -->
+        <section class="case-study-section">
+            <div class="container">
+                <h2 class="section-header">Key Insights</h2>
+                
+                <div class="case-grid">
+                    <div class="case-text">
+                        <h3>Lessons Learned</h3>
+                        <p>Implementation of FloState has revealed several valuable insights:</p>
+                        <ul>
+                            <li><strong>The paradox of structure and freedom:</strong> Highly structured training creates the foundation for seemingly effortless performance</li>
+                            <li><strong>The importance of deliberate recovery:</strong> Flow state requires balancing intense effort with strategic rest</li>
+                            <li><strong>The transferability of pattern recognition:</strong> Skills developed in one domain can accelerate learning in others</li>
+                            <li><strong>The power of proper sequencing:</strong> The order of skill acquisition matters as much as the skills themselves</li>
+                        </ul>
+                        <p>Perhaps most significantly, we've discovered that flow state is not random or solely dependent on talent—it can be systematically developed through the right methodology.</p>
+                    </div>
+                    <div class="case-image">
+                        <img src="../images/flostate-insights.jpg" alt="Visual representation of FloState insights">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Future Vision Section -->
+        <section class="case-study-section">
+            <div class="container">
+                <h2 class="section-header">Future Vision</h2>
+                
+                <div class="case-grid">
+                    <div class="case-image">
+                        <img src="../images/flostate-future.jpg" alt="FloState app concept">
+                    </div>
+                    <div class="case-text">
+                        <h3>What's Next for FloState</h3>
+                        <p>FloState is evolving into a comprehensive ecosystem for performance optimization:</p>
+                        <ul>
+                            <li><strong>FloState.ai:</strong> AI-powered performance development platform</li>
+                            <li><strong>Certification Program:</strong> Training for coaches and performance specialists</li>
+                            <li><strong>Research Partnerships:</strong> Validation studies with sports science institutions</li>
+                            <li><strong>Domain Expansion:</strong> Applications in business, creative arts, and education</li>
+                        </ul>
+                        <p>The ultimate goal is to democratize access to flow state, making peak performance principles available to everyone regardless of their domain or starting point.</p>
+                        <a href="../resources/flostate-vision.pdf" class="btn btn-primary">Download Vision Document</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Call to Action -->
+        <section class="case-quote">
+            <div class="container">
+                <blockquote>
+                    "Flow State unlocks peak performance to optimize and normalize the most important condition of all, the human condition."
+                </blockquote>
+                <a href="/#contact" class="btn btn-secondary" style="margin-top: var(--space-lg);">Connect About FloState</a>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="https://linkedin.com/in/dereksimm" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="mailto:derek@flinthills.io">Email</a>
+                <a href="/case-studies">Portfolio</a>
+            </div>
+            <p>&copy; 2025 Derek Simmons. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script src="../js/main.js"></script>
+    <script>
+        // Framework tabs functionality
+        const frameworkTabs = document.querySelectorAll('.framework-tabs button');
+        const frameworkContents = document.querySelectorAll('.framework-content > div');
+        
+        frameworkTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and contents
+                frameworkTabs.forEach(t => t.classList.remove('active'));
+                frameworkContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to current tab
+                tab.classList.add('active');
+                
+                // Show corresponding content
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

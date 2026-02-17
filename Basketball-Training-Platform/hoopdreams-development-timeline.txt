@@ -1,0 +1,46 @@
+# HoopDreams Development Timeline
+## April-June 2025
+
+### PHASE 1: FOUNDATION (April 5-20)
+- [x] Initial consultation with first athlete (Kabir)
+- [ ] Set up Lovable.dev development environment
+- [ ] Create data architecture document
+- [ ] Design user profiles (Player, Coach, Parent)
+- [ ] Implement basic authentication system
+- [ ] Develop simple video upload/storage system
+- [ ] Design initial dashboard wireframes
+
+### PHASE 2: CORE FUNCTIONALITY (April 21-May 10)
+- [ ] Build player assessment module
+- [ ] Create skill tracking database
+- [ ] Develop drill library structure
+- [ ] Implement video playback with annotation tools
+- [ ] Build coach feedback system
+- [ ] Design progressive training plans
+- [ ] Develop basic analytics dashboard
+
+### PHASE 3: MVP TESTING (May 11-31)
+- [ ] Onboard 5 initial test users
+- [ ] Conduct weekly feedback sessions
+- [ ] Implement bug fixes and critical improvements
+- [ ] Refine user interface based on initial feedback
+- [ ] Optimize video analysis features
+- [ ] Test data synchronization across devices
+- [ ] Prepare onboarding documentation
+
+### PHASE 4: EXPANSION (June 1-30)
+- [ ] Add gamification features
+  - [ ] Achievement system
+  - [ ] Progress visualization
+  - [ ] Reward mechanisms
+- [ ] Implement social features
+  - [ ] Coach-player messaging
+  - [ ] Progress sharing
+  - [ ] Team dashboards
+- [ ] Enhance analytics for performance tracking
+- [ ] Scale to 25 additional users
+- [ ] Prepare marketing materials for wider release
+
+## USER ACQUISITION TARGETS
+- May 31: 5 Users (1 primary test athlete + 2 players + 2 coaches)
+- June 30: 30 Total Users (15 additional players, 5 parents, 5 coaches)
