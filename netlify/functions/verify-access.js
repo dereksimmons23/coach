@@ -1,5 +1,6 @@
 // Verify access code for protected content (Main Court)
 // Password stored in Netlify env var, never shipped to browser
+const crypto = require('crypto');
 
 const ALLOWED_ORIGINS = [
   'https://coach.claudewill.io',
@@ -57,7 +58,11 @@ exports.handler = async (event) => {
       };
     }
 
-    const success = code === accessCode;
+    // Constant-time comparison to prevent timing attacks
+    const codeBuffer = Buffer.from(String(code));
+    const accessBuffer = Buffer.from(String(accessCode));
+    const success = codeBuffer.length === accessBuffer.length &&
+      crypto.timingSafeEqual(codeBuffer, accessBuffer);
 
     return {
       statusCode: 200,
