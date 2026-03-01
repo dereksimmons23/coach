@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coach D's Fieldhouse | Under Construction</title>
-  <meta name="description" content="Basketball development resources from Coach D. Currently under construction.">
+  <title>Coach D's Fieldhouse</title>
+  <meta name="description" content="Basketball development resources from Coach D. Woodbury, MN.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏀</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,7 +24,6 @@
       --text-muted: #8899a6;
       --gold: #d4a84b;
       --gold-dim: #b8943f;
-      --construction: #f59e0b;
     }
 
     body {
@@ -70,22 +69,58 @@
       font-size: 1.1rem;
     }
 
-    .construction-badge {
-      display: inline-flex;
+    /* Featured Program */
+    .featured {
+      background: var(--bg-card);
+      border: 1px solid var(--gold);
+      border-radius: 8px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      display: flex;
       align-items: center;
-      gap: 0.5rem;
-      background: rgba(245, 158, 11, 0.15);
-      border: 1px solid var(--construction);
-      color: var(--construction);
-      padding: 0.4rem 1rem;
-      border-radius: 2rem;
-      font-size: 0.85rem;
-      font-weight: 500;
-      margin-top: 1.5rem;
+      gap: 1.5rem;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.2s;
     }
 
-    .construction-badge::before {
-      content: "🚧";
+    .featured:hover {
+      background: rgba(212, 168, 75, 0.05);
+    }
+
+    .featured-icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+
+    .featured-info {
+      flex: 1;
+    }
+
+    .featured-label {
+      font-family: 'Courier New', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+    }
+
+    .featured-name {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .featured-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .featured-arrow {
+      color: var(--gold);
+      font-size: 1.2rem;
+      flex-shrink: 0;
     }
 
     /* Fieldhouse Blueprint */
@@ -276,8 +311,17 @@
       <div class="wordmark">Coach D</div>
       <h1>The Fieldhouse</h1>
       <p class="tagline">Basketball development resources</p>
-      <div class="construction-badge">Under Construction</div>
     </header>
+
+    <a href="summer/" class="featured">
+      <span class="featured-icon">☀️</span>
+      <div class="featured-info">
+        <div class="featured-label">Now Enrolling</div>
+        <div class="featured-name">Summer Training Program</div>
+        <div class="featured-desc">June &ndash; August 2026 &bull; 1-on-1 + team competition &bull; Limited spots</div>
+      </div>
+      <span class="featured-arrow">&rarr;</span>
+    </a>
 
     <section class="blueprint">
       <div class="blueprint-header">
@@ -317,14 +361,6 @@
           </div>
           <span class="room-status status-blueprints">Blueprints</span>
         </div>
-        <a href="summer/" class="room room-link">
-          <span class="room-icon">☀️</span>
-          <div class="room-info">
-            <div class="room-name">Summer Program</div>
-            <div class="room-desc">June&ndash;August 2026 training &mdash; limited spots</div>
-          </div>
-          <span class="room-status status-open">Open</span>
-        </a>
         <div class="room">
           <span class="room-icon">🎟️</span>
           <div class="room-info">
