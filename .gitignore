@@ -33,6 +33,7 @@ ehthumbs.db
 # Secrets / local-only files
 netlify/*.txt
 .claude/
+.config/
 .mcp.json
 
 # Local editor/workspace

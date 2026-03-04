@@ -325,6 +325,27 @@
             }
         }
 
+        .voice-toggle {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--dim);
+            padding: 0.4rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-radius: 2px;
+            line-height: 0;
+        }
+
+        .voice-toggle:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .voice-toggle.active {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
         @media (prefers-reduced-motion: reduce) {
             .typing::after {
                 animation: none;
@@ -342,7 +363,17 @@
                 <h1 class="wordmark">COACH D</h1>
                 <p class="tagline">The Fieldhouse</p>
             </div>
-            <a href="./" class="nav-link">About Coach D</a>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <button class="voice-toggle" id="voiceToggle" title="Toggle voice" style="display: none;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+                        <path class="voice-on" d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                        <line class="voice-off" x1="23" y1="9" x2="17" y2="15" style="display: none;"/>
+                        <line class="voice-off" x1="17" y1="9" x2="23" y2="15" style="display: none;"/>
+                    </svg>
+                </button>
+                <a href="./" class="nav-link">About Coach D</a>
+            </div>
         </header>
 
         <main>
@@ -351,10 +382,9 @@
 
         <div class="input-area">
             <div class="prompts" id="prompts">
-                <button class="prompt-chip" data-prompt="What is this place?">What is this place?</button>
-                <button class="prompt-chip" data-prompt="Help me build a practice plan">Practice plan</button>
-                <button class="prompt-chip" data-prompt="My player struggles with weak-hand finishing">Player development</button>
-                <button class="prompt-chip" data-prompt="Explain neuroplasticity training">Methodology</button>
+                <button class="prompt-chip" data-prompt="I want to see where my player stands. Can you walk me through an assessment?">Quick assessment</button>
+                <button class="prompt-chip" data-prompt="I need a drill to work on. What do you have?">Find a drill</button>
+                <button class="prompt-chip" data-prompt="Help me put together a practice plan for my next session.">Build a practice</button>
             </div>
             <div class="input-row">
                 <textarea
@@ -380,8 +410,89 @@
         const input = document.getElementById('input');
         const send = document.getElementById('send');
         const prompts = document.getElementById('prompts');
+        const voiceToggle = document.getElementById('voiceToggle');
 
         let conversationHistory = [];
+
+        // --- Voice ---
+        let voiceAvailable = false;
+        let voiceEnabled = localStorage.getItem('coach-d-voice') === 'true';
+        let currentAudio = null;
+        const audioCache = new Map();
+
+        async function checkVoice() {
+            try {
+                // Send empty text — speak.js returns 400 (text required) if configured,
+                // 503 (not configured) if no API key/voice ID. Neither burns a credit.
+                const res = await fetch('/.netlify/functions/speak', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: '' }),
+                });
+                // 400 = configured (text was empty), 503 = not configured
+                voiceAvailable = res.status !== 503;
+            } catch {
+                voiceAvailable = false;
+            }
+            if (voiceAvailable) {
+                voiceToggle.style.display = '';
+                updateVoiceIcon();
+            }
+        }
+
+        function updateVoiceIcon() {
+            voiceToggle.classList.toggle('active', voiceEnabled);
+            voiceToggle.querySelectorAll('.voice-on').forEach(el => el.style.display = voiceEnabled ? '' : 'none');
+            voiceToggle.querySelectorAll('.voice-off').forEach(el => el.style.display = voiceEnabled ? 'none' : '');
+        }
+
+        voiceToggle.addEventListener('click', () => {
+            voiceEnabled = !voiceEnabled;
+            localStorage.setItem('coach-d-voice', voiceEnabled);
+            updateVoiceIcon();
+            if (!voiceEnabled) stopVoice();
+        });
+
+        function stopVoice() {
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+                currentAudio = null;
+            }
+        }
+
+        async function speakText(text) {
+            if (!voiceEnabled || !voiceAvailable || !text) return;
+
+            const cacheKey = text.substring(0, 100);
+            if (audioCache.has(cacheKey)) {
+                stopVoice();
+                currentAudio = new Audio(audioCache.get(cacheKey));
+                await currentAudio.play().catch(() => {});
+                return;
+            }
+
+            try {
+                const res = await fetch('/.netlify/functions/speak', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text }),
+                });
+                if (!res.ok) return;
+
+                const blob = await res.blob();
+                const url = URL.createObjectURL(blob);
+                audioCache.set(cacheKey, url);
+
+                stopVoice();
+                currentAudio = new Audio(url);
+                await currentAudio.play().catch(() => {});
+            } catch {
+                // Graceful degradation
+            }
+        }
+
+        checkVoice();
 
         // Generate or retrieve session ID
         let sessionId = sessionStorage.getItem('coach-d-session-id');
@@ -478,6 +589,7 @@
                 } else {
                     const coachResponse = data.response;
                     addMessage('coach', coachResponse);
+                    speakText(coachResponse);
 
                     conversationHistory.push({
                         role: 'assistant',
