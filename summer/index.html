@@ -3,18 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Summer Training Program | Coach D's Fieldhouse</title>
-  <meta name="description" content="Summer 2026 basketball development program with Coach D. 1-on-1 training + team competition. Limited spots. Woodbury, MN.">
+  <title>Summer Training | Coach D</title>
+  <meta name="description" content="1-on-1 basketball training with Coach D. May through August 2026. $100/session. Woodbury, MN.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏀</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
       --bg-deep: #000D1A;
@@ -24,7 +20,6 @@
       --text-muted: #8899a6;
       --gold: #d4a84b;
       --gold-dim: #b8943f;
-      --green: #4ade80;
     }
 
     body {
@@ -36,16 +31,9 @@
       line-height: 1.6;
     }
 
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-    }
+    .container { max-width: 700px; margin: 0 auto; }
 
-    /* Header */
-    header {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
+    header { text-align: center; margin-bottom: 3rem; }
 
     .back-link {
       display: inline-block;
@@ -54,10 +42,7 @@
       font-size: 0.9rem;
       margin-bottom: 1.5rem;
     }
-
-    .back-link:hover {
-      text-decoration: underline;
-    }
+    .back-link:hover { text-decoration: underline; }
 
     .wordmark {
       font-family: 'Courier New', monospace;
@@ -68,18 +53,9 @@
       margin-bottom: 0.5rem;
     }
 
-    h1 {
-      font-size: 2.5rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
+    h1 { font-size: 2.2rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .tagline { color: var(--text-muted); font-size: 1.05rem; }
 
-    .tagline {
-      color: var(--text-muted);
-      font-size: 1.1rem;
-    }
-
-    /* Sections */
     section {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -89,113 +65,125 @@
     }
 
     h2 {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       font-weight: 600;
       margin-bottom: 1rem;
       color: var(--gold);
     }
 
-    p {
-      margin-bottom: 1rem;
-    }
+    p { margin-bottom: 1rem; }
+    p:last-child { margin-bottom: 0; }
 
-    p:last-child {
-      margin-bottom: 0;
-    }
-
-    /* Structure Grid */
-    .structure-grid {
+    .details-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1rem;
+      gap: 0.75rem;
     }
 
-    .structure-card {
-      padding: 1.25rem;
+    .detail {
+      padding: 1rem;
       background: rgba(0, 13, 26, 0.5);
       border: 1px solid var(--border);
       border-radius: 6px;
     }
 
-    .structure-card h3 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      color: var(--text);
-    }
-
-    .structure-card p {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      margin-bottom: 0.75rem;
-    }
-
-    .structure-card p:last-child {
-      margin-bottom: 0;
-    }
-
-    .structure-detail {
-      font-family: 'Courier New', monospace;
-      font-size: 0.8rem;
-      color: var(--gold);
-      letter-spacing: 0.05em;
-    }
-
-    /* Stats Grid */
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1rem;
-    }
-
-    .stat {
-      text-align: center;
-      padding: 1rem 0.5rem;
-      background: rgba(0, 13, 26, 0.5);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-    }
-
-    .stat-value {
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: var(--gold);
-    }
-
-    .stat-label {
+    .detail-label {
       font-size: 0.75rem;
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      margin-top: 0.25rem;
+      margin-bottom: 0.25rem;
     }
 
-    /* Methodology */
-    .methodology {
-      padding: 1.25rem;
-      background: rgba(0, 13, 26, 0.5);
-      border-left: 3px solid var(--gold);
-      border-radius: 0 6px 6px 0;
+    .detail-value {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--gold);
     }
 
-    .methodology p {
+    .detail-note {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul li {
+      padding: 0.5rem 0;
+      padding-left: 1.25rem;
+      position: relative;
       color: var(--text);
     }
 
-    /* About */
+    ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.85rem;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    /* Photo Gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 4px;
+      aspect-ratio: 4/3;
+    }
+
+    .gallery-item.wide {
+      grid-column: span 2;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .gallery-item .caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0.4rem 0.6rem;
+      background: linear-gradient(transparent, rgba(0,0,0,0.85));
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.9);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .gallery-item:hover .caption {
+      opacity: 1;
+    }
+
     .about-link {
       color: var(--gold);
       text-decoration: none;
     }
+    .about-link:hover { text-decoration: underline; }
 
-    .about-link:hover {
-      text-decoration: underline;
-    }
-
-    /* CTA */
-    .cta-section {
-      text-align: center;
-    }
+    .cta-section { text-align: center; }
 
     .cta-button {
       display: inline-block;
@@ -210,17 +198,24 @@
       transition: background 0.2s;
       margin-bottom: 1rem;
     }
-
-    .cta-button:hover {
-      background: var(--gold-dim);
-    }
+    .cta-button:hover { background: var(--gold-dim); }
 
     .cta-note {
       font-size: 0.9rem;
       color: var(--text-muted);
     }
 
-    /* Footer */
+    .ig-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 0.95rem;
+      margin-top: 0.5rem;
+    }
+    .ig-link:hover { text-decoration: underline; }
+
     footer {
       text-align: center;
       padding-top: 2rem;
@@ -228,42 +223,15 @@
       color: var(--text-muted);
       font-size: 0.85rem;
     }
+    footer a { color: var(--gold); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
 
-    footer a {
-      color: var(--gold);
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-
-    /* Responsive */
     @media (max-width: 600px) {
-      h1 {
-        font-size: 1.8rem;
-      }
-
-      section {
-        padding: 1.25rem;
-      }
-
-      .structure-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .stats {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .stat-value {
-        font-size: 1.3rem;
-      }
-
-      .cta-button {
-        width: 100%;
-        text-align: center;
-      }
+      h1 { font-size: 1.8rem; }
+      section { padding: 1.25rem; }
+      .gallery { grid-template-columns: repeat(2, 1fr); }
+      .gallery-item .caption { opacity: 1; font-size: 0.6rem; }
+      .cta-button { width: 100%; text-align: center; }
     }
   </style>
 </head>
@@ -272,76 +240,137 @@
     <header>
       <a href="../" class="back-link">&larr; Back to Fieldhouse</a>
       <div class="wordmark">Coach D</div>
-      <h1>Summer Training Program</h1>
-      <p class="tagline">June &ndash; August 2026 | Woodbury, MN</p>
+      <h1>Summer Training</h1>
+      <p class="tagline">May &ndash; August 2026 | Woodbury, MN</p>
     </header>
 
-    <!-- The Program -->
     <section>
-      <h2>The Program</h2>
-      <p>This isn't a camp. It's not AAU. It's individual development with a small group of players who are serious about getting better.</p>
-      <p>Each player gets weekly 1-on-1 training tailored to where they are and where they want to go. On a separate day, everyone comes together for competitive team sessions &mdash; game situations, pressure reps, the stuff that only works when you've got other good players pushing you.</p>
+      <p>1-on-1 basketball training. 60-minute sessions built around where you are and where you want to go. We schedule around AAU, other sports, vacations &mdash; whatever your summer looks like.</p>
     </section>
 
-    <!-- Structure -->
     <section>
-      <h2>How It Works</h2>
-      <div class="structure-grid">
-        <div class="structure-card">
-          <h3>1-on-1 Training</h3>
-          <p>One hour per week. Individual skill work built on the BLAST curriculum &mdash; 157 drills across 16 categories, designed around neuroplasticity principles. We find your gaps, build your weak hand, and challenge your brain while developing your game.</p>
-          <span class="structure-detail">1 hour / week &bull; scheduled individually</span>
+      <div class="details-grid">
+        <div class="detail">
+          <div class="detail-label">Per Session</div>
+          <div class="detail-value">$100</div>
+          <div class="detail-note">60 minutes, 1-on-1</div>
         </div>
-        <div class="structure-card">
-          <h3>Team Competition</h3>
-          <p>One hour per week, separate day. All players together. Competitive drills, live situations, and controlled scrimmage work. This is where individual development meets real basketball &mdash; reading the game, making decisions, competing with purpose.</p>
-          <span class="structure-detail">1 hour / week &bull; all players together</span>
+        <div class="detail">
+          <div class="detail-label">Season</div>
+          <div class="detail-value">May&ndash;Aug</div>
+          <div class="detail-note">Flexible scheduling</div>
+        </div>
+        <div class="detail">
+          <div class="detail-label">Location</div>
+          <div class="detail-value">Woodbury</div>
+          <div class="detail-note">East metro, MN</div>
+        </div>
+        <div class="detail">
+          <div class="detail-label">Packages</div>
+          <div class="detail-value">Available</div>
+          <div class="detail-note">Multi-session discounts</div>
         </div>
       </div>
     </section>
 
-    <!-- Details -->
     <section>
-      <div class="stats">
-        <div class="stat">
-          <div class="stat-value">$150</div>
-          <div class="stat-label">Per Week</div>
+      <h2>What We Work On</h2>
+      <ul>
+        <li>Ball handling and off-hand development</li>
+        <li>Finishing at the rim &mdash; both hands, multiple angles</li>
+        <li>Footwork, pivots, jab steps, step-backs</li>
+        <li>Shooting mechanics and shot selection</li>
+        <li>Game situations and decision-making</li>
+        <li>Recruiting guidance and social media assets for players looking to play at the next level</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Coach D</h2>
+      <p>Derek Simmons. I've been coaching basketball for 15 years, starting with my oldest son's first team in California and continuing through every level of youth and high school basketball in Minnesota.</p>
+      <p>I've coached AAU with Minnesota Heat, D1 Minnesota, and Grassroots Sizzle &mdash; where players from my teams went on to play D1, D2, D3, NAIA, and junior college basketball. I was head coach at East Ridge High School, where my freshman team went 17-2. I served as Basketball Board President and Player Development Director (K-12) for the East Ridge Athletic Association, running camps, a summer shot club, and player development programming for 200+ families over two years.</p>
+      <p>I grew up playing three sports in Kansas &mdash; basketball, football, and baseball &mdash; with state championship appearances in all three, including a state title in basketball. My own son was a four-year conference champion, recognized by Prep Hoops as "one of the better shooters on the circuit," and went on to play college basketball.</p>
+      <p>Beyond skill development, I help players and families navigate the recruiting landscape, including building social media presence and scouting profiles. I've done this for my own players and for the programs I've coached.</p>
+    </section>
+
+    <!-- Photo Gallery -->
+    <section style="padding: 1rem;">
+      <div class="gallery">
+        <div class="gallery-item wide">
+          <img src="photos/derek-coach-aau-sizzle-17u.png" alt="Coach D in the huddle with Grassroots Sizzle 17u" loading="lazy">
+          <span class="caption">Grassroots Sizzle 17u &mdash; AAU</span>
         </div>
-        <div class="stat">
-          <div class="stat-value">12</div>
-          <div class="stat-label">Weeks</div>
+        <div class="gallery-item">
+          <img src="photos/derek-coach-sizzle-champs.png" alt="Sizzle tournament champions" loading="lazy">
+          <span class="caption">Tournament champs</span>
         </div>
-        <div class="stat">
-          <div class="stat-value">6 max</div>
-          <div class="stat-label">Players</div>
+        <div class="gallery-item">
+          <img src="photos/derek-high-school-state.png" alt="Derek as a player, Kansas state basketball" loading="lazy">
+          <span class="caption">State basketball &mdash; Kansas</span>
         </div>
-        <div class="stat">
-          <div class="stat-value">15-20</div>
-          <div class="stat-label">Ages</div>
+        <div class="gallery-item">
+          <img src="photos/derek-coach-aau-heat.png" alt="Minnesota Heat AAU team" loading="lazy">
+          <span class="caption">Minnesota Heat</span>
+        </div>
+        <div class="gallery-item">
+          <img src="photos/derek-coach-speech.png" alt="Coach D talking to his team" loading="lazy">
+          <span class="caption">East Ridge youth</span>
+        </div>
+        <div class="gallery-item wide">
+          <img src="photos/derek-high-school-coach-sophomores-east-ridge.png" alt="East Ridge High School basketball" loading="lazy">
+          <span class="caption">East Ridge High School</span>
+        </div>
+        <div class="gallery-item">
+          <img src="photos/derek-coach-D1-Minnesota.png" alt="D1 Minnesota AAU team" loading="lazy">
+          <span class="caption">D1 Minnesota</span>
+        </div>
+        <div class="gallery-item">
+          <img src="photos/jackson-high-school-senior-night.png" alt="Jackson senior night at East Ridge" loading="lazy">
+          <span class="caption">Senior night &mdash; East Ridge</span>
+        </div>
+        <div class="gallery-item">
+          <img src="photos/jackson-cutting-down-the-nets.png" alt="Cutting down the nets" loading="lazy">
+          <span class="caption">Conference champions</span>
+        </div>
+        <div class="gallery-item">
+          <img src="photos/derek-coach-teegan-champs.png" alt="Raptors championship team" loading="lazy">
+          <span class="caption">Raptors &mdash; champions</span>
+        </div>
+        <div class="gallery-item">
+          <img src="photos/derek-coach-teegan-champs-again.png" alt="Back-to-back champions" loading="lazy">
+          <span class="caption">Back-to-back</span>
+        </div>
+        <div class="gallery-item">
+          <img src="photos/derek-coach-state-second.png" alt="East Ridge state 2nd place" loading="lazy">
+          <span class="caption">State &mdash; 2nd place</span>
+        </div>
+        <div class="gallery-item">
+          <img src="photos/derek-coach-state-third.JPG" alt="East Ridge state 3rd place" loading="lazy">
+          <span class="caption">State &mdash; 3rd place</span>
+        </div>
+        <div class="gallery-item wide">
+          <img src="photos/derek-coach-sizzle-social-media.png" alt="Sizzle Simmons 2K22" loading="lazy">
+          <span class="caption">Sizzle Simmons 2K22 &mdash; D1, D2, D3, NAIA, juco players</span>
+        </div>
+        <div class="gallery-item">
+          <img src="photos/jackson-highlight-social-media.jpg" alt="Prep Hoops scouting report" loading="lazy">
+          <span class="caption">Prep Hoops &mdash; recruiting assets</span>
+        </div>
+        <div class="gallery-item">
+          <img src="photos/jackson-basketball-training-outdoors-winter.png" alt="Training in the snow" loading="lazy">
+          <span class="caption">Minnesota winters</span>
+        </div>
+        <div class="gallery-item">
+          <img src="photos/derek-train-rain-no-brakes.png" alt="Playing in the rain" loading="lazy">
+          <span class="caption">Rain or shine</span>
         </div>
       </div>
     </section>
 
-    <!-- Methodology -->
-    <section>
-      <h2>The Approach</h2>
-      <div class="methodology">
-        <p>Every session is built on neuroplasticity training &mdash; the idea that the brain changes when you challenge it, not when you repeat what's comfortable. We use bilateral development, cognitive load progressions, and constraint-based drills to build players who can think and adapt, not just execute patterns. Frustration isn't failure. It's the signal that your brain is rewiring.</p>
-        <p>The specific drills are basketball. The methodology is universal.</p>
-      </div>
-    </section>
-
-    <!-- About Coach D -->
-    <section>
-      <h2>About Coach D</h2>
-      <p>Derek Simmons. 45+ years in athletics, 15+ years coaching basketball in the Twin Cities. Three-sport athlete, state championships, D1 scholarship players developed, 100% academic eligibility maintained across every team. Currently training high school and college-level players in the east metro.</p>
-      <p><a href="../coach-d-office/" class="about-link">Full background and coaching history &rarr;</a></p>
-    </section>
-
-    <!-- CTA -->
     <section class="cta-section">
-      <a href="mailto:simmons.derek@gmail.com?subject=Summer%20Training%20Program%20%E2%80%94%20Interest" class="cta-button">Email Coach D</a>
-      <p class="cta-note">Spots are limited. If you're interested, reach out and we'll figure out scheduling.</p>
+      <a href="mailto:simmons.derek@gmail.com?subject=Summer%20Training%20%E2%80%94%20Interest" class="cta-button">Email Coach D</a>
+      <p class="cta-note">Reach out if you're interested and we'll figure out scheduling.</p>
+      <a href="https://www.instagram.com/lo10km" target="_blank" rel="noopener" class="ig-link">@lo10km on Instagram &rarr;</a>
     </section>
 
     <footer>
