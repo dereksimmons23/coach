@@ -5,6 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Summer Training | Coach D</title>
   <meta name="description" content="1-on-1 basketball training with Coach D. May through August 2026. $100/session. Woodbury, MN.">
+
+  <!-- Social sharing -->
+  <meta property="og:title" content="Summer Training | Coach D">
+  <meta property="og:description" content="1-on-1 basketball training. $100/session. May through August 2026. Woodbury, MN. 15+ years coaching, youth through college.">
+  <meta property="og:image" content="https://coach.claudewill.io/summer/photos/derek-coach-aau-sizzle-17u.png">
+  <meta property="og:url" content="https://coach.claudewill.io/summer/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Summer Training | Coach D">
+  <meta name="twitter:description" content="1-on-1 basketball training. $100/session. May–Aug 2026. Woodbury, MN.">
+  <meta name="twitter:image" content="https://coach.claudewill.io/summer/photos/derek-coach-aau-sizzle-17u.png">
+
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏀</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -130,7 +142,31 @@
       background: var(--gold);
     }
 
+    .callout {
+      margin-top: 1.25rem;
+      padding: 1rem 1.25rem;
+      background: rgba(0, 13, 26, 0.5);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 6px 6px 0;
+    }
+
+    .callout p { margin-bottom: 0; }
+
     /* Photo Gallery */
+    .gallery-section {
+      padding: 1.25rem 1rem 1rem;
+    }
+
+    .gallery-heading {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+      padding-left: 0.25rem;
+    }
+
     .gallery {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -145,6 +181,10 @@
 
     .gallery-item.wide {
       grid-column: span 2;
+    }
+
+    .gallery-item.full {
+      grid-column: 1 / -1;
     }
 
     .gallery-item img {
@@ -174,6 +214,29 @@
       opacity: 1;
     }
 
+    /* Prep Hoops quote */
+    .quote-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0.75rem 1rem;
+      background: linear-gradient(transparent, rgba(0,0,0,0.9));
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--gold);
+      font-style: italic;
+    }
+
+    .quote-source {
+      font-size: 0.65rem;
+      font-weight: 400;
+      font-style: normal;
+      color: rgba(255,255,255,0.7);
+      display: block;
+      margin-top: 0.2rem;
+    }
+
     .about-link {
       color: var(--gold);
       text-decoration: none;
@@ -196,6 +259,22 @@
       margin-bottom: 1rem;
     }
     .cta-button:hover { background: var(--gold-dim); }
+
+    .cta-button-outline {
+      display: inline-block;
+      background: transparent;
+      border: 2px solid var(--gold);
+      color: var(--gold);
+      font-family: 'Noto Sans', system-ui, sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 0.85rem 2.5rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+      margin-bottom: 1rem;
+    }
+    .cta-button-outline:hover { background: var(--gold); color: var(--bg-deep); }
 
     .cta-note {
       font-size: 0.9rem;
@@ -228,7 +307,8 @@
       section { padding: 1.25rem; }
       .gallery { grid-template-columns: repeat(2, 1fr); }
       .gallery-item .caption { opacity: 1; font-size: 0.6rem; }
-      .cta-button { width: 100%; text-align: center; }
+      .quote-overlay { font-size: 0.75rem; padding: 0.5rem 0.75rem; }
+      .cta-button, .cta-button-outline { width: 100%; text-align: center; }
     }
   </style>
 </head>
@@ -242,7 +322,7 @@
     </header>
 
     <section>
-      <p>1-on-1 basketball training. 60-minute sessions built around where you are and where you want to go. We schedule around AAU, other sports, vacations &mdash; whatever your summer looks like.</p>
+      <p>Individual basketball training tailored to where you are and where you want to go. 60-minute sessions, 1-on-1, scheduled around AAU, other sports, vacations &mdash; whatever your summer looks like.</p>
     </section>
 
     <section>
@@ -278,20 +358,23 @@
         <li>Footwork, pivots, jab steps, step-backs</li>
         <li>Shooting mechanics and shot selection</li>
         <li>Game situations and decision-making</li>
-        <li>Recruiting guidance and social media assets for players looking to play at the next level</li>
       </ul>
+      <div class="callout">
+        <p>For players looking to compete at the next level, I also help families navigate the recruiting landscape &mdash; including building social media presence, scouting profiles, and highlight packages. I've done this for my own players and for the programs I've coached.</p>
+      </div>
     </section>
 
     <section>
       <h2>Coach D</h2>
       <p>Derek Simmons. I've been coaching basketball for 15 years, starting with my oldest son's first team in California and continuing through every level of youth and high school basketball in Minnesota.</p>
-      <p>I've coached AAU with Minnesota Heat, D1 Minnesota, and Grassroots Sizzle &mdash; where players from my teams went on to play D1, D2, D3, NAIA, and junior college basketball. I was head coach at East Ridge High School, where my freshman team went 17-2. I served as Basketball Board President and Player Development Director (K-12) for the East Ridge Athletic Association, running camps, a summer shot club, and player development programming for 200+ families over two years.</p>
+      <p>I've coached AAU with Minnesota Heat, D1 Minnesota, and Grassroots Sizzle &mdash; where players from my teams went on to play D1, D2, D3, NAIA, and junior college basketball.</p>
+      <p>I was head coach at East Ridge High School, where my freshman team went 17-2. I served as Basketball Board President and Player Development Director (K-12) for the East Ridge Athletic Association &mdash; running camps, a summer shot club, and development programming for 200+ families over two years.</p>
       <p>Three-sport athlete in Kansas &mdash; state championships in basketball and baseball, and starting quarterback who led the football team to state. My own son was a four-year conference champion, recognized by Prep Hoops as "one of the better shooters on the circuit," and went on to play college basketball.</p>
-      <p>Beyond skill development, I help players and families navigate the recruiting landscape, including building social media presence and scouting profiles. I've done this for my own players and for the programs I've coached.</p>
     </section>
 
     <!-- Photo Gallery -->
-    <section style="padding: 1rem;">
+    <section class="gallery-section">
+      <div class="gallery-heading">15 Years on the Court</div>
       <div class="gallery">
         <div class="gallery-item wide">
           <img src="photos/derek-coach-aau-sizzle-17u.png" alt="Coach D in the huddle with Grassroots Sizzle 17u" loading="lazy">
@@ -353,9 +436,9 @@
           <img src="photos/derek-coach-sizzle-social-media.png" alt="Sizzle Simmons 2K22" loading="lazy">
           <span class="caption">Sizzle Simmons 2K22 &mdash; D1, D2, D3, NAIA, juco players</span>
         </div>
-        <div class="gallery-item" style="grid-column: 1 / -1;">
+        <div class="gallery-item full">
           <img src="photos/jackson-highlight-social-media.jpg" alt="Prep Hoops scouting report" loading="lazy">
-          <span class="caption">Prep Hoops &mdash; "one of the better shooters on the circuit"</span>
+          <span class="quote-overlay">"One of the better shooters on the Prep Hoops circuit"<span class="quote-source">Prep Hoops scouting report &mdash; recruiting asset by Coach D</span></span>
         </div>
         <div class="gallery-item">
           <img src="photos/jackson-basketball-training-outdoors-winter.png" alt="Training in the snow" loading="lazy">
@@ -370,7 +453,7 @@
 
     <section class="cta-section">
       <a href="mailto:simmons.derek@gmail.com?subject=Summer%20Training%20%E2%80%94%20Interest" class="cta-button">Email Coach D</a>
-      <a href="sms:2133275683" class="cta-button" style="background: transparent; border: 2px solid var(--gold); color: var(--gold);">Text Coach D</a>
+      <a href="sms:2133275683" class="cta-button-outline">Text Coach D</a>
       <p class="cta-note">Reach out if you're interested and we'll figure out scheduling.</p>
       <a href="https://www.instagram.com/lo10km" target="_blank" rel="noopener" class="ig-link">@lo10km on Instagram &rarr;</a>
     </section>
