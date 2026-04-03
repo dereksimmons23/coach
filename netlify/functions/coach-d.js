@@ -39,26 +39,47 @@ async function logConversation(data) {
   }
 }
 
-// Simple rate limiting (resets on function cold start)
+// Rate limiting — in-memory with Supabase persistence fallback
+// In-memory handles the hot path. Supabase survives cold starts.
 const rateLimiter = {
   requests: new Map(),
   maxRequests: 20,
   windowMs: 60 * 1000,
 
-  isAllowed(ip) {
+  async isAllowed(ip) {
     const now = Date.now();
     const record = this.requests.get(ip);
 
-    if (!record || now - record.start > this.windowMs) {
-      this.requests.set(ip, { start: now, count: 1 });
+    // Hot path: in-memory check (handles most requests)
+    if (record && now - record.start <= this.windowMs) {
+      if (record.count >= this.maxRequests) return false;
+      record.count++;
       return true;
     }
 
-    if (record.count >= this.maxRequests) {
-      return false;
+    // Cold start or new window: check Supabase if available
+    if (supabase && ip) {
+      try {
+        const windowStart = new Date(now - this.windowMs).toISOString();
+        const { count } = await supabase
+          .from('coach_d_conversations')
+          .select('*', { count: 'exact', head: true })
+          .eq('ip_hash', hashIp(ip))
+          .gte('created_at', windowStart);
+
+        if (count >= this.maxRequests) {
+          this.requests.set(ip, { start: now, count: this.maxRequests });
+          return false;
+        }
+        this.requests.set(ip, { start: now, count: (count || 0) + 1 });
+        return true;
+      } catch (e) {
+        // Supabase unavailable — fall through to in-memory only
+      }
     }
 
-    record.count++;
+    // Fallback: fresh in-memory window
+    this.requests.set(ip, { start: now, count: 1 });
     return true;
   }
 };
@@ -294,7 +315,7 @@ exports.handler = async (event, context) => {
       : (event.headers['x-nf-client-connection-ip'] || event.headers['client-ip'] || 'unknown')
   );
 
-  if (!rateLimiter.isAllowed(clientIp)) {
+  if (!(await rateLimiter.isAllowed(clientIp))) {
     return {
       statusCode: 429,
       headers,
