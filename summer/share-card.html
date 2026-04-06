@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0; padding: 2rem;
+      background: #111;
+      display: flex; flex-direction: column; align-items: center; gap: 2rem;
+      font-family: 'Noto Sans', sans-serif;
+    }
+
+    .label {
+      color: #888;
+      font-size: 0.85rem;
+      margin-bottom: 0.25rem;
+      align-self: flex-start;
+      max-width: 1080px;
+      width: 100%;
+    }
+
+    .card {
+      width: 1080px;
+      height: 1080px;
+      background: #000D1A;
+      position: relative;
+      overflow: hidden;
+      color: #e8e8e8;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Slide 1 — Hero */
+    .slide-hero img {
+      width: 100%;
+      height: 65%;
+      object-fit: cover;
+      object-position: center 30%;
+      display: block;
+    }
+
+    .slide-hero .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 3.5rem;
+    }
+
+    .wordmark {
+      font-family: 'Courier New', monospace;
+      font-size: 1rem;
+      letter-spacing: 0.3em;
+      color: #d4a84b;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-sub {
+      font-size: 1.3rem;
+      color: #8899a6;
+    }
+
+    .slide-counter {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.5rem;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.4);
+      font-family: 'Courier New', monospace;
+    }
+
+    /* Slide 2 — Details */
+    .slide-details {
+      justify-content: center;
+      align-items: center;
+      padding: 4rem;
+      text-align: center;
+    }
+
+    .detail-row {
+      display: flex;
+      gap: 2.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .detail-block { text-align: center; }
+
+    .detail-value {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: #d4a84b;
+      line-height: 1.1;
+    }
+
+    .detail-label {
+      font-size: 1rem;
+      color: #8899a6;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 0.25rem;
+    }
+
+    .detail-note {
+      font-size: 1.2rem;
+      color: #8899a6;
+      max-width: 600px;
+    }
+
+    /* Slide 3 — What We Work On */
+    .slide-skills {
+      justify-content: center;
+      padding: 4rem 4.5rem;
+    }
+
+    .slide-skills h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #d4a84b;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 2.5rem;
+    }
+
+    .skill-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .skill-list li {
+      font-size: 1.6rem;
+      padding: 0.75rem 0;
+      padding-left: 1.75rem;
+      position: relative;
+      border-bottom: 1px solid #0d2840;
+    }
+
+    .skill-list li:last-child { border-bottom: none; }
+
+    .skill-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 1.15rem;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #d4a84b;
+    }
+
+    /* Slide 4 — Proof */
+    .slide-proof {
+      justify-content: center;
+      align-items: center;
+      padding: 4rem;
+      text-align: center;
+    }
+
+    .proof-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .proof-stat-value {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #d4a84b;
+      line-height: 1.1;
+    }
+
+    .proof-stat-label {
+      font-size: 0.9rem;
+      color: #8899a6;
+      margin-top: 0.2rem;
+    }
+
+    .proof-quote {
+      font-size: 1.3rem;
+      font-style: italic;
+      color: #e8e8e8;
+      max-width: 650px;
+      line-height: 1.5;
+      margin-top: 1rem;
+      padding-top: 2rem;
+      border-top: 1px solid #0d2840;
+    }
+
+    .proof-source {
+      font-size: 0.85rem;
+      font-style: normal;
+      color: #8899a6;
+      margin-top: 0.5rem;
+    }
+
+    /* Slide 5 — CTA */
+    .slide-cta {
+      justify-content: center;
+      align-items: center;
+      padding: 4rem;
+      text-align: center;
+    }
+
+    .cta-wordmark {
+      font-family: 'Courier New', monospace;
+      font-size: 1.2rem;
+      letter-spacing: 0.3em;
+      color: #d4a84b;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-title {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      line-height: 1.2;
+    }
+
+    .cta-info {
+      font-size: 1.3rem;
+      color: #8899a6;
+      margin-bottom: 0.5rem;
+    }
+
+    .cta-url {
+      font-size: 1.1rem;
+      color: #d4a84b;
+      font-family: 'Courier New', monospace;
+      margin-top: 2.5rem;
+      padding: 1rem 2rem;
+      border: 2px solid #d4a84b;
+      border-radius: 8px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+  <p class="label">Slide 1 — Hero</p>
+  <div class="card slide-hero">
+    <span class="slide-counter">1/5</span>
+    <img src="photos/derek-coach-aau-sizzle-17u.png" alt="">
+    <div class="content">
+      <div class="wordmark">Coach D</div>
+      <div class="hero-title">Summer Training</div>
+      <div class="hero-sub">May &ndash; August 2026 &nbsp;|&nbsp; Woodbury, MN</div>
+    </div>
+  </div>
+
+  <p class="label">Slide 2 — The Offer</p>
+  <div class="card slide-details">
+    <span class="slide-counter">2/5</span>
+    <div class="wordmark" style="margin-bottom: 3rem;">Coach D</div>
+    <div class="detail-row">
+      <div class="detail-block">
+        <div class="detail-value">$100</div>
+        <div class="detail-label">Per Session</div>
+      </div>
+      <div class="detail-block">
+        <div class="detail-value">60 min</div>
+        <div class="detail-label">1-on-1</div>
+      </div>
+      <div class="detail-block">
+        <div class="detail-value">Flexible</div>
+        <div class="detail-label">Scheduling</div>
+      </div>
+    </div>
+    <div class="detail-note">Packages available. We work around AAU, other sports, vacations &mdash; whatever your summer looks like.</div>
+  </div>
+
+  <p class="label">Slide 3 — What We Work On</p>
+  <div class="card slide-skills">
+    <span class="slide-counter">3/5</span>
+    <div class="wordmark">Coach D</div>
+    <h2>What We Work On</h2>
+    <ul class="skill-list">
+      <li>Ball handling and off-hand development</li>
+      <li>Finishing at the rim — both hands</li>
+      <li>Footwork, pivots, step-backs</li>
+      <li>Shooting mechanics and shot selection</li>
+      <li>Game situations and decision-making</li>
+      <li>Recruiting guidance and social media assets</li>
+    </ul>
+  </div>
+
+  <p class="label">Slide 4 — The Proof</p>
+  <div class="card slide-proof">
+    <span class="slide-counter">4/5</span>
+    <div class="wordmark" style="margin-bottom: 2rem;">Coach D</div>
+    <div class="proof-stats">
+      <div>
+        <div class="proof-stat-value">15+</div>
+        <div class="proof-stat-label">Years Coaching</div>
+      </div>
+      <div>
+        <div class="proof-stat-value">17-2</div>
+        <div class="proof-stat-label">HS Head Coach Record</div>
+      </div>
+      <div>
+        <div class="proof-stat-value">200+</div>
+        <div class="proof-stat-label">Families Served</div>
+      </div>
+      <div>
+        <div class="proof-stat-value">D1–Juco</div>
+        <div class="proof-stat-label">Players Developed</div>
+      </div>
+    </div>
+    <div class="proof-quote">"One of the better shooters on the Prep Hoops circuit"<div class="proof-source">Prep Hoops scouting report — recruiting asset by Coach D</div></div>
+  </div>
+
+  <p class="label">Slide 5 — CTA</p>
+  <div class="card slide-cta">
+    <span class="slide-counter">5/5</span>
+    <div class="cta-wordmark">Coach D</div>
+    <div class="cta-title">Let's get to work<br>this summer.</div>
+    <div class="cta-info">Email: simmons.derek@gmail.com</div>
+    <div class="cta-info">Text: DM or link in bio</div>
+    <div class="cta-info">Woodbury, MN</div>
+    <div class="cta-url">coach.claudewill.io/summer</div>
+  </div>
+
+</body>
+</html>
